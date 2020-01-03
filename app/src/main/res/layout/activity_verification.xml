@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/custom_8"
+    android:layout_height="match_parent"
+    tools:context=".activity.VerificationActivity">
+    <ImageView
+        android:id="@+id/back_verification"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_group_131"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:background="@drawable/custom_layout_forgot"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textStyle="bold"
+                android:id="@+id/edt_verification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_custom_register"
+                android:hint="Mã xác minh" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+          android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textSize="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_verification" />
+        <Button
+            android:layout_margin="20dp"
+            android:layout_weight="0.1"
+            android:id="@+id/btn_verification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edittext_register"
+            android:text="Xác Minh"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</LinearLayout>

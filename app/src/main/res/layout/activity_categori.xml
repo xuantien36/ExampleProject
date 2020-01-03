@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_artboard__20"
+    android:orientation="vertical"
+    tools:context=".activity.CategoriActivity">
+
+    <FrameLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/llBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
+
+        <com.t3h.immunization.customize.ItemBottomBar
+            android:id="@+id/ivImage1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:bottomBarActive="false"
+            app:bottomBarIconActive="@drawable/syringe"
+            app:bottomBarIconNormal="@drawable/ic_syringe_2"
+            app:bottomContent="@string/vaccine" />
+
+        <com.t3h.immunization.customize.ItemBottomBar
+            android:id="@+id/ivImage2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:bottomBarActive="false"
+            app:bottomBarIconActive="@drawable/test"
+            app:bottomBarIconNormal="@drawable/ic_test_2"
+            app:bottomContent="@string/statistical" />
+
+        <com.t3h.immunization.customize.ItemBottomBar
+            android:id="@+id/ivImage3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:bottomBarActive="true"
+
+            app:bottomBarIconActive="@drawable/babygroup"
+            app:bottomBarIconNormal="@drawable/ic_avatar"
+            app:bottomContent="@string/children" />
+
+        <com.t3h.immunization.customize.ItemBottomBar
+            android:id="@+id/ivImage4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:bottomBarActive="false"
+            app:bottomBarIconActive="@drawable/group249"
+            app:bottomBarIconNormal="@drawable/ic_notebook"
+            app:bottomContent="@string/so_tiem" />
+
+
+        <com.t3h.immunization.customize.ItemBottomBar
+            android:id="@+id/ivImage5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:bottomBarActive="false"
+            app:bottomBarIconActive="@drawable/group252"
+            app:bottomBarIconNormal="@drawable/ic_chat"
+            app:bottomContent="@string/other" />
+    </LinearLayout>
+
+</LinearLayout>

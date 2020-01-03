@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.VaccineActivity">
+    <RelativeLayout
+        android:padding="10dp"
+        android:background="#C03869"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/back"
+            android:src="@drawable/ic_group_131"
+            android:layout_alignParentLeft="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:layout_centerInParent="true"
+            android:textColor="#F7F3F3"
+            android:textSize="22sp"
+            android:text="Chọn Vắc Xin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/save"
+            android:src="@drawable/ic_group_83"
+            android:layout_alignParentRight="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+    </RelativeLayout>
+    <TextView
+        android:maxLines="1"
+        android:background="#FFE6ED"
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="#D60D0D"
+        android:text="@string/choose_vaccine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:background="@drawable/background_vaccine"
+        android:id="@+id/lv_vaccine"
+        android:layout_width="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

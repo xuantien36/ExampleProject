@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:background="@drawable/shape_custom_button"
+        android:textColor="#FDFAFB"
+        android:id="@+id/date"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:text="Ngay tháng năm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:background="@drawable/custom_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:textColor="#C03869"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/txtMui"
+            android:text="Mũi\n1/1"
+            android:textSize="11sp"/>
+
+        <RelativeLayout
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/khac"
+            android:layout_toRightOf="@id/txtMui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center|left">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_ellipse_202"
+                android:layout_alignParentRight="true"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:id="@+id/imgTrangThai"/>
+            <LinearLayout
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center|left">
+                <TextView
+                    android:lines="1"
+                    android:layout_width="wrap_content"
+                    android:textColor="#C03869"
+                    android:layout_height="wrap_content"
+                    android:text="Viêm gan B"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="15sp"
+                    android:id="@+id/txtTenMuiTiem"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ngày tiêm"
+                    android:id="@+id/txtNgayTiem"
+                    android:textSize="13sp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Còn lại"
+                    android:textSize="13sp"
+                    android:id="@+id/txtNgayConLai"
+                    android:layout_marginTop="5dp"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#FFBACD" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
+</LinearLayout>

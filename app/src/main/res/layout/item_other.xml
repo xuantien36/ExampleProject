@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        <ImageView
+            android:gravity="center"
+            android:textColor="#C03869"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/im_infor"
+            android:text="mũi tiêm"
+            android:textSize="11sp"
+            android:background="@drawable/ic_circle"/>
+
+        <RelativeLayout
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/khac"
+            android:layout_toRightOf="@id/im_infor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center|left">
+
+            <ImageView
+                android:src="@drawable/ic_layer_2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/im_two"/>
+
+
+            <LinearLayout
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center|left">
+                <TextView
+                    android:lines="1"
+                    android:layout_width="wrap_content"
+                    android:textColor="#C03869"
+                    android:layout_height="wrap_content"
+                    android:text="Reset Ứng Dụng"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="15sp"
+                    android:id="@+id/name_infor"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#FFBACD"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

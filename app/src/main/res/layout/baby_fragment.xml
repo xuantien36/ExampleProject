@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/artboard_20"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ln_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="Danh Sách Các Bé"
+            android:textColor="#F8F7F7"
+            android:textSize="25sp" />
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_group_317" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/ln_choose"
+        android:id="@+id/lv_baby"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/tv_empty"
+        android:visibility="gone"
+       android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:text="@string/data_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <Button
+        android:visibility="gone"
+       android:layout_margin="10dp"
+        android:id="@+id/btn_back"
+        android:background="@drawable/ic_path_3677"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+    <Button
+        android:visibility="visible"
+        android:layout_margin="10dp"
+        android:id="@+id/btn_next"
+       android:layout_alignParentRight="true"
+        android:background="@drawable/ic_path_3678"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+    </RelativeLayout>
+</RelativeLayout>
