@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="20dp"
-            android:text="Danh Sách Các Bé"
+            android:text="@string/list_baby"
             android:textColor="#F8F7F7"
             android:textSize="25sp" />
         <Button
@@ -45,20 +45,22 @@
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <Button
+    <ImageButton
+        android:background="@null"
         android:visibility="gone"
        android:layout_margin="10dp"
         android:id="@+id/btn_back"
-        android:background="@drawable/ic_path_3677"
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
-    <Button
+        android:src="@drawable/ic_path_3677"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+    <ImageButton
+        android:background="@null"
         android:visibility="visible"
         android:layout_margin="10dp"
         android:id="@+id/btn_next"
        android:layout_alignParentRight="true"
-        android:background="@drawable/ic_path_3678"
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
+        android:src="@drawable/ic_group_609"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
     </RelativeLayout>
 </RelativeLayout>

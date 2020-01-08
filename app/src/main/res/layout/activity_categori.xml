@@ -32,7 +32,9 @@
             app:bottomBarActive="false"
             app:bottomBarIconActive="@drawable/syringe"
             app:bottomBarIconNormal="@drawable/ic_syringe_2"
-            app:bottomContent="@string/vaccine" />
+            app:bottomContent="@string/vaccine"
+            app:colorTextActive="@color/colorBG1"
+            app:colorTextNormal="@color/colortexttab" />
 
         <com.t3h.immunization.customize.ItemBottomBar
             android:id="@+id/ivImage2"
@@ -43,7 +45,9 @@
             app:bottomBarActive="false"
             app:bottomBarIconActive="@drawable/test"
             app:bottomBarIconNormal="@drawable/ic_test_2"
-            app:bottomContent="@string/statistical" />
+            app:bottomContent="@string/statistical"
+            app:colorTextActive="@color/colorBG1"
+            app:colorTextNormal="@color/colortexttab" />
 
         <com.t3h.immunization.customize.ItemBottomBar
             android:id="@+id/ivImage3"
@@ -52,10 +56,11 @@
             android:layout_weight="1"
             android:gravity="center"
             app:bottomBarActive="true"
-
             app:bottomBarIconActive="@drawable/babygroup"
             app:bottomBarIconNormal="@drawable/ic_avatar"
-            app:bottomContent="@string/children" />
+            app:bottomContent="@string/children"
+            app:colorTextActive="@color/colorBG1"
+            app:colorTextNormal="@color/colortexttab" />
 
         <com.t3h.immunization.customize.ItemBottomBar
             android:id="@+id/ivImage4"
@@ -66,7 +71,9 @@
             app:bottomBarActive="false"
             app:bottomBarIconActive="@drawable/group249"
             app:bottomBarIconNormal="@drawable/ic_notebook"
-            app:bottomContent="@string/so_tiem" />
+            app:bottomContent="@string/so_tiem"
+            app:colorTextActive="@color/colorBG1"
+            app:colorTextNormal="@color/colortexttab" />
 
 
         <com.t3h.immunization.customize.ItemBottomBar
@@ -78,7 +85,9 @@
             app:bottomBarActive="false"
             app:bottomBarIconActive="@drawable/group252"
             app:bottomBarIconNormal="@drawable/ic_chat"
-            app:bottomContent="@string/other" />
+            app:bottomContent="@string/other"
+            app:colorTextActive="@color/colorBG1"
+            app:colorTextNormal="@color/colortexttab" />
     </LinearLayout>
 
 </LinearLayout>

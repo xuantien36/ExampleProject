@@ -1,7 +1,9 @@
 package com.t3h.immunization.api;
 import com.t3h.immunization.model.BaByRespone;
+import com.t3h.immunization.model.ResponeInjections;
 import com.t3h.immunization.model.ResponeLogin;
 import com.t3h.immunization.model.ResponeRegister;
+import com.t3h.immunization.model.UpdateApp;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -40,11 +42,11 @@ public interface Api {
 
     @POST("/getbaby")
     @FormUrlEncoded
-    Call<BaByRespone> getBaBy(@Field("id") String id);
+    Call<BaByRespone> getBaBy(@Field("id") int id);
 
     @POST("/addbaby")
     @FormUrlEncoded
-    Call<ResponeRegister> addBaby(@Field("id") String id,
+    Call<ResponeRegister> addBaby(@Field("id") int id,
                                   @Field("name") String name,
                                   @Field("gender") String gender,
                                   @Field("birthday") String birthday,
@@ -54,11 +56,43 @@ public interface Api {
 
     @POST("/editbaby")
     @FormUrlEncoded
-    Call<ResponeRegister> editBaby(@Field("id") String id,
-                                   @Field("baby_id") String baby_id);
+    Call<ResponeRegister> editBaby(@Field("id") int id,
+                                   @Field("baby_id") int baby_id,
+                                   @Field("name") String name,
+                                   @Field("gender") String gender,
+                                   @Field("birthday") String birthday,
+                                   @Field("link_avatar") String link_avatar,
+                                   @Field("note") String note);
+
+
 
     @POST("/deletebaby")
     @FormUrlEncoded
-    Call<ResponeRegister> deleteBaby(@Field("baby_id") String  baby_id);
+    Call<ResponeRegister> deleteBaby(@Field("baby_id") int baby_id);
+
+
+    @POST("/getinjected")
+    @FormUrlEncoded
+    Call<ResponeInjections> getinjected(@Field("baby_id") int baby_id);
+
+    @POST("/vacxininfo")
+    @FormUrlEncoded
+    Call<ResponeInjections> getVaccine (@Field("language") String language);
+
+    @POST("/updateinjected")
+    @FormUrlEncoded
+    Call<ResponeInjections> updateInjections (@Field("baby_id") String baby_id,
+                                              @Field("id") String id,
+                                              @Field("user_id")String user_id,
+                                              @Field("note")String note,
+                                              @Field("injected_date")String injected_date,
+                                              @Field("medicine")String medicine,
+                                              @Field("isInjected")String isInjected);
+
+    @POST("/updateapp")
+    @FormUrlEncoded
+    Call<UpdateApp> updateApp (@Field("platform") String platform,
+                               @Field("version") int version);
+
 
 }

@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/svn_pokys"
-                android:text="@string/tiêm_chủng"
+                android:text="@string/tiem_chung"
                 android:textColor="@android:color/white"
                 android:textSize="22dp" />
         </RelativeLayout>

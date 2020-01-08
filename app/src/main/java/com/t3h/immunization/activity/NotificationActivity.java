@@ -1,29 +1,26 @@
 package com.t3h.immunization.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import androidx.appcompat.app.AppCompatActivity;
 import com.t3h.immunization.R;
 import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NotificationActivity extends AppCompatActivity implements View.OnClickListener {
-    @BindView(R.id.back)
+    @BindView(R.id.back_notification)
     ImageView imBack;
     @BindView(R.id.save)
     ImageView imSave;
@@ -33,12 +30,13 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     RadioButton radio_Before;
     private Handler handler = new Handler();
     private Dialog dialog;
-    private NumberPicker hour;
-    private NumberPicker minute;
-    private Button btnClose, btnAgree;
     @BindView(R.id.tv_Time)
     TextView tvTime;
-    private DatePickerDialog.OnDateSetListener dateSetListener;
+    private SharedPreferences sharedPreferences;
+    private int ihours, iminute;
+    String timeSet;
+    @BindView(R.id.status)
+    Switch status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,61 +47,68 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void init() {
+        sharedPreferences = getSharedPreferences("SaveNotification", Context.MODE_PRIVATE);
+        tvTime.setText(sharedPreferences.getString("time", ""));
+        radio_OnTime.setChecked(sharedPreferences.getBoolean("onTime", true));
+        radio_Before.setChecked(sharedPreferences.getBoolean("before", false));
+        status.setChecked(sharedPreferences.getBoolean("status", false));
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
-        tvTime.setOnClickListener(new View.OnClickListener() {
+        tvTime.setOnClickListener(view -> {
+            final Calendar calendar = Calendar.getInstance();
+            ihours = calendar.get(Calendar.HOUR_OF_DAY);
+            iminute = calendar.get(Calendar.MINUTE);
+            TimePickerDialog timePickerDialog;
+            timePickerDialog = new TimePickerDialog(NotificationActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                    ihours = i;
+                    iminute = i1;
+                    timeSet = new StringBuffer().append((ihours)).append(":").append(iminute).toString();
+                    tvTime.setText(timeSet);
+
+                }
+            }, ihours, iminute, true);
+            timePickerDialog.show();
+
+        });
+        status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                //get current date and to set popup date picker
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("status", true);
+                    editor.commit();
 
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        NotificationActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateSetListener,
-                        year,month,day
-                );
-
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-
+                } else {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.remove("status");
+                    editor.commit();
+                }
             }
         });
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener(){
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month=month+1;
-                String date = month + "/" + day + "/" + year;
-
-                tvTime.setText(date);
-
-            }
-        };
-
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.back_notification:
                 finish();
                 break;
+
             case R.id.save:
                 showDialog();
-                finish();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("time", timeSet);
+                editor.putBoolean("onTime", radio_OnTime.isChecked());
+                editor.putBoolean("before", radio_Before.isChecked());
+                editor.commit();
                 break;
-//            case R.id.tv_Time:
-//                showNumberpickerDialog();
 
             case R.id.btn_close:
                 dialog.dismiss();
                 break;
             case R.id.btn_agree:
-                break;
         }
     }
 
@@ -111,69 +116,9 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_sending);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        handler.postDelayed(() -> dialog.dismiss(), 2000);
         dialog.show();
-    }
-
-    public void showTimePicker() {
-        dialog = new Dialog(this);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setContentView(R.layout.dialog_notification);
-        hour = dialog.findViewById(R.id.gio);
-        minute = dialog.findViewById(R.id.phut);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        hour.setMaxValue(23);
-        hour.setMinValue(0);
-        minute.setMaxValue(59);
-        minute.setMinValue(0);
-        hour.setWrapSelectorWheel(false);
-        minute.setWrapSelectorWheel(false);
-        btnClose = dialog.findViewById(R.id.btn_close);
-        btnAgree = dialog.findViewById(R.id.btn_agree);
-        btnClose.setOnClickListener(this);
-        btnAgree.setOnClickListener(this);
-        dialog.show();
-
-    }
-
-    public void showNumberpickerDialog() {
-
-        NumberPicker mynumberpicker_1 = new NumberPicker(this);
-        NumberPicker mynumberpicker_2 = new NumberPicker(this);
-        mynumberpicker_1.setMaxValue(23);
-        mynumberpicker_1.setMinValue(0);
-        mynumberpicker_2.setMaxValue(59);
-        mynumberpicker_2.setMinValue(0);
-        NumberPicker.OnValueChangeListener myvaluechange_2  =  new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-
-            }
-        };
-        NumberPicker.OnValueChangeListener myvaluechange_1  =  new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-
-            }
-        };
-        mynumberpicker_2.setOnValueChangedListener(myvaluechange_2);
-        mynumberpicker_1.setOnValueChangedListener(myvaluechange_1);
-        AlertDialog.Builder builder= new AlertDialog.Builder(this).setView(mynumberpicker_1).setView(mynumberpicker_2);
-        builder.setTitle("abcddd");
-        builder.setIcon(R.drawable.avatar);
-        builder.setPositiveButton("Agree", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-
-            }
-        });
-        builder.show();
+        finish();
     }
 }
+
+

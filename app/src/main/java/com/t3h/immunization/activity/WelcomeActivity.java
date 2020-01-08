@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.t3h.immunization.util.AppPreferences;
+import com.t3h.immunization.util.Constant;
 import com.t3h.immunization.util.PrefManager;
 import com.t3h.immunization.R;
 import com.t3h.immunization.adapter.HomeAdapter;
@@ -29,6 +31,8 @@ import com.t3h.immunization.fragment.SecondFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.t3h.immunization.util.Constant.KEY_NEXT;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener{
     private MyViewPagerAdapter myViewPagerAdapter;
@@ -68,7 +72,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         adapter = new HomeAdapter(getSupportFragmentManager(), frm);
         viewPager.setAdapter(adapter);
         layouts = new int[]{
-                R.layout.four_slide,
+                R.layout.first_slide,
                 R.layout.second_slide,
                 R.layout.four_slide};
 
@@ -83,6 +87,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
 }
     private void init() {
+        AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_NEXT, false);
         btnSkip.setOnClickListener(this);
         btnNext.setOnClickListener(this);
         btnIgnore.setOnClickListener(this);

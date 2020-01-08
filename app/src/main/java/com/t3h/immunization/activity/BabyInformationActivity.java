@@ -1,20 +1,21 @@
 package com.t3h.immunization.activity;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.t3h.immunization.R;
+import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
-
+import com.t3h.immunization.model.ResponeRegister;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BabyInformationActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.im_back)
@@ -28,11 +29,11 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     @BindView(R.id.tv_name_baby)
     TextView tvName;
     private GetBaby baBy;
-    private int REQUEST_CODE = 1;
-    String name;
-    String note;
     @BindView(R.id.tv_note)
     TextView tvNote;
+    @BindView(R.id.btn_delete)
+    Button btnDelete;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,6 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
         ButterKnife.bind(this);
         init();
     }
-
     private void init() {
         Intent intent = getIntent();
         baBy = (GetBaby) intent.getSerializableExtra("baby");
@@ -50,8 +50,8 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
         tvNote.setText(baBy.getNote());
         imBack.setOnClickListener(this);
         imEdit.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -59,24 +59,39 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
                 finish();
                 break;
             case R.id.im_edit:
-                Intent intent = new Intent(this, EditBaByActivity.class);
-                intent.putExtra("edit", baBy.getName());
-                intent.putExtra("note", baBy.getNote());
-                Log.e("edit::", baBy.getName());
-                startActivityForResult(intent, REQUEST_CODE);
+                break;
+            case R.id.btn_delete:
+                deleteBaby();
                 break;
         }
     }
+    public void deleteBaby(){
+        ApiBuilder.getInstance().deleteBaby(baBy.getBabyId()).enqueue(new Callback<ResponeRegister>() {
+            @Override
+            public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
+                if (response.body().getStatus()==true){
+                    showDialog();
+                    finish();
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponeRegister> call, Throwable t) {
+
+            }
+        });
+    }
+    public void showDialog() {
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_delete);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+    }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            name = data.getStringExtra("data");
-            note = data.getStringExtra("noteEdit");
-            tvName.setText(name);
-            tvNote.setText(note);
-
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog!=null){
+            dialog.dismiss();
         }
     }
 }

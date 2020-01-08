@@ -23,7 +23,7 @@
             android:gravity="center"
             android:textColor="#C03A6A"
             android:textSize="18sp"
-            android:text="Sổ Tiêm Chủng"
+            android:text="@string/vaccination_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -69,16 +69,17 @@
             android:padding="10dp"
             android:layout_alignParentLeft="true"
             android:textColor="#C03869"
-            android:text="Nhớ mật khẩu"
+            android:text="@string/remember_the_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:maxLines="2"
             android:id="@+id/tv_forget"
             android:textColor="#C03869"
             android:padding="10dp"
             android:textSize="15sp"
             android:layout_alignParentRight="true"
-            android:text="Quên thông tin đăng nhập?"
+            android:text="@string/forgot_your_login_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
@@ -92,7 +93,7 @@
             android:layout_weight="1"
           android:textColor="#EB6B0B"
             android:textAllCaps="false"
-            android:text="Đăng ký"
+            android:text="@string/register"
             android:background="@drawable/shape_custom"
             android:layout_width="200dp"
             android:layout_height="wrap_content"/>
@@ -103,7 +104,7 @@
             android:layout_marginLeft="25dp"
             android:textColor="#FFFFFF"
             android:textAllCaps="false"
-            android:text="Đăng nhập"
+            android:text="@string/log_in"
             android:background="@drawable/shape_custom_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"/>

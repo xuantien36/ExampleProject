@@ -33,13 +33,13 @@ public class GetBaby implements Serializable {
     private Integer id;
     @SerializedName("injected")
     @Expose
-    private Integer injected;
-    @SerializedName("prepare_inject")
+    private String injected;
+    @SerializedName("not_injected")
     @Expose
-    private Integer prepareInject;
+    private String notInjected;
     @SerializedName("miss_injected")
     @Expose
-    private Integer missInjected;
+    private String missInjected;
 
     public Integer getBabyId() {
         return babyId;
@@ -105,29 +105,28 @@ public class GetBaby implements Serializable {
         this.id = id;
     }
 
-    public Integer getInjected() {
+    public String getInjected() {
         return injected;
     }
 
-    public void setInjected(Integer injected) {
+    public void setInjected(String injected) {
         this.injected = injected;
     }
 
-    public Integer getPrepareInject() {
-        return prepareInject;
+    public String getNotInjected() {
+        return notInjected;
     }
 
-    public void setPrepareInject(Integer prepareInject) {
-        this.prepareInject = prepareInject;
+    public void setNotInjected(String notInjected) {
+        this.notInjected = notInjected;
     }
 
-    public Integer getMissInjected() {
+    public String getMissInjected() {
         return missInjected;
     }
 
-    public void setMissInjected(Integer missInjected) {
+    public void setMissInjected(String missInjected) {
         this.missInjected = missInjected;
     }
 
 }
-

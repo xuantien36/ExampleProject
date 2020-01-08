@@ -15,6 +15,7 @@
         android:padding="10dp">
 
         <ImageView
+            android:id="@+id/back_injected"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_group_131" />
@@ -28,6 +29,7 @@
             android:textSize="20sp" />
 
         <ImageView
+            android:id="@+id/save_injected"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
@@ -53,69 +55,60 @@
             android:text="Tuberculosis"
             android:textColor="#C03869"
             android:textSize="20sp" />
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/shape_custom_edittext"
-            android:hint="Medicine" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/shape_custom_edittext"
-            android:hint="Medicine" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
+            android:layout_marginTop="20dp">
             <EditText
-                android:layout_width="wrap_content"
+                android:id="@+id/medicine"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_custom_edittext"
+                android:hint="Medicine" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <EditText
+                android:id="@+id/note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_custom_edittext"
+                android:hint="Note" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <EditText
+                android:id="@+id/injected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:background="@drawable/shape_custom_edittext"
                 android:hint="Injected" />
-
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
             <EditText
-                android:layout_width="wrap_content"
+                android:id="@+id/date"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="3"
+                android:layout_margin="5dp"
                 android:background="@drawable/shape_custom_edittext"
                 android:hint="Date" />
+        </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:gravity="center"
-        android:padding="10dp">
-
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_group_680"
-            android:text="Quay về"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:textColor="@android:color/white"
-            android:id="@+id/btn_save"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_group_681"
-            android:text="Lưu"
-            android:textAllCaps="false" />
     </LinearLayout>
 </LinearLayout>

@@ -45,8 +45,7 @@
             android:layout_marginTop="20dp"
             android:layout_height="wrap_content">
             <EditText
-
-                android:id="@+id/edt_name_baby"
+                android:id="@+id/edit_name_baby"
                 android:hint="Tên Bé"
                android:layout_margin="15dp"
                 android:textColorHint="#C03869"
@@ -68,6 +67,14 @@
                 android:text="Giới Tính :"
                 android:textColor="#C03869"
                 android:textSize="15sp" />
+            <RadioGroup
+                android:id="@+id/radio_group_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:divider="?android:attr/dividerHorizontal"
+                android:orientation="horizontal"
+                android:showDividers="middle">
 
             <RadioButton
                 android:id="@+id/radio_male"
@@ -84,14 +91,15 @@
                 android:layout_weight="1"
                 android:text="Nữ"
                 android:textColor="#C03869" />
+            </RadioGroup>
         </LinearLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/edt_phone"
-                android:hint="Số điện thoại"
+                android:id="@+id/edit_birthday"
+                android:hint="Birthday"
                 android:layout_margin="15dp"
                 android:textColorHint="#C03869"
                 android:background="@drawable/custom_edittex_add_baby"
@@ -104,7 +112,7 @@
             android:layout_marginTop="20dp">
             <EditText
                 android:padding="50dp"
-                android:id="@+id/edt_note"
+                android:id="@+id/edit_note"
                 android:hint="Ghi Chú"
                 android:layout_margin="15dp"
                 android:textColorHint="#C03869"

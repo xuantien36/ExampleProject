@@ -3,6 +3,8 @@
     package="com.t3h.immunization">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,9 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddBabyActivity"
+        <activity android:name=".activity.ChangeLanguageActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".activity.AddBabyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.NotificationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.VerificationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -38,19 +45,16 @@
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".activity.CategoriActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.CategoriActivity"
+            android:name=".activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.FeedbackActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.DetailActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.NotificationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.VaccineActivity"

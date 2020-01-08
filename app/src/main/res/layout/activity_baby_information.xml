@@ -19,7 +19,7 @@
         <TextView
             android:layout_centerInParent="true"
             android:textColor="#C03869"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:text="Thông Tin Bé"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -27,54 +27,71 @@
             android:layout_alignParentRight="true"
             android:id="@+id/im_edit"
             android:src="@drawable/ic_group_191"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
     </RelativeLayout>
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:layout_margin="20dp"
         android:background="@drawable/custom_layout_information"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:orientation="horizontal">
+
         <LinearLayout
-            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
-       <ImageView
-           android:id="@+id/im_baby"
-           android:src="@drawable/group_685"
-           android:layout_width="150dp"
-           android:layout_height="200dp"/>
-        <LinearLayout
-            android:layout_margin="10dp"
-          android:background="@drawable/custom_dialog_reset"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="200dp"
+            android:layout_gravity="center">
+
             <ImageView
-                android:src="@drawable/ic_group_156"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <TextView
-                android:id="@+id/tv_name_baby"
-                android:textColor="@android:color/white"
-                android:text="Bo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tv_birthday"
-                android:textColor="@android:color/white"
-                android:text="02-02-2019"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tv_note"
-                android:textColor="@android:color/white"
-                android:text="Ghi chú Ghi chú"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/im_baby"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:src="@drawable/group_685" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@drawable/custom_dialog_reset"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_group_156" />
+
+                <TextView
+                    android:id="@+id/tv_name_baby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bo"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="02-02-2019"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/tv_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ghi chú Ghi chú"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_delete"
+        android:textSize="20sp"
+        android:textColor="#F1E9E9"
+        android:textAllCaps="false"
+        android:layout_margin="20dp"
+        android:background="@drawable/shape_custom_button"
+        android:text="Delete Baby "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

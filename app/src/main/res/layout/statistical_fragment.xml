@@ -21,7 +21,6 @@
         android:text="@string/statistical"
         android:textColor="@color/color_statistical"
         android:textSize="25sp" />
-
     <RelativeLayout
         android:id="@+id/tv_2"
         android:layout_width="match_parent"
@@ -29,7 +28,6 @@
         android:layout_below="@id/tv_1"
         android:layout_margin="5dp"
         android:background="@drawable/custom_edittext">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,18 +37,22 @@
             android:textColor="#C03869"
             android:textSize="15sp" />
     </RelativeLayout>
-
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="42dp"
         android:src="@drawable/ic_mask_group_15" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lv_statistical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <ExpandableListView
         android:layout_below="@id/tv_2"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:id="@+id/expandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:divider="@null"
+        android:transitionGroup="true"
+        android:groupIndicator="@null"
+        android:transcriptMode="alwaysScroll"/>
+
 </RelativeLayout>

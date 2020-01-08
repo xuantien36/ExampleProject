@@ -1,33 +1,53 @@
 <resources>
     <string name="app_name">Immunization</string>
-    <string name="bỏ_qua">BỎ QUA</string>
+    <string name="bo_qua">BỎ QUA</string>
     <string name="text">MANG LẠI SỰ TIỆN LỢI,THOẢI MÁI NHẤT CHO KHÁCH HÀNG\nCung cấp thêm cho khách hàng một phương tiện đặt xe\n thông minh,hiệu quả và dễ sử dụng</string>
-    <string name="tiêm_chủng">Sổ Tiêm Chủng</string>
-    <string name="đãqua">Đã Qua</string>
-    <string name="sắptiêm">Sắp Tiêm</string>
-    <string name="tấtcả">Tất Cả</string>
+    <string name="tiem_chung">Sổ Tiêm Chủng</string>
+    <string name="da_qua">Đã Qua</string>
+    <string name="sap_tiem">Sắp Tiêm</string>
+    <string name="tat_ca">Tất Cả</string>
     <string name="statistical">Thống Kê</string>
     <string name="other">Khác</string>
     <string name="children">Bé yêu</string>
     <string name="vaccine">Vắc Xin</string>
     <string name="so_tiem">Sổ tiêm</string>
     <string name="tv_dialog">Xóa thông tin</string>
-    <string name="tv_dicription">Tất cả mọi thông tin về bé,sổ tiêm chủng và thống kê sẽ bị xóa khỏi ứng dụng.Bạn chắc chắn muốn reset ứng dụng ?</string>
     <string name="tv_dialog_information">Thông tin lưu ý</string>
-    <string name="tv_dicription_information">Mọi thông tin của ứng dụng chỉ mang tính tham khảo.Quý vị cần tham khảo ý kiến bác sĩ chuyên khoa y tế dự phòng trước khi sử dụng bất kì thông tin gì,chúng tôi không chịu trách nhiệm gì về việc sử dụng thông tin của quý vị.Xin cảm ơn!</string>
-    <string name="text_1">Immunization schedule :</string>
-    <string name="text_2">-1 : Newborn</string>
-    <string name="text_3">Description Information :</string>
-    <string name="text_4">Detail</string>
+    <string name="tv_dicription_information">Mọi thông tin của ứng dụng chỉ mang tính tham khảo.Quý vị cần tham khảo ý kiến bác sĩ chuyên khoa y tế dự phòng trước khi sử dụng bất kì thông tin gì
+        ,chúng tôi không chịu trách nhiệm gì về việc sử dụng thông tin của quý vị.Xin cảm ơn!</string>
     <string name="sending">Gửi Thành Công</string>
     <string name="choose_vaccine">Lựa chọn vắc xin cần tiêm cho bé A</string>
     <string name="tv_statistical">Mẹ nhớ đưa bé đi tiêm để đảm\nbảo sức khỏe cho bé nhé!</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
-    <string name="start">GOT IT</string>
+    <string name="start" translatable="false">GOT IT</string>
     <string name="data_empty">Danh sách bé trống</string>
     <string name="text_forgot">*Vui lòng nhập địa chỉ email đã đăng ký.</string>
     <string name="text_pass">*Nhập mật khẩu mới để đăng nhập.</string>
     <string name="text_verification">*Vui lòng điền mã xác minh đã được gửi đến địa chỉ email\n**********g@gmail.com</string>
     <string name="add_baby">Thêm bé thành công</string>
+    <string name="delete_baby">Xóa thành công</string>
+    <string name="edit">Sửa thành công</string>
+
+    <string name="change_language_title">Ngôn ngữ</string>
+    <string name="language_vietnamese" translatable="false">Tiếng việt</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="notification">Cài Đặt Thông Báo</string>
+    <string name="information_note">Thông Tin Lưu Ý</string>
+    <string name="vote">Đánh Giá Ứng Dụng</string>
+    <string name="share_app">Chia Sẻ Ứng Dụng</string>
+    <string name="feedback">Góp Ý Ứng Dụng</string>
+    <string name="another_app">Ứng Dụng Khác</string>
+    <string name="log_out">Đăng Xuất</string>
+    <string name="list_baby">Danh Sách Các Bé</string>
+    <string name="other_information">Thông Tin Khác</string>
+    <string name="vaccination_book">Sổ Tiêm Chủng</string>
+    <string name="remember_the_password">Nhớ mật khẩu</string>
+    <string name="forgot_your_login_information">Quên thông tin đăng nhập?</string>
+    <string name="register">Đăng ký</string>
+    <string name="log_in">Đăng nhập</string>
+    <string-array name="language_names">
+        <item>@string/language_english</item>
+        <item>@string/language_vietnamese</item>
+    </string-array>
 </resources>

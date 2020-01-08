@@ -1,24 +1,17 @@
 package com.t3h.immunization.activity;
-
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.BaByRespone;
-import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.ResponeRegister;
-
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -44,11 +37,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.radio_group)
     RadioGroup group;
     String checkedBox;
-    public static callBackList callBack;
-
-    public static void setCallBack(callBackList mcallBack) {
-       callBack = mcallBack;
-    }
+    private Handler handler=new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +48,12 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void init() {
-        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int checkedRadio = radioGroup.getCheckedRadioButtonId();
-                RadioButton checkedRadioButton = findViewById(checkedRadio);
-                checkedBox = checkedRadioButton.getText().toString();
-                Toast.makeText(AddBabyActivity.this, "" + checkedBox, Toast.LENGTH_SHORT).show();
+        group.setOnCheckedChangeListener((radioGroup, i) -> {
+            int checkedRadio = radioGroup.getCheckedRadioButtonId();
+            RadioButton checkedRadioButton = findViewById(checkedRadio);
+            checkedBox = checkedRadioButton.getText().toString();
+            Toast.makeText(AddBabyActivity.this, "" + checkedBox, Toast.LENGTH_SHORT).show();
 
-            }
         });
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
@@ -77,42 +63,25 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
-        ApiBuilder.getInstance().addBaby("", name, checkedBox, birthday, "", note,
-                true).enqueue(new Callback<ResponeRegister>() {
-            @Override
-            public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
-                if (response.body().getStatus() == true) {
-                    ApiBuilder.getInstance().getBaBy("1").enqueue(new Callback<BaByRespone>() {
-                        @Override
-                        public void onResponse(Call<BaByRespone> call, Response<BaByRespone> response) {
-                            if (response != null && callBack != null) {
-                                callBack.getList((ArrayList<GetBaby>) response.body().getData());
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<BaByRespone> call, Throwable t) {
-
-                        }
-                    });
+        if (name.equals("")||birthday.equals("")){
+            Toast.makeText(AddBabyActivity.this, "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+        }else {
+            ApiBuilder.getInstance().addBaby(1, name, checkedBox, birthday, "", note,
+                    true).enqueue(new Callback<ResponeRegister>() {
+                @Override
+                public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
+                    if (response.body().getStatus() == true) {
+                        showDialog();
+                        finish();
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponeRegister> call, Throwable t) {
 
                 }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponeRegister> call, Throwable t) {
-
-            }
-        });
-
+            });
+        }
     }
-
-    public interface callBackList {
-        void getList(ArrayList<GetBaby> arr);
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -121,13 +90,10 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.save:
                 addBaby();
-                showDialog();
-                finish();
                 break;
         }
 
     }
-
     public void showDialog() {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_add);
@@ -135,4 +101,11 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         dialog.show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog!=null){
+            dialog.dismiss();
+        }
+    }
 }

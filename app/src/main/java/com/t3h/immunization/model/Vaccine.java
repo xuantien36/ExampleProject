@@ -1,5 +1,4 @@
 package com.t3h.immunization.model;
-
 import java.io.Serializable;
 
 public class Vaccine implements Serializable {
@@ -14,19 +13,15 @@ public class Vaccine implements Serializable {
         this.vaccinationSchedule = vaccinationSchedule;
         this.description = description;
     }
-
     public int getImage() {
         return image;
     }
-
     public String getNameVaccine() {
         return nameVaccine;
     }
-
     public String getVaccinationSchedule() {
         return vaccinationSchedule;
     }
-
     public String getDescription() {
         return description;
     }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Immunization</string>
+    <string name="change_language_title">Language</string>
+    <string name="children">baby</string>
+    <string name="other">other</string>
+    <string name="bo_qua">ignore</string>
+    <string name="data_empty">Empty baby list</string>
+    <string name="tiem_chung">Vaccination Book</string>
+    <string name="text">BRING THE MOST BENEFITS, THE MOST COMFORT FOR CUSTOMERS \nProvide customers with a smart, efficient and easy-to-use vehicle booking facility \n</string>
+    <string name="edit">Correction successful</string>
+    <string name="delete_baby">Delete successful</string>
+    <string name="add_baby">More children succeed</string>
+    <string name="text_verification">* Please enter the verification code sent to the email address \\ n ********** g@gmail.com</string>
+    <string name="text_pass">* Enter a new password to login</string>
+    <string name="text_forgot">* Please enter your registered email address</string>
+    <string name="skip">SKIP</string>
+    <string name="next">NEXT</string>
+    <string name="tv_statistical">Mother, remember to take the baby for injection to ensure healthy baby!</string>
+    <string name="choose_vaccine">Choosing the vaccine to give the baby A</string>
+    <string name="sending">Submitted successfully</string>
+    <string name="da_qua">Passed</string>
+    <string name="sap_tiem">Coming Soon</string>
+    <string name="tat_ca">All</string>
+    <string name="statistical">Statistical</string>
+    <string name="vaccine">Vaccines</string>
+    <string name="so_tiem">Injection book</string>
+    <string name="tv_dialog">Delete the information</string>
+    <string name="tv_dialog_information">Information note</string>
+    <string name="notification">notification settings</string>
+    <string name="information_note">Information Note</string>
+    <string name="vote">App reviews</string>
+    <string name="share_app">Application Sharing</string>
+    <string name="feedback">Application Comments</string>
+    <string name="another_app">Other Application</string>
+    <string name="log_out">Log out</string>
+    <string name="list_baby">List Of Babies</string>
+    <string name="other_information">Other_Information</string>
+    <string name="vaccination_book">Vaccination Book</string>
+    <string name="remember_the_password">Remember the password</string>
+    <string name="register">Register</string>
+    <string name="log_in">Login</string>
+    <string name="forgot_your_login_information">Forgot login?</string>
+    <string name="tv_dicription_information">All information of the application is for reference only.You need to consult
+        a preventive medicine specialist before using any information, we are not responsible for the use of information.</string>
+</resources>

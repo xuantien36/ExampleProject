@@ -3,6 +3,8 @@
     <declare-styleable name="ItemBottomBar">
         <attr name="bottomBarIconNormal" format="reference" />
         <attr name="bottomBarIconActive" format="reference" />
+        <attr name="colorTextActive" format="color" />
+        <attr name="colorTextNormal" format="color" />
         <attr name="bottomBarActive" format="boolean" />
         <attr name="bottomContent" format="reference" />
     </declare-styleable>

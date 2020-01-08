@@ -14,11 +14,17 @@ import android.widget.Toast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.ResponeLogin;
+import com.t3h.immunization.util.AppPreferences;
+import com.t3h.immunization.util.Libs;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.t3h.immunization.util.Constant.KEY_LOGIN;
+import static com.t3h.immunization.util.Constant.KEY_NEXT;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.btn_register)
@@ -38,12 +44,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Libs.updateLangua(this);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         intView();
     }
 
     private void intView() {
+        AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_NEXT,true );
         btnLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
         tvForget.setOnClickListener(this);
@@ -82,7 +90,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     editor.putString("taikhoan", user_name);
                                     editor.putString("matkhau", password);
                                     editor.putBoolean("checked", true);
+//                                    AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN,true);
                                     editor.commit();
+
                                 } else {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.remove("taikhoan");

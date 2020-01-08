@@ -1,7 +1,5 @@
 package com.t3h.immunization.activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.ResponeRegister;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;

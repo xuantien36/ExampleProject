@@ -2,6 +2,7 @@ package com.t3h.immunization.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +17,17 @@ import com.t3h.immunization.activity.EditBaByActivity;
 import com.t3h.immunization.model.GetBaby;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder> {
-    private ArrayList<GetBaby> searches;
+    private List<GetBaby> data;
     private LayoutInflater inflater;
     private ItemClickListener listener;
     private Context context;
+    private int poss = 0;
 
     public void setOnListener(ItemClickListener listener) {
         this.listener = listener;
@@ -36,8 +39,8 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
 
     }
 
-    public void setData(ArrayList<GetBaby> searches) {
-        this.searches = searches;
+    public void setData(List<GetBaby> data) {
+        this.data = data;
         notifyDataSetChanged();
     }
 
@@ -50,7 +53,9 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
 
     @Override
     public void onBindViewHolder(@NonNull VaccineHolder holder, final int position) {
-        GetBaby name = searches.get(position);
+        poss = position;
+        GetBaby name = data.get(position);
+        Log.e("bbbb", String.valueOf(data.get(position)));
         holder.bindData(name);
         if (listener != null) {
             holder.itemView.setOnClickListener(view -> listener.onClicked(position));
@@ -64,7 +69,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
 
     @Override
     public int getItemCount() {
-        return searches == null ? 0 : searches.size();
+        return data == null ? 0 : data.size();
     }
 
     public class VaccineHolder extends RecyclerView.ViewHolder {
@@ -72,10 +77,10 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         TextView tvName;
         @BindView(R.id.have_injected)
         TextView tvHave_injected;
-        @BindView(R.id.miss)
+        @BindView(R.id.miss_injected)
         TextView tvMiss;
-        @BindView(R.id.about_inject)
-        TextView tvAbout_injected;
+        @BindView(R.id.not_injected)
+        TextView tvnot_injected;
         @BindView(R.id.btn_repair)
         Button btnRepair;
 
@@ -87,14 +92,13 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         public void bindData(GetBaby item) {
             tvName.setText(item.getName());
             tvHave_injected.setText("Đã tiêm :" + item.getInjected());
-            tvMiss.setText("Bỏ lỡ :" + item.getMissInjected());
-            tvAbout_injected.setText("Sắp tiêm :" + item.getPrepareInject());
-            btnRepair.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context.getApplicationContext(), EditBaByActivity.class);
-                    context.startActivity(intent);
-                }
+            tvMiss.setText("Bỏ lỡ :" +item.getMissInjected());
+            tvnot_injected.setText("Chưa tiêm:" +item.getNotInjected());
+            btnRepair.setOnClickListener(view -> {
+                Intent intent = new Intent(context.getApplicationContext(), EditBaByActivity.class);
+                intent.putExtra("data", data.get(poss));
+                Log.e("aaa", String.valueOf(data.get(poss)));
+                context.startActivity(intent);
             });
 
         }

@@ -1,11 +1,13 @@
 package com.t3h.immunization.activity;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import android.os.Bundle;
-import android.view.View;
-import com.t3h.immunization.util.Constant;
 import com.t3h.immunization.R;
 import com.t3h.immunization.customize.ItemBottomBar;
 import com.t3h.immunization.fragment.BabyFragment;
@@ -13,6 +15,10 @@ import com.t3h.immunization.fragment.InjectionBookFragment;
 import com.t3h.immunization.fragment.OtherFragment;
 import com.t3h.immunization.fragment.StatisticalFragment;
 import com.t3h.immunization.fragment.VaccineFragment;
+import com.t3h.immunization.util.AppPreferences;
+import com.t3h.immunization.util.Constant;
+import com.t3h.immunization.util.Libs;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -39,8 +45,10 @@ public class CategoriActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Libs.updateLangua(this);
         setContentView(R.layout.activity_categori);
         ButterKnife.bind(this);
+//        AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN,true);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new BabyFragment()).commit();
     }
 
@@ -50,7 +58,6 @@ public class CategoriActivity extends AppCompatActivity  {
         ivImage3.setActiveMode(false);
         ivImage4.setActiveMode(false);
         ivImage5.setActiveMode(false);
-
 
         if (index == Constant.TAB1) {
             ivImage1.setActiveMode(true);
@@ -62,9 +69,9 @@ public class CategoriActivity extends AppCompatActivity  {
             ivImage4.setActiveMode(true);
         } else if (index == TAB5) {
             ivImage5.setActiveMode(true);
+
         }
     }
-
     @OnClick({R.id.ivImage1, R.id.ivImage2, R.id.ivImage3, R.id.ivImage4, R.id.ivImage5})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -121,5 +128,11 @@ public class CategoriActivity extends AppCompatActivity  {
         } catch (Exception e) {
         }
     }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+    }
+
 }
 

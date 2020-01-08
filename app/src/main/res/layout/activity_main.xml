@@ -6,22 +6,14 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
-    <FrameLayout
-        android:id="@+id/frame_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:id="@+id/dot_layout"
+    <ExpandableListView
+        android:id="@+id/expandableListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal" />
+        android:layout_margin="5dp"
+        android:divider="@null"
+        android:transitionGroup="true"
+        android:groupIndicator="@null"
+        android:transcriptMode="alwaysScroll"/>
 </RelativeLayout>

@@ -1,5 +1,4 @@
 package com.t3h.immunization.customize;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -9,13 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
-
 import com.t3h.immunization.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -26,6 +22,7 @@ public class ItemBottomBar extends LinearLayout {
     AppCompatImageView ivImage;
     @BindView(R.id.tvView)
     TextView tvView;
+    int colorActive, colorNormal;
 
     // drawable
     Drawable drawableIconNormal, drawableIconActive;
@@ -66,6 +63,10 @@ public class ItemBottomBar extends LinearLayout {
         drawableIconNormal = typedArray.getDrawable(R.styleable.ItemBottomBar_bottomBarIconNormal);
         drawableIconActive = typedArray.getDrawable(R.styleable.ItemBottomBar_bottomBarIconActive);
 
+        //color
+        colorActive = typedArray.getColor(R.styleable.ItemBottomBar_colorTextActive, 0);
+        colorNormal = typedArray.getColor(R.styleable.ItemBottomBar_colorTextNormal, 0);
+
         tvView.setText(typedArray.getString(R.styleable.ItemBottomBar_bottomContent));
 
         // set active mode
@@ -80,5 +81,6 @@ public class ItemBottomBar extends LinearLayout {
      */
     public void setActiveMode(boolean isActive) {
         ivImage.setImageDrawable(isActive ? drawableIconActive : drawableIconNormal);
+        tvView.setTextColor(isActive ? colorActive : colorNormal);
     }
 }
