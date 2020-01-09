@@ -1,12 +1,10 @@
 package com.t3h.immunization.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.t3h.immunization.R;
 import com.t3h.immunization.customize.ItemBottomBar;
@@ -22,6 +20,8 @@ import com.t3h.immunization.util.Libs;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.t3h.immunization.util.Constant.KEY_LOGIN;
 import static com.t3h.immunization.util.Constant.TAB1;
 import static com.t3h.immunization.util.Constant.TAB2;
 import static com.t3h.immunization.util.Constant.TAB3;
@@ -48,7 +48,7 @@ public class CategoriActivity extends AppCompatActivity  {
         Libs.updateLangua(this);
         setContentView(R.layout.activity_categori);
         ButterKnife.bind(this);
-//        AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN,true);
+        AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN,true);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new BabyFragment()).commit();
     }
 

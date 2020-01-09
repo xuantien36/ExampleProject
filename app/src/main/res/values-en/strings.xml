@@ -40,6 +40,12 @@
     <string name="remember_the_password">Remember the password</string>
     <string name="register">Register</string>
     <string name="log_in">Login</string>
+    <string name="user_name">UserName</string>
+    <string name="pass_word">PassWord</string>
+    <string name="baby_name">Name</string>
+    <string name="injected">Injected</string>
+    <string name="miss">Miss</string>
+    <string name="not_injected">Not injected</string>
     <string name="forgot_your_login_information">Forgot login?</string>
     <string name="tv_dicription_information">All information of the application is for reference only.You need to consult
         a preventive medicine specialist before using any information, we are not responsible for the use of information.</string>

@@ -1,14 +1,16 @@
-package com.t3h.immunization.model;
+package com.t3h.immunization;
 
-import java.io.Serializable;
+public class itemModel {
+    int image;
+    String name;
+    String date;
 
-public class Other implements Serializable {
-    private int image;
-    private String name;
+    public String getDate() {
+        return date;
+    }
 
-    public Other(int image, String name) {
-        this.image = image;
-        this.name = name;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getImage() {
@@ -27,5 +29,5 @@ public class Other implements Serializable {
         this.name = name;
     }
 
-    }
+}
 

@@ -1,8 +1,9 @@
 package com.t3h.immunization.api;
-import com.t3h.immunization.model.BaByRespone;
-import com.t3h.immunization.model.ResponeInjections;
-import com.t3h.immunization.model.ResponeLogin;
-import com.t3h.immunization.model.ResponeRegister;
+import com.t3h.immunization.respone.BaByRespone;
+import com.t3h.immunization.respone.ResponeInjections;
+import com.t3h.immunization.respone.ResponeLogin;
+import com.t3h.immunization.respone.ResponeRegister;
+import com.t3h.immunization.respone.ResponeStatistical;
 import com.t3h.immunization.model.UpdateApp;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -73,7 +74,7 @@ public interface Api {
 
     @POST("/getinjected")
     @FormUrlEncoded
-    Call<ResponeInjections> getinjected(@Field("baby_id") int baby_id);
+    Call<ResponeStatistical> getinjected(@Field("baby_id") int baby_id);
 
     @POST("/vacxininfo")
     @FormUrlEncoded

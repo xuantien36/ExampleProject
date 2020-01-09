@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.t3h.immunization.R;
-import com.t3h.immunization.model.Vaccine;
 import com.t3h.immunization.model.VaccineList;
 
 import java.util.ArrayList;

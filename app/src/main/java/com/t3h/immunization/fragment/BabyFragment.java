@@ -9,19 +9,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.AddBabyActivity;
 import com.t3h.immunization.activity.BabyInformationActivity;
 import com.t3h.immunization.adapter.BaByAdapter;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.BaByRespone;
+import com.t3h.immunization.respone.BaByRespone;
 import com.t3h.immunization.model.GetBaby;
 
 import java.util.ArrayList;
@@ -74,6 +72,8 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     arr.clear();
                     arr.addAll(data);
                     adapter.setData(arr);
+                    adapter.getItemBaby(poss);
+                    Log.e("call", "onResponse: "+GetBaby.getInstance().getBabyId() );
                     Log.e("arr", "onResponse: "+ arr.size() );
                     if (poss < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
@@ -129,6 +129,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 if (poss == 0) {
                     btnBack.setVisibility(View.GONE);
                 }
+                adapter.getItemBaby(poss);//thêm
                 recyclerView.scrollToPosition(poss);
                 break;
             case R.id.btn_next:
@@ -141,6 +142,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     if (poss == arr.size() - 1) {
                         btnNext.setVisibility(View.GONE);
                     }
+                    adapter.getItemBaby(poss);//them
                     recyclerView.scrollToPosition(poss);
                 });
                 break;

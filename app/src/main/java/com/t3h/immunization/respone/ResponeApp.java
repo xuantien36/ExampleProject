@@ -1,15 +1,16 @@
-package com.t3h.immunization.model;
+package com.t3h.immunization.respone;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.t3h.immunization.model.User;
 
-public class ResponeRegister {
+public class ResponeApp {
     @SerializedName("status")
     @Expose
     private Boolean status;
-    @SerializedName("message")
+    @SerializedName("data")
     @Expose
-    private String message;
+    private User data;
 
     public Boolean getStatus() {
         return status;
@@ -19,12 +20,12 @@ public class ResponeRegister {
         this.status = status;
     }
 
-    public String getMessage() {
-        return message;
+    public User getData() {
+        return data;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setData(User data) {
+        this.data = data;
     }
 
 }

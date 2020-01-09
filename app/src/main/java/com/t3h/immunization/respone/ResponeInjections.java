@@ -1,19 +1,17 @@
-package com.t3h.immunization.model;
-
+package com.t3h.immunization.respone;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.t3h.immunization.model.GetBaby;
+import com.t3h.immunization.model.InjectionGroup;
 
 import java.util.List;
 
-public class BaByRespone {
-
+public class ResponeInjections {
     @SerializedName("status")
     @Expose
     private Boolean status;
     @SerializedName("data")
     @Expose
-    private List<GetBaby> data = null;
+    private List<InjectionGroup> injectionGroup = null;
 
     public Boolean getStatus() {
         return status;
@@ -23,13 +21,12 @@ public class BaByRespone {
         this.status = status;
     }
 
-    public List<GetBaby> getData() {
-        return data;
+    public List<InjectionGroup> getInjectionGroup() {
+        return injectionGroup;
     }
 
-    public void setData(List<GetBaby> data) {
-        this.data = data;
+    public void setInjectionGroup(List<InjectionGroup> injectionGroup) {
+        this.injectionGroup = injectionGroup;
     }
 
 }
-

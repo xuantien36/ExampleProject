@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.ResponeRegister;
+import com.t3h.immunization.respone.ResponeRegister;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;

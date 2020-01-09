@@ -1,26 +1,20 @@
 package com.t3h.immunization.adapter;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.t3h.immunization.R;
-import com.t3h.immunization.model.VaccinationBook;
-
+import com.t3h.immunization.model.InjectionGroup;
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class VaccineBookAdapter extends RecyclerView.Adapter<VaccineBookAdapter.VaccinationBookHolder> {
-    private ArrayList<VaccinationBook> searches;
+    private ArrayList<InjectionGroup> searches;
     private LayoutInflater inflater;
     private ItemClickListener listener;
 
@@ -33,7 +27,7 @@ public class VaccineBookAdapter extends RecyclerView.Adapter<VaccineBookAdapter.
 
     }
 
-    public void setData(ArrayList<VaccinationBook> searches) {
+    public void setData(ArrayList<InjectionGroup> searches) {
         this.searches = searches;
         notifyDataSetChanged();
     }
@@ -47,7 +41,7 @@ public class VaccineBookAdapter extends RecyclerView.Adapter<VaccineBookAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull VaccinationBookHolder holder, final int position) {
-        VaccinationBook name = searches.get(position);
+        InjectionGroup name = searches.get(position);
         holder.bindData(name);
         if (listener != null) {
             holder.itemView.setOnClickListener(view -> listener.onClicked(position));
@@ -83,13 +77,11 @@ public class VaccineBookAdapter extends RecyclerView.Adapter<VaccineBookAdapter.
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindData(VaccinationBook item) {
-            tvDate.setText(item.getTime());
-            tvMui.setText(item.getTenMui());
-            tvName.setText(item.getTenVacxin());
-            tvngayTiem.setText("Ngày tiêm : " +item.getNgayTiem());
-            tvNgayConLai.setText("Còn lại : " +item.getConLai());
-            Glide.with(imtrangThai).load(item.getTrangThai()).into(imtrangThai);
+        public void bindData(InjectionGroup item) {
+            tvName.setText(item.getGroupTitle());
+//            tvngayTiem.setText("Ngày tiêm : " +item.getNgayTiem());
+//            tvNgayConLai.setText("Còn lại : " +item.getConLai());
+//            Glide.with(imtrangThai).load(item.getTrangThai()).into(imtrangThai);
 
         }
     }

@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.ResponeInjections;
+import com.t3h.immunization.respone.ResponeInjections;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -33,6 +33,8 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_information);
         ButterKnife.bind(this);
+        back.setOnClickListener(this);
+        imSave.setOnClickListener(this);
     }
 
     private void callApi() {
@@ -55,8 +57,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
 
             }
         });
-        back.setOnClickListener(this);
-        imSave.setOnClickListener(this);
+
 
     }
 

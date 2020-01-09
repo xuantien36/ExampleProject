@@ -1,5 +1,7 @@
 package com.t3h.immunization.activity;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,9 +13,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.ResponeLogin;
+import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.util.AppPreferences;
 import com.t3h.immunization.util.Libs;
 
@@ -51,15 +54,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void intView() {
-        AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_NEXT,true );
+        AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_NEXT, true);
         btnLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
         tvForget.setOnClickListener(this);
         sharedPreferences = getSharedPreferences("SaveDataLogin", Context.MODE_PRIVATE);
         edtName.setText(sharedPreferences.getString("taikhoan", ""));
         edtPass.setText(sharedPreferences.getString("matkhau", ""));
-        checkBox.setChecked(sharedPreferences.getBoolean("checked", false));
+        checkBox.setChecked(sharedPreferences.getBoolean(KEY_LOGIN, false));
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -68,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(register);
                 break;
             case R.id.tv_forget:
-                Intent intent = new Intent(this,ForgotActivity.class);
+                Intent intent = new Intent(this, ForgotActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_login:
@@ -81,35 +85,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onResponse(Call<ResponeLogin> call, Response<ResponeLogin> response) {
                             if (response.body().getStatus() == true) {
-                                Log.e("TAG","CHECK LOGIN SUCCESS!");
+                                Log.e("TAG", "CHECK LOGIN SUCCESS!");
                                 Intent intent = new Intent(LoginActivity.this, CategoriActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                                 if (checkBox.isChecked()) {
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("taikhoan", user_name);
-                                    editor.putString("matkhau", password);
-                                    editor.putBoolean("checked", true);
-//                                    AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN,true);
-                                    editor.commit();
+//                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                                    editor.putString("taikhoan", user_name);
+//                                    editor.putString("matkhau", password);
+//                                    editor.putBoolean("checked", true);
+//                                    AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN, true);
+                                    AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
+                                    AppPreferences.getInstance(getApplicationContext()).putString("matkhau", password);
+                                    AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", true);
+//                                    editor.commit();
 
                                 } else {
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.remove("taikhoan");
-                                    editor.remove("matkhau");
-                                    editor.remove("checked");
-                                    editor.commit();
+//                                    AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN, true);
+                                    AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", "");
+                                    AppPreferences.getInstance(getApplicationContext()).putString("matkhau", "");
+                                    AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", false);
 
                                 }
-                            }else {
+                            } else {
                                 Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
                             }
 
                         }
+
                         @Override
                         public void onFailure(Call<ResponeLogin> call, Throwable t) {
                             Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                            Log.e("TAG","CHECK LOGIN failed!");
+                            Log.e("TAG", "CHECK LOGIN failed!");
                             t.printStackTrace();
                         }
                     });

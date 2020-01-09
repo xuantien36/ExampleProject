@@ -15,10 +15,9 @@ import com.t3h.immunization.activity.DetailActivity;
 import com.t3h.immunization.adapter.VaccineAdapter;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.InjectionGroup;
-import com.t3h.immunization.model.ResponeInjections;
+import com.t3h.immunization.respone.ResponeInjections;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -54,7 +53,11 @@ public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClic
         ApiBuilder.getInstance().getVaccine("vi").enqueue(new Callback<ResponeInjections>() {
             @Override
             public void onResponse(Call<ResponeInjections> call, Response<ResponeInjections> response) {
-                List<InjectionGroup> injectionGroup =response.body().getInjectionGroup();
+                List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
+
+
+
+
                 if (injectionGroup!=null){
                     adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
                     data.clear();

@@ -41,6 +41,16 @@ public class GetBaby implements Serializable {
     @Expose
     private String missInjected;
 
+    public static GetBaby instant;
+    public static GetBaby getInstance(){
+        if (instant == null){
+            instant = new GetBaby();
+            return instant;
+        }else {
+            return  instant;
+        }
+    }
+
     public Integer getBabyId() {
         return babyId;
     }

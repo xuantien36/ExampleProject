@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
-import com.t3h.immunization.model.ResponeRegister;
+import com.t3h.immunization.respone.ResponeRegister;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -70,6 +70,7 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
             @Override
             public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
                 if (response.body().getStatus()==true){
+                    baBy.getBabyId();
                     showDialog();
                     finish();
                 }

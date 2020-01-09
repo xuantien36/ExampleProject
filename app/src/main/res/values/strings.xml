@@ -46,6 +46,12 @@
     <string name="forgot_your_login_information">Quên thông tin đăng nhập?</string>
     <string name="register">Đăng ký</string>
     <string name="log_in">Đăng nhập</string>
+    <string name="user_name">Tên đăng nhập</string>
+    <string name="pass_word">Mật khẩu</string>
+    <string name="baby_name">baby_name</string>
+    <string name="injected">Đã tiêm</string>
+    <string name="miss">Bỏ lỡ</string>
+    <string name="not_injected">Chưa tiêm</string>
     <string-array name="language_names">
         <item>@string/language_english</item>
         <item>@string/language_vietnamese</item>

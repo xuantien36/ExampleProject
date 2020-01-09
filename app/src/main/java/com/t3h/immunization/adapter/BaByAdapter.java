@@ -8,17 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.EditBaByActivity;
 import com.t3h.immunization.model.GetBaby;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -43,6 +38,10 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         this.data = data;
         notifyDataSetChanged();
     }
+// thêm
+    public void  getItemBaby(int position) {
+        GetBaby.getInstance().setBabyId(data.get(position).getBabyId());
+    }
 
     @NonNull
     @Override
@@ -66,7 +65,6 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         }
 
     }
-
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
@@ -91,9 +89,9 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
 
         public void bindData(GetBaby item) {
             tvName.setText(item.getName());
-            tvHave_injected.setText("Đã tiêm :" + item.getInjected());
-            tvMiss.setText("Bỏ lỡ :" +item.getMissInjected());
-            tvnot_injected.setText("Chưa tiêm:" +item.getNotInjected());
+            tvHave_injected.setText("Đã tiêm : " + item.getInjected());
+            tvMiss.setText("Bỏ lỡ : " +item.getMissInjected());
+            tvnot_injected.setText("Chưa tiêm : " +item.getNotInjected());
             btnRepair.setOnClickListener(view -> {
                 Intent intent = new Intent(context.getApplicationContext(), EditBaByActivity.class);
                 intent.putExtra("data", data.get(poss));
@@ -104,6 +102,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         }
 
     }
+
 
     public interface ItemClickListener {
         void onClicked(int position);

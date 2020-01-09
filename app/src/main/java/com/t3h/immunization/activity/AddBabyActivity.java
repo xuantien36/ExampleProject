@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.ResponeRegister;
+import com.t3h.immunization.respone.ResponeRegister;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -63,7 +63,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
-        if (name.equals("")||birthday.equals("")){
+        if (name.equals("")||birthday.equals("")||note.equals("")){
             Toast.makeText(AddBabyActivity.this, "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }else {
             ApiBuilder.getInstance().addBaby(1, name, checkedBox, birthday, "", note,
