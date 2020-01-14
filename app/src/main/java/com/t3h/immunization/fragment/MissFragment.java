@@ -39,7 +39,6 @@ public class MissFragment extends Fragment implements VaccineBookAdapter.ItemCli
                 if (injectionGroup!=null){
                     adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
                 }
-
             }
             @Override
             public void onFailure(Call<ResponeStatistical> call, Throwable t) {

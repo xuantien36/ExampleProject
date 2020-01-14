@@ -19,6 +19,7 @@ import com.t3h.immunization.activity.AddBabyActivity;
 import com.t3h.immunization.activity.BabyInformationActivity;
 import com.t3h.immunization.adapter.BaByAdapter;
 import com.t3h.immunization.api.ApiBuilder;
+import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.BaByRespone;
 import com.t3h.immunization.model.GetBaby;
 
@@ -52,32 +53,38 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         View view = inflater.inflate(R.layout.baby_fragment, container, false);
         ButterKnife.bind(this, view);
         arr = new ArrayList<>();
-        btnNext.setVisibility(View.VISIBLE);
+        init();
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        init();
+
     }
 
     public void callApi() {
-        ApiBuilder.getInstance().getBaBy(1).enqueue(new Callback<BaByRespone>() {
+        Log.e("CAP", "callApi: USER ID " +User.getInstans().getId());
+        ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
             @Override
             public void onResponse(Call<BaByRespone> call, Response<BaByRespone> response) {
                 List<GetBaby> data = response.body().getData();
                 if (data != null && data.size() > 0) {
-                    Log.e("BABY", "onResponse: " + response.body().getData().size());
+                    Log.e("BABY", "DATA SIZE " + response.body().getData().size());
                     arr.clear();
                     arr.addAll(data);
                     adapter.setData(arr);
-                    adapter.getItemBaby(poss);
+                    if (adapter!=null){
+                        adapter.getItemBaby(poss);
+                    }
                     Log.e("call", "onResponse: "+GetBaby.getInstance().getBabyId() );
                     Log.e("arr", "onResponse: "+ arr.size() );
                     if (poss < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
-                    } else {
+                    } else if (poss==0){
+                        btnNext.setVisibility(View.GONE);
+                        btnBack.setVisibility(View.GONE);
+                    }else {
                         btnNext.setVisibility(View.GONE);
                     }
                     recyclerView.setVisibility(View.VISIBLE);
@@ -87,7 +94,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     tvEmpty.setVisibility(View.VISIBLE);
                 }
             }
-
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
 
@@ -121,19 +127,21 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 startActivity(intent);
                 break;
             case R.id.btn_back:
-                Log.e("testttBack:::", String.valueOf(arr.size()));
                 btnNext.setVisibility(View.VISIBLE);
                 if (poss <= arr.size() - 1) {
                     poss--;
                 }
                 if (poss == 0) {
                     btnBack.setVisibility(View.GONE);
+                    btnBack.setEnabled(true);
+
                 }
+                Log.e("testttBack:::", String.valueOf(poss));
                 adapter.getItemBaby(poss);//thêm
                 recyclerView.scrollToPosition(poss);
+
                 break;
             case R.id.btn_next:
-                Log.e("testttNext:::", String.valueOf(arr.size()));
                 getActivity().runOnUiThread(() -> {
                     btnBack.setVisibility(View.VISIBLE);
                     if (poss >= 0) {
@@ -141,9 +149,12 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     }
                     if (poss == arr.size() - 1) {
                         btnNext.setVisibility(View.GONE);
+
                     }
-                    adapter.getItemBaby(poss);//them
+                    Log.e("testttNext:::",String.valueOf(poss));
+                    adapter.getItemBaby(poss);//thêm
                     recyclerView.scrollToPosition(poss);
+
                 });
                 break;
         }
@@ -164,7 +175,10 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("BABY", "onResume: " +poss);
+        poss = 0;
         callApi();
-        Log.e("BABY", "onResume: ");
+
     }
+
 }

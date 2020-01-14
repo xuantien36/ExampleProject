@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Sửa Thông Tin Mũi Tiêm"
+            android:text="@string/edit_injected"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -47,6 +47,7 @@
         android:padding="20dp">
 
         <TextView
+            android:id="@+id/name_injected"
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:layout_margin="20dp"
@@ -54,7 +55,7 @@
             android:gravity="center"
             android:text="Tuberculosis"
             android:textColor="#C03869"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -14,9 +14,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class VaccineBookAdapter extends RecyclerView.Adapter<VaccineBookAdapter.VaccinationBookHolder> {
-    private ArrayList<InjectionGroup> searches;
+    private ArrayList<InjectionGroup> data;
     private LayoutInflater inflater;
     private ItemClickListener listener;
+
 
     public void setOnListener(ItemClickListener listener) {
         this.listener = listener;
@@ -27,8 +28,8 @@ public class VaccineBookAdapter extends RecyclerView.Adapter<VaccineBookAdapter.
 
     }
 
-    public void setData(ArrayList<InjectionGroup> searches) {
-        this.searches = searches;
+    public void setData(ArrayList<InjectionGroup> data) {
+        this.data = data;
         notifyDataSetChanged();
     }
 
@@ -41,7 +42,7 @@ public class VaccineBookAdapter extends RecyclerView.Adapter<VaccineBookAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull VaccinationBookHolder holder, final int position) {
-        InjectionGroup name = searches.get(position);
+        InjectionGroup name = data.get(position);
         holder.bindData(name);
         if (listener != null) {
             holder.itemView.setOnClickListener(view -> listener.onClicked(position));
@@ -55,7 +56,7 @@ public class VaccineBookAdapter extends RecyclerView.Adapter<VaccineBookAdapter.
 
     @Override
     public int getItemCount() {
-        return searches == null ? 0 : searches.size();
+        return data == null ? 0 : data.size();
     }
 
     public class VaccinationBookHolder extends RecyclerView.ViewHolder {
@@ -88,7 +89,6 @@ public class VaccineBookAdapter extends RecyclerView.Adapter<VaccineBookAdapter.
 
     public interface ItemClickListener {
         void onClicked(int position);
-
         void onLongClicked(int position);
 
     }

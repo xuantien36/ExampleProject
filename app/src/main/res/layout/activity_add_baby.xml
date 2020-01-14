@@ -87,7 +87,7 @@
                 android:showDividers="middle">
 
             <RadioButton
-                android:checked="true"
+                android:checked="false"
                 android:id="@+id/radio_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,11 +96,12 @@
                 android:textColor="#C03869" />
 
             <RadioButton
+                android:checked="false"
                 android:id="@+id/radio_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nữ"
+                android:text="Nu"
                 android:textColor="#C03869" />
             </RadioGroup>
         </LinearLayout>

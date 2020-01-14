@@ -2,6 +2,7 @@ package com.t3h.immunization.activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
+import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,8 +38,8 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     private Dialog dialog;
     @BindView(R.id.radio_group)
     RadioGroup group;
-    String checkedBox;
-    private Handler handler=new Handler();
+    String checkedBox ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +65,11 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
-        if (name.equals("")||birthday.equals("")||note.equals("")){
+
+        if (name.equals("")||birthday.equals("")||note.equals("")|| checkedBox.equals("")){
             Toast.makeText(AddBabyActivity.this, "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }else {
-            ApiBuilder.getInstance().addBaby(1, name, checkedBox, birthday, "", note,
+            ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,
                     true).enqueue(new Callback<ResponeRegister>() {
                 @Override
                 public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {

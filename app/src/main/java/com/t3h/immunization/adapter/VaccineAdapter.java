@@ -1,5 +1,7 @@
 package com.t3h.immunization.adapter;
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,9 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.t3h.immunization.R;
 import com.t3h.immunization.model.InjectionGroup;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,6 +25,7 @@ public class VaccineAdapter extends RecyclerView.Adapter<VaccineAdapter.Injectio
     private ArrayList<InjectionGroup> searches;
     private LayoutInflater inflater;
     private ItemClickListener listener;
+    private Context context;
 
     public void setOnListener(ItemClickListener listener) {
         this.listener = listener;
@@ -25,6 +33,7 @@ public class VaccineAdapter extends RecyclerView.Adapter<VaccineAdapter.Injectio
 
     public VaccineAdapter(Context context) {
         inflater = LayoutInflater.from(context);
+        this.context=context;
 
     }
 
@@ -44,6 +53,10 @@ public class VaccineAdapter extends RecyclerView.Adapter<VaccineAdapter.Injectio
     public void onBindViewHolder(@NonNull InjectionGroupHolder holder, final int position) {
         InjectionGroup name = searches.get(position);
         holder.bindData(name);
+        Glide.with(context)
+                .load( Uri.fromFile(new File("//android_asset/vaccine/group"+ position +".png")))
+                .error(R.drawable.avatar)
+                .into(holder.imVacxin);
         if (listener != null) {
             holder.itemView.setOnClickListener(view -> listener.onClicked(position));
             holder.itemView.setOnLongClickListener(view -> {
@@ -53,7 +66,6 @@ public class VaccineAdapter extends RecyclerView.Adapter<VaccineAdapter.Injectio
         }
 
     }
-
     @Override
     public int getItemCount() {
         return searches == null ? 0 : searches.size();
@@ -73,6 +85,7 @@ public class VaccineAdapter extends RecyclerView.Adapter<VaccineAdapter.Injectio
 
         public void bindData(InjectionGroup item) {
             tvName.setText(item.getGroupTitle());
+
 
         }
     }

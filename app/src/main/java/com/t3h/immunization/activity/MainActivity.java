@@ -1,16 +1,5 @@
 package com.t3h.immunization.activity;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.Toast;
-
-import com.t3h.immunization.R;
-import com.t3h.immunization.adapter.ExpandableListAdapter;
-import com.t3h.immunization.itemModel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 //    ExpandableListView expandableListView;

@@ -1,5 +1,6 @@
 package com.t3h.immunization.api;
 import com.t3h.immunization.respone.BaByRespone;
+import com.t3h.immunization.respone.ResponeApp;
 import com.t3h.immunization.respone.ResponeInjections;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.respone.ResponeRegister;
@@ -43,7 +44,7 @@ public interface Api {
 
     @POST("/getbaby")
     @FormUrlEncoded
-    Call<BaByRespone> getBaBy(@Field("id") int id);
+    Call<BaByRespone> getBaBy(@Field("id") Integer id);
 
     @POST("/addbaby")
     @FormUrlEncoded
@@ -92,8 +93,8 @@ public interface Api {
 
     @POST("/updateapp")
     @FormUrlEncoded
-    Call<UpdateApp> updateApp (@Field("platform") String platform,
-                               @Field("version") int version);
+    Call<ResponeApp> updateApp (@Field("platform") String platform,
+                                @Field("version") int version);
 
 
 }

@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Immunization</string>
     <string name="change_language_title">Language</string>
-    <string name="children">baby</string>
-    <string name="other">other</string>
-    <string name="bo_qua">ignore</string>
+    <string name="children">Baby</string>
+    <string name="other">Other</string>
+    <string name="bo_qua">Ignore</string>
     <string name="data_empty">Empty baby list</string>
     <string name="tiem_chung">Vaccination Book</string>
     <string name="text">BRING THE MOST BENEFITS, THE MOST COMFORT FOR CUSTOMERS \nProvide customers with a smart, efficient and easy-to-use vehicle booking facility \n</string>
@@ -27,7 +27,7 @@
     <string name="so_tiem">Injection book</string>
     <string name="tv_dialog">Delete the information</string>
     <string name="tv_dialog_information">Information note</string>
-    <string name="notification">notification settings</string>
+    <string name="notification">Notification settings</string>
     <string name="information_note">Information Note</string>
     <string name="vote">App reviews</string>
     <string name="share_app">Application Sharing</string>
@@ -35,7 +35,7 @@
     <string name="another_app">Other Application</string>
     <string name="log_out">Log out</string>
     <string name="list_baby">List Of Babies</string>
-    <string name="other_information">Other_Information</string>
+    <string name="other_information">Other Information</string>
     <string name="vaccination_book">Vaccination Book</string>
     <string name="remember_the_password">Remember the password</string>
     <string name="register">Register</string>
@@ -46,6 +46,12 @@
     <string name="injected">Injected</string>
     <string name="miss">Miss</string>
     <string name="not_injected">Not injected</string>
+    <string name="tv_update">New updates available, update now</string>
+    <string name="btn_Yes">Yes</string>
+    <string name="btn_No">No</string>
+    <string name="detail">Injection Details</string>
+    <string name="edit_injected">Edit Injection Information</string>
+    <string name="tv_feedback">Suggestion Box</string>
     <string name="forgot_your_login_information">Forgot login?</string>
     <string name="tv_dicription_information">All information of the application is for reference only.You need to consult
         a preventive medicine specialist before using any information, we are not responsible for the use of information.</string>

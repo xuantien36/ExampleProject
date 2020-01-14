@@ -63,11 +63,11 @@ public class StatisticalAdapter extends RecyclerView.Adapter<StatisticalAdapter.
     public class StatisticalHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.name_statistical)
         TextView tvName;
-        @BindView(R.id.tv_chuatiem)
+        @BindView(R.id.tv_not_injected)
         TextView tvChuatiem;
-        @BindView(R.id.tv_datiem)
+        @BindView(R.id.tv_injected)
         TextView tvDatiem;
-        @BindView(R.id.tv_bolo)
+        @BindView(R.id.tv_miss)
         TextView tvBolo;
         @BindView(R.id.image)
         ImageView imVacxin;

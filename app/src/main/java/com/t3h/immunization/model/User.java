@@ -29,6 +29,17 @@ public class User {
     @Expose
     private String platform;
 
+    private static User instans;
+
+    public static User getInstans() {
+        if (instans == null){
+            instans = new User();
+            return instans;
+        }else {
+            return instans;
+        }
+    }
+
     public Integer getId() {
         return id;
     }

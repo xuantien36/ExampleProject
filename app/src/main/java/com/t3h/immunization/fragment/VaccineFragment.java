@@ -54,10 +54,6 @@ public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClic
             @Override
             public void onResponse(Call<ResponeInjections> call, Response<ResponeInjections> response) {
                 List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
-
-
-
-
                 if (injectionGroup!=null){
                     adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
                     data.clear();

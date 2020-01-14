@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
+import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,12 +48,13 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         edtName_Edit.setText(baby.getName());
         edtNote.setText(baby.getNote());
         editBirthday.setText(baby.getBirthday());
+
     }
     public void editBaby() {
         String name = edtName_Edit.getText().toString();
         String note = edtNote.getText().toString();
         String birthday =editBirthday.getText().toString();
-        ApiBuilder.getInstance().editBaby(1, baby.getBabyId(), name,checkedBox,birthday, "", note).enqueue(new Callback<ResponeRegister>() {
+        ApiBuilder.getInstance().editBaby(User.getInstans().getId(), baby.getBabyId(), name,checkedBox,birthday, "", note).enqueue(new Callback<ResponeRegister>() {
             @Override
             public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
                 if (response.body().getStatus() == true) {

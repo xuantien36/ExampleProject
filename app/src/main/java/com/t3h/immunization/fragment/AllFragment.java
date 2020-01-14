@@ -1,5 +1,4 @@
 package com.t3h.immunization.fragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,8 @@ import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.respone.ResponeStatistical;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -42,8 +39,6 @@ public class AllFragment extends Fragment implements VaccineBookAdapter.ItemClic
                 if (injectionGroup!=null){
                     adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
                 }
-
-
             }
 
             @Override
@@ -62,97 +57,7 @@ public class AllFragment extends Fragment implements VaccineBookAdapter.ItemClic
     }
 
     private void initData() {
-//        data = new ArrayList<>();
-//        data.add(new VaccinationBook("Tháng 10 Năm 2019", "Mũi\n1/1", "Tuberculosis",
-//                "28/10/2019", "1 tháng 27 ngày", R.drawable.ic_ellipse_202,"Newborn","Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria.\" +\n" +
-//                "                        \"[1] Tuberculosis generally affects the lungs, but can also affect other parts of the body.\" +\n" +
-//                "                        \"[1] Most infections do not have symptoms, in which case it is known as latent tuberculosis.\" +\n" +
-//                "                        \"[1] About 10% of latent infections progress to active disease which, if left untreated, kills about half of those affected.\" +\n" +
-//                "                        \"[1] The classic symptoms of active TB are a chronic cough with blood-containing mucus, fever, night sweats, and weight loss.\" +\n" +
-//                "                        \"[1] It was historically called \\\"consumption\\\" due to the weight loss.[8] Infection of other organs can cause a wide range of symptoms.[9]\\n\" +\n" +
-//                "                        \"\\n\" +\n" +
-//                "                        \"Tuberculosis is spread through the air when people who have active TB in their lungs cough, spit, speak, or sneeze.\" +\n" +
-//                "                        \"[1][10] People with latent TB do not spread the disease.[1] Active infection occurs more often in people with HIV/AIDS and in those who smoke.\" +\n" +
-//                "                        \"[1] Diagnosis of active TB is based on chest X-rays, as well as microscopic examination and culture of body fluids.\" +\n" +
-//                "                        \"[11] Diagnosis of latent TB relies on the tuberculin skin test (TST) or blood tests.[11]"));
-//        data.add(new VaccinationBook("Tháng 10 Năm 2019", "Mũi\n1/1", "Tuberculosis", "28/10/2019", "1 tháng 27 ngày", R.drawable.ic_ellipse_202,"Newborn","Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria.\" +\n" +
-//                "                        \"[1] Tuberculosis generally affects the lungs, but can also affect other parts of the body.\" +\n" +
-//                "                        \"[1] Most infections do not have symptoms, in which case it is known as latent tuberculosis.\" +\n" +
-//                "                        \"[1] About 10% of latent infections progress to active disease which, if left untreated, kills about half of those affected.\" +\n" +
-//                "                        \"[1] The classic symptoms of active TB are a chronic cough with blood-containing mucus, fever, night sweats, and weight loss.\" +\n" +
-//                "                        \"[1] It was historically called \\\"consumption\\\" due to the weight loss.[8] Infection of other organs can cause a wide range of symptoms.[9]\\n\" +\n" +
-//                "                        \"\\n\" +\n" +
-//                "                        \"Tuberculosis is spread through the air when people who have active TB in their lungs cough, spit, speak, or sneeze.\" +\n" +
-//                "                        \"[1][10] People with latent TB do not spread the disease.[1] Active infection occurs more often in people with HIV/AIDS and in those who smoke.\" +\n" +
-//                "                        \"[1] Diagnosis of active TB is based on chest X-rays, as well as microscopic examination and culture of body fluids.\" +\n" +
-//                "                        \"[11] Diagnosis of latent TB relies on the tuberculin skin test (TST) or blood tests.[11]"));
-//        data.add(new VaccinationBook("Tháng 10 Năm 2019", "Mũi\n1/1", "Tuberculosis", "28/10/2019", "1 tháng 27 ngày", R.drawable.ic_ellipse_202,"Newborn","Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria.\" +\n" +
-//                "                        \"[1] Tuberculosis generally affects the lungs, but can also affect other parts of the body.\" +\n" +
-//                "                        \"[1] Most infections do not have symptoms, in which case it is known as latent tuberculosis.\" +\n" +
-//                "                        \"[1] About 10% of latent infections progress to active disease which, if left untreated, kills about half of those affected.\" +\n" +
-//                "                        \"[1] The classic symptoms of active TB are a chronic cough with blood-containing mucus, fever, night sweats, and weight loss.\" +\n" +
-//                "                        \"[1] It was historically called \\\"consumption\\\" due to the weight loss.[8] Infection of other organs can cause a wide range of symptoms.[9]\\n\" +\n" +
-//                "                        \"\\n\" +\n" +
-//                "                        \"Tuberculosis is spread through the air when people who have active TB in their lungs cough, spit, speak, or sneeze.\" +\n" +
-//                "                        \"[1][10] People with latent TB do not spread the disease.[1] Active infection occurs more often in people with HIV/AIDS and in those who smoke.\" +\n" +
-//                "                        \"[1] Diagnosis of active TB is based on chest X-rays, as well as microscopic examination and culture of body fluids.\" +\n" +
-//                "                        \"[11] Diagnosis of latent TB relies on the tuberculin skin test (TST) or blood tests.[11]"));
-//        data.add(new VaccinationBook("Tháng 10 Năm 2019", "Mũi\n1/1", "Tuberculosis", "28/10/2019", "1 tháng 27 ngày", R.drawable.ic_ellipse_202,"Newborn","Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria.\" +\n" +
-//                "                        \"[1] Tuberculosis generally affects the lungs, but can also affect other parts of the body.\" +\n" +
-//                "                        \"[1] Most infections do not have symptoms, in which case it is known as latent tuberculosis.\" +\n" +
-//                "                        \"[1] About 10% of latent infections progress to active disease which, if left untreated, kills about half of those affected.\" +\n" +
-//                "                        \"[1] The classic symptoms of active TB are a chronic cough with blood-containing mucus, fever, night sweats, and weight loss.\" +\n" +
-//                "                        \"[1] It was historically called \\\"consumption\\\" due to the weight loss.[8] Infection of other organs can cause a wide range of symptoms.[9]\\n\" +\n" +
-//                "                        \"\\n\" +\n" +
-//                "                        \"Tuberculosis is spread through the air when people who have active TB in their lungs cough, spit, speak, or sneeze.\" +\n" +
-//                "                        \"[1][10] People with latent TB do not spread the disease.[1] Active infection occurs more often in people with HIV/AIDS and in those who smoke.\" +\n" +
-//                "                        \"[1] Diagnosis of active TB is based on chest X-rays, as well as microscopic examination and culture of body fluids.\" +\n" +
-//                "                        \"[11] Diagnosis of latent TB relies on the tuberculin skin test (TST) or blood tests.[11]"));
-//        data.add(new VaccinationBook("Tháng 10 Năm 2019", "Mũi\n1/1", "Tuberculosis", "28/10/2019", "1 tháng 27 ngày", R.drawable.ic_ellipse_202,"Newborn","Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria.\" +\n" +
-//                "                        \"[1] Tuberculosis generally affects the lungs, but can also affect other parts of the body.\" +\n" +
-//                "                        \"[1] Most infections do not have symptoms, in which case it is known as latent tuberculosis.\" +\n" +
-//                "                        \"[1] About 10% of latent infections progress to active disease which, if left untreated, kills about half of those affected.\" +\n" +
-//                "                        \"[1] The classic symptoms of active TB are a chronic cough with blood-containing mucus, fever, night sweats, and weight loss.\" +\n" +
-//                "                        \"[1] It was historically called \\\"consumption\\\" due to the weight loss.[8] Infection of other organs can cause a wide range of symptoms.[9]\\n\" +\n" +
-//                "                        \"\\n\" +\n" +
-//                "                        \"Tuberculosis is spread through the air when people who have active TB in their lungs cough, spit, speak, or sneeze.\" +\n" +
-//                "                        \"[1][10] People with latent TB do not spread the disease.[1] Active infection occurs more often in people with HIV/AIDS and in those who smoke.\" +\n" +
-//                "                        \"[1] Diagnosis of active TB is based on chest X-rays, as well as microscopic examination and culture of body fluids.\" +\n" +
-//                "                        \"[11] Diagnosis of latent TB relies on the tuberculin skin test (TST) or blood tests.[11]"));
-//        data.add(new VaccinationBook("Tháng 10 Năm 2019", "Mũi\n1/1", "Tuberculosis", "28/10/2019", "1 tháng 27 ngày", R.drawable.ic_ellipse_202,"Newborn","Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria.\" +\n" +
-//                "                        \"[1] Tuberculosis generally affects the lungs, but can also affect other parts of the body.\" +\n" +
-//                "                        \"[1] Most infections do not have symptoms, in which case it is known as latent tuberculosis.\" +\n" +
-//                "                        \"[1] About 10% of latent infections progress to active disease which, if left untreated, kills about half of those affected.\" +\n" +
-//                "                        \"[1] The classic symptoms of active TB are a chronic cough with blood-containing mucus, fever, night sweats, and weight loss.\" +\n" +
-//                "                        \"[1] It was historically called \\\"consumption\\\" due to the weight loss.[8] Infection of other organs can cause a wide range of symptoms.[9]\\n\" +\n" +
-//                "                        \"\\n\" +\n" +
-//                "                        \"Tuberculosis is spread through the air when people who have active TB in their lungs cough, spit, speak, or sneeze.\" +\n" +
-//                "                        \"[1][10] People with latent TB do not spread the disease.[1] Active infection occurs more often in people with HIV/AIDS and in those who smoke.\" +\n" +
-//                "                        \"[1] Diagnosis of active TB is based on chest X-rays, as well as microscopic examination and culture of body fluids.\" +\n" +
-//                "                        \"[11] Diagnosis of latent TB relies on the tuberculin skin test (TST) or blood tests.[11]"));
-//        data.add(new VaccinationBook("Tháng 10 Năm 2019", "Mũi\n1/1", "Tuberculosis", "28/10/2019", "1 tháng 27 ngày", R.drawable.ic_ellipse_202,"Newborn","Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria.\" +\n" +
-//                "                        \"[1] Tuberculosis generally affects the lungs, but can also affect other parts of the body.\" +\n" +
-//                "                        \"[1] Most infections do not have symptoms, in which case it is known as latent tuberculosis.\" +\n" +
-//                "                        \"[1] About 10% of latent infections progress to active disease which, if left untreated, kills about half of those affected.\" +\n" +
-//                "                        \"[1] The classic symptoms of active TB are a chronic cough with blood-containing mucus, fever, night sweats, and weight loss.\" +\n" +
-//                "                        \"[1] It was historically called \\\"consumption\\\" due to the weight loss.[8] Infection of other organs can cause a wide range of symptoms.[9]\\n\" +\n" +
-//                "                        \"\\n\" +\n" +
-//                "                        \"Tuberculosis is spread through the air when people who have active TB in their lungs cough, spit, speak, or sneeze.\" +\n" +
-//                "                        \"[1][10] People with latent TB do not spread the disease.[1] Active infection occurs more often in people with HIV/AIDS and in those who smoke.\" +\n" +
-//                "                        \"[1] Diagnosis of active TB is based on chest X-rays, as well as microscopic examination and culture of body fluids.\" +\n" +
-//                "                        \"[11] Diagnosis of latent TB relies on the tuberculin skin test (TST) or blood tests.[11]"));
-//        data.add(new VaccinationBook("Tháng 10 Năm 2019", "Mũi\n1/1", "Tuberculosis", "28/10/2019", "1 tháng 27 ngày", R.drawable.ic_ellipse_202,"Newborn","Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria.\" +\n" +
-//                "                        \"[1] Tuberculosis generally affects the lungs, but can also affect other parts of the body.\" +\n" +
-//                "                        \"[1] Most infections do not have symptoms, in which case it is known as latent tuberculosis.\" +\n" +
-//                "                        \"[1] About 10% of latent infections progress to active disease which, if left untreated, kills about half of those affected.\" +\n" +
-//                "                        \"[1] The classic symptoms of active TB are a chronic cough with blood-containing mucus, fever, night sweats, and weight loss.\" +\n" +
-//                "                        \"[1] It was historically called \\\"consumption\\\" due to the weight loss.[8] Infection of other organs can cause a wide range of symptoms.[9]\\n\" +\n" +
-//                "                        \"\\n\" +\n" +
-//                "                        \"Tuberculosis is spread through the air when people who have active TB in their lungs cough, spit, speak, or sneeze.\" +\n" +
-//                "                        \"[1][10] People with latent TB do not spread the disease.[1] Active infection occurs more often in people with HIV/AIDS and in those who smoke.\" +\n" +
-//                "                        \"[1] Diagnosis of active TB is based on chest X-rays, as well as microscopic examination and culture of body fluids.\" +\n" +
-//                "                        \"[11] Diagnosis of latent TB relies on the tuberculin skin test (TST) or blood tests.[11]"));
-//        adapter.setData(data);
+
     }
 
     private void initView() {

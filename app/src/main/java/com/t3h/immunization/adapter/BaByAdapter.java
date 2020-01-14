@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.EditBaByActivity;
 import com.t3h.immunization.model.GetBaby;
@@ -38,9 +41,16 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         this.data = data;
         notifyDataSetChanged();
     }
-// thêm
+
     public void  getItemBaby(int position) {
-        GetBaby.getInstance().setBabyId(data.get(position).getBabyId());
+        Log.e("testt", "getItemBaby:    "+position +"   //      list size "+data.size() );
+        if (data.size()==0){
+            GetBaby.getInstance().setBabyId(-1);
+
+        }else {
+            GetBaby.getInstance().setBabyId(data.get(position).getBabyId());
+            GetBaby.getInstance().setBirthday(data.get(position).getBirthday());
+        }
     }
 
     @NonNull
@@ -54,10 +64,15 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
     public void onBindViewHolder(@NonNull VaccineHolder holder, final int position) {
         poss = position;
         GetBaby name = data.get(position);
-        Log.e("bbbb", String.valueOf(data.get(position)));
         holder.bindData(name);
         if (listener != null) {
-            holder.itemView.setOnClickListener(view -> listener.onClicked(position));
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onClicked(position);
+                    getItemBaby(position);
+                }
+            });
             holder.itemView.setOnLongClickListener(view -> {
                 listener.onLongClicked(position);
                 return true;
@@ -81,17 +96,25 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         TextView tvnot_injected;
         @BindView(R.id.btn_repair)
         Button btnRepair;
+        @BindView(R.id.avatar)
+        ImageView imAvatar;
 
         public VaccineHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
+
         public void bindData(GetBaby item) {
             tvName.setText(item.getName());
             tvHave_injected.setText("Đã tiêm : " + item.getInjected());
             tvMiss.setText("Bỏ lỡ : " +item.getMissInjected());
             tvnot_injected.setText("Chưa tiêm : " +item.getNotInjected());
+          if (item.getGender().equalsIgnoreCase("Nam")){
+              imAvatar.setImageResource(R.drawable.avatar_2);
+          }else {
+              imAvatar.setImageResource(R.drawable.avatar);
+          }
             btnRepair.setOnClickListener(view -> {
                 Intent intent = new Intent(context.getApplicationContext(), EditBaByActivity.class);
                 intent.putExtra("data", data.get(poss));
@@ -99,11 +122,10 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
                 context.startActivity(intent);
             });
 
+
         }
 
     }
-
-
     public interface ItemClickListener {
         void onClicked(int position);
 

@@ -14,16 +14,6 @@ public class InjectionGroup {
     @SerializedName("link")
     @Expose
     private String linkUrl;
-    private int image;
-
-    public int getImage() {
-        return image;
-    }
-    
-
-    public void setImage(int image) {
-        this.image = image;
-    }
 
     public String getLinkUrl() {
         return linkUrl;

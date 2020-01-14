@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
+import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.util.AppPreferences;
 import com.t3h.immunization.util.Libs;
@@ -58,10 +59,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
         tvForget.setOnClickListener(this);
-        sharedPreferences = getSharedPreferences("SaveDataLogin", Context.MODE_PRIVATE);
-        edtName.setText(sharedPreferences.getString("taikhoan", ""));
-        edtPass.setText(sharedPreferences.getString("matkhau", ""));
-        checkBox.setChecked(sharedPreferences.getBoolean(KEY_LOGIN, false));
+       edtName.setText( AppPreferences.getInstance(getApplicationContext()).getString(("taikhoan")));
+      edtPass.setText( AppPreferences.getInstance(getApplicationContext()).getString("matkhau"));
+        Log.e("LOGIN", "key Check box  "+AppPreferences.getInstance(getApplicationContext()).getBoolean("checked") );
+        checkBox.setChecked(AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));//cho nay
+//        edtName.setText(sharedPreferences.getString("taikhoan", ""));
+//        edtPass.setText(sharedPreferences.getString("matkhau", ""));
+//        checkBox.setChecked(sharedPreferences.getBoolean("checked", false));// cho này key khac nhau a ơi
+//    }
     }
 
     @Override
@@ -76,54 +81,62 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                String user_name = edtName.getText().toString();
-                String password = edtPass.getText().toString();
-                if (user_name.isEmpty() && password.isEmpty()) {
-                    Toast.makeText(this, "Please complete the form", Toast.LENGTH_SHORT).show();
-                } else {
-                    ApiBuilder.getInstance().login(user_name, password).enqueue(new Callback<ResponeLogin>() {
-                        @Override
-                        public void onResponse(Call<ResponeLogin> call, Response<ResponeLogin> response) {
-                            if (response.body().getStatus() == true) {
-                                Log.e("TAG", "CHECK LOGIN SUCCESS!");
-                                Intent intent = new Intent(LoginActivity.this, CategoriActivity.class);
-                                startActivity(intent);
-                                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                                if (checkBox.isChecked()) {
+                callApiLogin();
+                break;
+        }
+    }
+
+    public  void callApiLogin() {
+        String user_name = edtName.getText().toString();
+        String password = edtPass.getText().toString();
+        if (user_name.isEmpty() && password.isEmpty()) {
+            Toast.makeText(this, "Please complete the form", Toast.LENGTH_SHORT).show();
+        }
+        ApiBuilder.getInstance().login(user_name, password).enqueue(new Callback<ResponeLogin>() {
+            @Override
+            public void onResponse(Call<ResponeLogin> call, Response<ResponeLogin> response) {
+                if (response.body().getStatus() == true) {
+                    Log.e("TAG", "CHECK LOGIN SUCCESS!");
+                    Intent intent = new Intent(LoginActivity.this, CategoriActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                    User.getInstans().setId(response.body().getData().getId());
+                    if (checkBox.isChecked()) {
 //                                    SharedPreferences.Editor editor = sharedPreferences.edit();
 //                                    editor.putString("taikhoan", user_name);
 //                                    editor.putString("matkhau", password);
 //                                    editor.putBoolean("checked", true);
 //                                    AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN, true);
-                                    AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
-                                    AppPreferences.getInstance(getApplicationContext()).putString("matkhau", password);
-                                    AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", true);
+                        AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
+                        AppPreferences.getInstance(getApplicationContext()).putString("matkhau", password);
+                        AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", true);//cho nay
+                        Log.e("LOGIN", "onResponse: check  "+AppPreferences.getInstance(getApplicationContext()).getBoolean("checked") );
 //                                    editor.commit();
 
-                                } else {
+                    } else {
 //                                    AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN, true);
-                                    AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", "");
-                                    AppPreferences.getInstance(getApplicationContext()).putString("matkhau", "");
-                                    AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", false);
+                        AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", "");
+                        AppPreferences.getInstance(getApplicationContext()).putString("matkhau", "");
+                        AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", false);
+                        Log.e("LOGIN", "onResponse: not check "+  AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
 
-                                }
-                            } else {
-                                Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponeLogin> call, Throwable t) {
-                            Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                            Log.e("TAG", "CHECK LOGIN failed!");
-                            t.printStackTrace();
-                        }
-                    });
-
+                    }
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
-        }
-    }
 
+            }
+
+            @Override
+            public void onFailure(Call<ResponeLogin> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                Log.e("TAG", "CHECK LOGIN failed!");
+                t.printStackTrace();
+            }
+        });
+    }
 }
+
+
 

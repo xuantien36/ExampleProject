@@ -15,21 +15,21 @@
             android:id="@+id/back"
             android:src="@drawable/ic_group_131"
             android:layout_alignParentLeft="true"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
         <TextView
             android:layout_centerInParent="true"
             android:textColor="#F7F3F3"
             android:textSize="22sp"
-            android:text="Hòm Thư Góp Ý"
+            android:text="@string/tv_feedback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
             android:id="@+id/sending"
             android:src="@drawable/ic_group_575"
             android:layout_alignParentRight="true"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
     </RelativeLayout>
     <RelativeLayout
         android:gravity="center"
@@ -72,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/nd"
             android:layout_toRightOf="@id/tv_2"
             android:layout_toLeftOf="@id/clip"
             android:layout_centerInParent="true"
@@ -106,6 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/chude"
             android:layout_centerInParent="true"
             android:layout_toRightOf="@id/tv_3"
             android:background="@android:color/transparent"

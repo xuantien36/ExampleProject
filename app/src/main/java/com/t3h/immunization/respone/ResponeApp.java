@@ -1,16 +1,16 @@
 package com.t3h.immunization.respone;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.t3h.immunization.model.User;
+import com.t3h.immunization.model.UpdateApp;
 
 public class ResponeApp {
+
     @SerializedName("status")
     @Expose
     private Boolean status;
     @SerializedName("data")
     @Expose
-    private User data;
+    private UpdateApp data;
 
     public Boolean getStatus() {
         return status;
@@ -20,13 +20,12 @@ public class ResponeApp {
         this.status = status;
     }
 
-    public User getData() {
+    public UpdateApp getData() {
         return data;
     }
 
-    public void setData(User data) {
+    public void setData(UpdateApp data) {
         this.data = data;
     }
 
 }
-

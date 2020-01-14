@@ -52,6 +52,12 @@
     <string name="injected">Đã tiêm</string>
     <string name="miss">Bỏ lỡ</string>
     <string name="not_injected">Chưa tiêm</string>
+    <string name="tv_update">Đã có bản cập nhật mới,cập nhật ngay</string>
+    <string name="btn_Yes">Có</string>
+    <string name="btn_No">Không</string>
+    <string name="tv_feedback">Hòm Thư Góp Ý</string>
+    <string name="edit_injected">Sửa Thông Tin Mũi Tiêm</string>
+    <string name="detail">Chi Tiết Mũi Tiêm</string>
     <string-array name="language_names">
         <item>@string/language_english</item>
         <item>@string/language_vietnamese</item>

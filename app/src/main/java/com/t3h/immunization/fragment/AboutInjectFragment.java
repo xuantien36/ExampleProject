@@ -41,7 +41,6 @@ public class AboutInjectFragment extends Fragment implements VaccineBookAdapter.
                 }
 
             }
-
             @Override
             public void onFailure(Call<ResponeStatistical> call, Throwable t) {
 

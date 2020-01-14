@@ -17,7 +17,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lv_vaccine"
         android:layout_width="match_parent"
-        app:spanCount="3"
+        app:spanCount="2"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
 
