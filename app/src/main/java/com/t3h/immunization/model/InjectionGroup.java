@@ -1,9 +1,10 @@
 package com.t3h.immunization.model;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class InjectionGroup {
+import java.io.Serializable;
+
+public class InjectionGroup implements Serializable {
     @SerializedName("group_title")
     @Expose
     private String groupTitle;

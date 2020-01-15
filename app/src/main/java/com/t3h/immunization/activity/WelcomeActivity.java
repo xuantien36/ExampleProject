@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,9 +50,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.layoutDots)
     LinearLayout dotsLayout;
     @BindView(R.id.btn_skip)
-    Button btnSkip;
+    ImageButton btnSkip;
     @BindView(R.id.btn_next)
-    Button btnNext;
+    ImageButton btnNext;
     @BindView(R.id.btn_ignore)
     Button btnIgnore;
     @Override
@@ -176,7 +177,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.btn_ignore:
-                Intent intent=new Intent(this,LoginActivity.class);
+                Intent intent=new Intent(this,StartsActivity.class);
                 startActivity(intent);
                 break;
         }

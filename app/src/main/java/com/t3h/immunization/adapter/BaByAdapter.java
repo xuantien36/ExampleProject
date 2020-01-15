@@ -50,6 +50,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         }else {
             GetBaby.getInstance().setBabyId(data.get(position).getBabyId());
             GetBaby.getInstance().setBirthday(data.get(position).getBirthday());
+            GetBaby.getInstance().setName(data.get(position).getName());
         }
     }
 
@@ -70,7 +71,6 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
                 @Override
                 public void onClick(View view) {
                     listener.onClicked(position);
-                    getItemBaby(position);
                 }
             });
             holder.itemView.setOnLongClickListener(view -> {

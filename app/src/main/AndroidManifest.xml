@@ -14,8 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ChangeLanguageActivity"
+        <activity android:name=".activity.StartsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.ChangeLanguageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AddBabyActivity"
             android:theme="@style/AppTheme.NoActionBar" />

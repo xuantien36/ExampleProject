@@ -51,40 +51,6 @@
                 android:hint="Họ và tên" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
-                android:layout_weight="2"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edt_birthday"
-                    android:maxLines="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/shape_custom_register"
-                    android:hint="Ngày sinh" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <RadioButton
-                android:id="@+id/radio_male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="Nam" />
-
-            <RadioButton
-                android:id="@+id/radio_female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="Nữ" />
-        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -142,7 +108,7 @@
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:background="@drawable/custom_edittext_register"
             android:text="Đăng ký"
             android:textAllCaps="false"

@@ -20,7 +20,7 @@
             android:layout_centerInParent="true"
             android:textColor="#C03869"
             android:textSize="20sp"
-            android:text="Thông Tin Bé"
+            android:text="@string/baby_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
@@ -39,15 +39,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:layout_gravity="center">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/im_baby"
-                android:layout_width="150dp"
-                android:layout_height="200dp"
-                android:src="@drawable/group_685" />
-
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/im_baby"
+                    android:layout_width="100dp"
+                    android:layout_height="160dp"
+                    android:src="@drawable/avatar" />
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:id="@+id/gender"
+                    android:src="@drawable/ic_ellipse_33"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -97,12 +108,12 @@
     </LinearLayout>
     <Button
         android:id="@+id/btn_delete"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textColor="#F1E9E9"
         android:textAllCaps="false"
         android:layout_margin="20dp"
         android:background="@drawable/shape_custom_button"
-        android:text="Delete Baby "
+        android:text="@string/delete_baby_infomation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

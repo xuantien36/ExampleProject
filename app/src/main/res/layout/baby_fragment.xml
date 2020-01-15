@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@drawable/artboard_20"
+    android:background="@drawable/artboard_image"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -26,12 +27,19 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/ic_group_317" />
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/ln_choose"
         android:id="@+id/lv_baby"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ln_choose"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_baby" />
+
     <TextView
         android:id="@+id/tv_empty"
         android:visibility="gone"

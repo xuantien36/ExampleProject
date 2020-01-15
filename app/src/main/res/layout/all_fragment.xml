@@ -29,14 +29,16 @@
             android:background="@drawable/rect"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/lv_all"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                     />
+            <ExpandableListView
+                android:id="@+id/expandableListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:layout_marginBottom="100dp"
+                android:transitionGroup="true"
+                android:groupIndicator="@null"
+                android:transcriptMode="alwaysScroll"/>
+
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

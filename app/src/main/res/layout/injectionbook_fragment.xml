@@ -10,6 +10,7 @@
         android:background="@color/colorBG1"
         android:weightSum="1">
         <LinearLayout
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -20,8 +21,15 @@
                 android:id="@+id/imgAnhBe"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:src="@drawable/ic_group_373" />
+            <TextView
+                android:id="@+id/baby_name"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:text="name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <RelativeLayout
             android:padding="20dp"
@@ -43,7 +51,9 @@
         android:layout_height="@dimen/height_tab"
         android:background="@color/colorBG1"
         app:tabBackground="@drawable/tab_background"
-        app:tabIndicatorColor="#FF9800"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabMode="fixed"
+        android:theme="@style/MyCustomTabLayout"
         app:tabSelectedTextColor="@drawable/textcolor_selector"
         app:tabTextColor="#FAF9F9" />
     <androidx.viewpager.widget.ViewPager

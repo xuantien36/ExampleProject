@@ -4,17 +4,5 @@
     android:layout_width="match_parent"
     android:background="@drawable/slide_3"
     android:layout_height="match_parent">
-    <Button
-        android:fontFamily="@font/svn_pokys"
-        android:layout_marginBottom="100dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/btn_starst"
-        android:textColor="#C03869"
-        android:text="bắt đầu"
-        android:background="@drawable/shape_custom"
-        android:layout_marginTop="@dimen/dimen_text"
-        android:layout_centerHorizontal="true"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

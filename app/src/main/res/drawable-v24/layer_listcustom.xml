@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android = "http://schemas.android.com/apk/res/android">
     <item>
-        <shape android:shape="rectangle">
-            <size
-                android:width="40dp"
-                android:height="2dp" />
+        <shape android:shape="ring">
         </shape>
     </item>
     <item>
@@ -12,8 +9,8 @@
             android:drawable="@drawable/ic_group_133"
             android:insetLeft="0dp"
             android:insetRight="0dp"
-            android:insetBottom="10dp"
-            android:insetTop="10dp"/>
+            android:insetBottom="20dp"
+            android:insetTop="20dp"/>
 
     </item>
 </layer-list>

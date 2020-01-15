@@ -17,8 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FourFragment extends Fragment implements View.OnClickListener {
-    @BindView(R.id.btn_starst)
-    Button btn_Starst;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,13 +28,8 @@ public class FourFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        init();
-    }
 
-    private void init() {
-        btn_Starst.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View view) {
         Intent intent=new Intent(getContext(), LoginActivity.class);

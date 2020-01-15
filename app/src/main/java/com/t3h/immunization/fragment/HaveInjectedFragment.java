@@ -32,20 +32,6 @@ public class HaveInjectedFragment extends Fragment implements VaccineBookAdapter
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.passed_fragment, container, false);
         ButterKnife.bind(this, view);
-        ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
-            @Override
-            public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
-                List<InjectionGroup> injectionGroup =response.body().getInjectionGroup();
-                if (injectionGroup!=null){
-                    adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
-                }
-
-            }
-            @Override
-            public void onFailure(Call<ResponeStatistical> call, Throwable t) {
-
-            }
-        });
         return view;
     }
 

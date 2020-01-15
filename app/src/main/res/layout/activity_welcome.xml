@@ -37,22 +37,27 @@
         android:layout_above="@id/layoutDots"
         android:background="@android:color/white" />
 
-    <Button
+    <ImageButton
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_path9_1"
         android:visibility="visible"
-        android:layout_margin="10dp"
+        android:layout_margin="6dp"
         android:id="@+id/btn_next"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_path9_1"/>
-    <Button
-        android:layout_margin="10dp"
+        android:background="@null"/>
+    <ImageButton
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_path_9"
+        android:layout_margin="6dp"
         android:visibility="gone"
         android:id="@+id/btn_skip"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/ic_path_9"/>
+        android:background="@null"/>
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.t3h.immunization.fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,6 @@ import retrofit2.Response;
 public class MissFragment extends Fragment implements VaccineBookAdapter.ItemClickListener {
     private ArrayList<InjectionGroup> data;
     private VaccineBookAdapter adapter;
-    @BindView(R.id.lv_all)
-    RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -35,10 +34,13 @@ public class MissFragment extends Fragment implements VaccineBookAdapter.ItemCli
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
             @Override
             public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
-                List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
-                if (injectionGroup!=null){
-                    adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
+                List<InjectionGroup> injectionGroups = response.body().getInjectionGroup();
+                if (injectionGroups != null){
+//                    recyclerView.setAdapter(adapter);
+                    Log.e("TAG", "onResponse miss: "+ (response.body().getInjectionGroup()).size() );
+
                 }
+
             }
             @Override
             public void onFailure(Call<ResponeStatistical> call, Throwable t) {
@@ -56,10 +58,8 @@ public class MissFragment extends Fragment implements VaccineBookAdapter.ItemCli
 
     private void initView() {
         adapter = new VaccineBookAdapter(getContext());
-        recyclerView.setAdapter(adapter);
+//        recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
-
-
     }
     @Override
     public void onClicked(int position) {

@@ -53,6 +53,8 @@
     <string name="edit_injected">Edit Injection Information</string>
     <string name="tv_feedback">Suggestion Box</string>
     <string name="forgot_your_login_information">Forgot login?</string>
+    <string name="baby_information">Baby Information</string>
+    <string name="delete_baby_infomation">Remove baby from the list</string>
     <string name="tv_dicription_information">All information of the application is for reference only.You need to consult
         a preventive medicine specialist before using any information, we are not responsible for the use of information.</string>
 </resources>

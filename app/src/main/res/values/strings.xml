@@ -58,6 +58,8 @@
     <string name="tv_feedback">Hòm Thư Góp Ý</string>
     <string name="edit_injected">Sửa Thông Tin Mũi Tiêm</string>
     <string name="detail">Chi Tiết Mũi Tiêm</string>
+    <string name="baby_information">Thông Tin Bé</string>
+    <string name="delete_baby_infomation">Xóa bé khỏi danh sách</string>
     <string-array name="language_names">
         <item>@string/language_english</item>
         <item>@string/language_vietnamese</item>

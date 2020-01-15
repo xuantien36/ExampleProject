@@ -1,25 +1,35 @@
 package com.t3h.immunization.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
 import com.t3h.immunization.R;
 import com.t3h.immunization.adapter.PagerTabAdapter;
+import com.t3h.immunization.api.ApiBuilder;
+import com.t3h.immunization.model.GetBaby;
+import com.t3h.immunization.model.InjectionGroup;
+import com.t3h.immunization.respone.ResponeStatistical;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InjectionBookFragment extends Fragment implements ViewPager.OnPageChangeListener {
     private PagerTabAdapter adapter;
-    private AllFragment allFragment = new AllFragment();
     private AboutInjectFragment about = new AboutInjectFragment();
     private HaveInjectedFragment passedFragment = new HaveInjectedFragment();
     private NotinjectedFragment notinjectedFragment=new NotinjectedFragment();
@@ -28,6 +38,8 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     TabLayout tabLayout;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
+    @BindView(R.id.baby_name)
+    TextView babyName;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -36,13 +48,29 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     }
 
     private void initView() {
-        Fragment[] frm = {allFragment,passedFragment, about,notinjectedFragment};
-        adapter = new PagerTabAdapter(getChildFragmentManager(), frm);
-        viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(0);
-        viewPager.setOffscreenPageLimit(4);
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(this);
+
+
+        ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
+                if (response.body().getStatus()==true){
+                    adapter = new PagerTabAdapter(getActivity().getSupportFragmentManager(),response.body().getData(),response.body().getInjectionGroup());
+                    viewPager.setAdapter(adapter);
+                    viewPager.setCurrentItem(0);
+                    viewPager.setOffscreenPageLimit(4);
+                    tabLayout.setupWithViewPager(viewPager);
+                    babyName.setText(GetBaby.getInstance().getName());
+//                    adapter.setDataList(response.body().getData(),response.body().getInjectionGroup());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponeStatistical> call, Throwable t) {
+
+            }
+        });
+
     }
     @Nullable
     @Override

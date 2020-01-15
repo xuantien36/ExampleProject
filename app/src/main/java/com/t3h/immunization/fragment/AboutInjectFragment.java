@@ -35,10 +35,7 @@ public class AboutInjectFragment extends Fragment implements VaccineBookAdapter.
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
             @Override
             public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
-                List<InjectionGroup> injectionGroup =response.body().getInjectionGroup();
-                if (injectionGroup!=null){
-                    adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
-                }
+
 
             }
             @Override

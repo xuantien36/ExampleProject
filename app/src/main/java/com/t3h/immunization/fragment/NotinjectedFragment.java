@@ -1,5 +1,6 @@
 package com.t3h.immunization.fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import retrofit2.Response;
 public class NotinjectedFragment extends Fragment implements VaccineBookAdapter.ItemClickListener {
     private ArrayList<InjectionGroup> data;
     private VaccineBookAdapter adapter;
-    @BindView(R.id.lv_all)
     RecyclerView recyclerView;
 
     @Nullable
@@ -35,13 +35,15 @@ public class NotinjectedFragment extends Fragment implements VaccineBookAdapter.
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
             @Override
             public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
-                List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
-                if (injectionGroup!=null){
-                    adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
-                }
+//                List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
+//
+//                if (injectionGroup!=null){
+//
+//                    adapter = new VaccineBookAdapter(getContext());
+//                    recyclerView.setAdapter(adapter);
+//                    Log.e("TAG", "onResponse not: "+ adapter.getItemCount());
 
             }
-
             @Override
             public void onFailure(Call<ResponeStatistical> call, Throwable t) {
 
@@ -49,7 +51,6 @@ public class NotinjectedFragment extends Fragment implements VaccineBookAdapter.
         });
         return view;
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -57,9 +58,8 @@ public class NotinjectedFragment extends Fragment implements VaccineBookAdapter.
 
     }
     private void initView() {
-        adapter = new VaccineBookAdapter(getContext());
-        recyclerView.setAdapter(adapter);
-        adapter.setOnListener(this);
+//        adapter = new VaccineBookAdapter(getContext());
+//        adapter.setOnListener(this);
 
     }
     @Override

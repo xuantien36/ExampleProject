@@ -184,7 +184,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         childHolder.name.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
 
-        setDate = Long.parseLong(String.valueOf(Long.parseLong(getChild(groupPosition, childPosition).getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000))));
+        setDate = Long.parseLong(String.valueOf(Long.parseLong(getChild(groupPosition, childPosition).getDate()) *
+                Long.parseLong("" + (24 * 60 * 60 * 1000))));
         Log.e("setdate", "getChildView: " + childPosition + "\\\\\\\\\\" + setDate);
 
         childHolder.date.setText(getDate(getMilliFromDate(GetBaby.getInstance().getBirthday()) + setDate, "dd/MM/yyyy"));

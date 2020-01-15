@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C03869"
     android:orientation="vertical">
+
+
     <ImageView
        android:layout_margin="10dp"
         android:src="@drawable/ic_group_587"
@@ -37,20 +40,21 @@
             android:textColor="#C03869"
             android:textSize="15sp" />
     </RelativeLayout>
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="42dp"
         android:src="@drawable/ic_mask_group_15" />
+
     <ExpandableListView
         android:layout_below="@id/tv_2"
         android:id="@+id/expandableListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="5dp"
+        android:layout_height="match_parent"
         android:divider="@null"
+        android:layout_marginBottom="70dp"
         android:transitionGroup="true"
         android:groupIndicator="@null"
         android:transcriptMode="alwaysScroll"/>
