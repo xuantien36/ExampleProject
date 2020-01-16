@@ -95,9 +95,9 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
                 showDialogInfor();
                 break;
             case 2:
-                Uri uri1 = Uri.parse("");
-                Intent intent1 = new Intent(Intent.ACTION_VIEW, uri1);
-                startActivity(intent1);
+//                Uri uri1 = Uri.parse("");
+//                Intent intent1 = new Intent(Intent.ACTION_VIEW, uri1);
+//                startActivity(intent1);
                 break;
             case 3:
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);

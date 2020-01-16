@@ -21,6 +21,7 @@
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
+            android:maxLines="1"
             android:gravity="center"
             android:id="@+id/tvView"
             android:layout_width="wrap_content"

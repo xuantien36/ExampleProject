@@ -120,15 +120,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView date;
         ImageView image;
     }
-    private void realTime() {
-        long time = System.currentTimeMillis() ;
-        Log.e("TAG", "realTime 1: "+System.currentTimeMillis() );
-        Log.e("TAG", "realTime 2: "+getMilliFromDate(GetBaby.getInstance().getBirthday()));
-
-
-
-    }
-
     public String countInjected(List<Injections> injectionsList) {
         int count = 0;
         for (Injections injections : injectionsList) {

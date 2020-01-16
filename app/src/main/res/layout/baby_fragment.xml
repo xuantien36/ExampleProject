@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ln_choose"
         android:layout_gravity="center"
+        android:nestedScrollingEnabled="false"
         android:layout_centerVertical="true"
         android:layout_marginTop="0dp"
         android:orientation="horizontal"

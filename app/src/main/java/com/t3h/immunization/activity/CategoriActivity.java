@@ -98,8 +98,6 @@ public class CategoriActivity extends AppCompatActivity  {
                 break;
         }
     }
-
-
     public void changeTabBottom(int index) {
         try {
             Fragment fragment = null;

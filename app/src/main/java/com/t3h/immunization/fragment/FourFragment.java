@@ -9,14 +9,11 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.t3h.immunization.R;
-import com.t3h.immunization.activity.LoginActivity;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FourFragment extends Fragment implements View.OnClickListener {
+public class FourFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,12 +25,6 @@ public class FourFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-    }
-    @Override
-    public void onClick(View view) {
-        Intent intent=new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
 
     }
 }

@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.EditBaByActivity;
 import com.t3h.immunization.model.GetBaby;
@@ -36,7 +34,6 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         this.context = context;
 
     }
-
     public void setData(List<GetBaby> data) {
         this.data = data;
         notifyDataSetChanged();
@@ -53,24 +50,30 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
             GetBaby.getInstance().setName(data.get(position).getName());
         }
     }
-
     @NonNull
     @Override
     public VaccineHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = inflater.inflate(R.layout.item_baby, parent, false);
         return new VaccineHolder(v);
     }
-
     @Override
     public void onBindViewHolder(@NonNull VaccineHolder holder, final int position) {
-        poss = position;
+
         GetBaby name = data.get(position);
+        poss = position;
         holder.bindData(name);
+       holder. btnRepair.setOnClickListener(view -> {
+            Intent intent = new Intent(context.getApplicationContext(), EditBaByActivity.class);
+            intent.putExtra("data", data.get(position));
+            Log.e("bin", "bindData: "+position);
+            context.startActivity(intent);
+        });
         if (listener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onClicked(position);
+
                 }
             });
             holder.itemView.setOnLongClickListener(view -> {
@@ -115,13 +118,6 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
           }else {
               imAvatar.setImageResource(R.drawable.avatar);
           }
-            btnRepair.setOnClickListener(view -> {
-                Intent intent = new Intent(context.getApplicationContext(), EditBaByActivity.class);
-                intent.putExtra("data", data.get(poss));
-                Log.e("aaa", String.valueOf(data.get(poss)));
-                context.startActivity(intent);
-            });
-
 
         }
 

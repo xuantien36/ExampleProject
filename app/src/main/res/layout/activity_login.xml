@@ -71,7 +71,9 @@
             android:textColor="#C03869"
             android:text="@string/remember_the_password"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentStart="true" />
         <TextView
             android:maxLines="2"
             android:id="@+id/tv_forget"
@@ -81,7 +83,8 @@
             android:layout_alignParentRight="true"
             android:text="@string/forgot_your_login_information"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
     <LinearLayout
         android:padding="20dp"

@@ -30,10 +30,6 @@ import retrofit2.Response;
 
 public class InjectionBookFragment extends Fragment implements ViewPager.OnPageChangeListener {
     private PagerTabAdapter adapter;
-    private AboutInjectFragment about = new AboutInjectFragment();
-    private HaveInjectedFragment passedFragment = new HaveInjectedFragment();
-    private NotinjectedFragment notinjectedFragment=new NotinjectedFragment();
-
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.view_pager)

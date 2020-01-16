@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 public class AllFragment extends Fragment implements VaccineBookAdapter.ItemClickListener {
     private ExpanAdapterInjected adapter;
     @BindView(R.id.expandableListView)
-    ExpandableListView recyclerView;
+    ExpandableListView expandableList;
     List<InjectionGroup> groups;
     private List<List<Injections>> dataInjection;
 
@@ -38,47 +38,23 @@ public class AllFragment extends Fragment implements VaccineBookAdapter.ItemClic
         this.dataInjection = dataInjection;
         this.groups = groups;
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.all_fragment, container, false);
         ButterKnife.bind(this, view);
-//        section=new ArrayList<>();
-//        ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
-//            public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
-//                List<InjectionGroup> injectionGroup  = response.body().getInjectionGroup();
-//                List<Injections> data =response.body().getData();
-//                Log.e("data", "onResponse 1111: "+response.body().getData().size());
-//                Log.e("injected", "onResponse 2222: "+response.body().getInjectionGroup().size() );
-//
-////                calculatorSection(data);
-////
-////                groupDataInjection(data, section);
-//
-//                if (injectionGroup != null){
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponeStatistical> call, Throwable t) {
-//
-//            }
-//        });
         Log.e("TATTT", "onCreateView: "+dataInjection.size() );
         adapter = new ExpanAdapterInjected(getContext());
         adapter.setDataList(dataInjection,groups);
-        recyclerView.setAdapter(adapter);
+        expandableList.setAdapter(adapter);
         for (int i = 0; i <dataInjection.size() ; i++) {
-            recyclerView.expandGroup(i);
+            expandableList.expandGroup(i);
         }
-        recyclerView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+        expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
-            public void onGroupExpand(int i) {
-
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                return true; // This way the expander cannot be collapsed
             }
         });
         return view;

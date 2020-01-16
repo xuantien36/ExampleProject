@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.t3h.immunization.R;
 import com.t3h.immunization.fragment.AllFragment;
 import com.t3h.immunization.fragment.HaveInjectedFragment;
 import com.t3h.immunization.fragment.MissFragment;
@@ -46,24 +47,25 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-
         switch (position) {
-            case 0: {
+            case 0:
                 return new AllFragment(groupDataInjection(datainjection,section),datagroup);
-            }
-            case 1: {
+
+
+            case 1:
                 return new HaveInjectedFragment();
-            }
-            case 2: {
-                return new NotinjectedFragment();
 
-            }
-            case 3: {
-                return new MissFragment();
+            case 2:
+                return new NotinjectedFragment(groupDataInjection(datainjection,section),datagroup);
 
-            }
+
+            case 3:
+                return new MissFragment(groupDataInjectionMiss(groupDataInjection(datainjection,section)),datagroup);
+
+
             default:
                  return new AllFragment(groupDataInjection(datainjection,section),datagroup);
+
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -134,6 +136,27 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
 //            }
 //        }
         return dataInjection;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List groupDataInjectionMiss(List<List<Injections>> _dataInjection){
+        List<List<Injections>> newlist = new ArrayList<>();
+
+        for (int i = 0; i <_dataInjection.size() ; i++) {
+            List<Injections> temp = new ArrayList<>();
+            for (int j = 0; j <_dataInjection.get(i).size() ; j++) {
+                if (_dataInjection.get(i).get(j).getIsInjected().equalsIgnoreCase("0")&&
+                        (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                                (Long.parseLong(String.valueOf(Long.parseLong(_dataInjection.get(i).get(j).getDate()) *
+                                        Long.parseLong("" + (24 * 60 * 60 * 1000))))))))){
+                    temp.add(_dataInjection.get(i).get(j));
+
+                }
+            }
+            newlist.add(temp);
+        }
+
+        return newlist;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
