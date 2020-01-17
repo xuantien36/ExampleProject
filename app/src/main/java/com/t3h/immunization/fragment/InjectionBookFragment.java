@@ -1,12 +1,10 @@
 package com.t3h.immunization.fragment;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -17,11 +15,7 @@ import com.t3h.immunization.R;
 import com.t3h.immunization.adapter.PagerTabAdapter;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
-import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.respone.ResponeStatistical;
-
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -44,8 +38,6 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     }
 
     private void initView() {
-
-
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -57,7 +49,6 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
                     viewPager.setOffscreenPageLimit(4);
                     tabLayout.setupWithViewPager(viewPager);
                     babyName.setText(GetBaby.getInstance().getName());
-//                    adapter.setDataList(response.body().getData(),response.body().getInjectionGroup());
                 }
             }
 

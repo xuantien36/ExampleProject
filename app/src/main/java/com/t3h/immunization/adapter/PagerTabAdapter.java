@@ -40,7 +40,6 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
         this.datagroup=arr;
         this.datainjection=data;
         calculatorSection(data);
-        notifyDataSetChanged();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -60,7 +59,7 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
 
 
             case 3:
-                return new MissFragment(groupDataInjectionMiss(groupDataInjection(datainjection,section)),datagroup);
+                return new MissFragment((groupDataInjection(datainjection,section)),datagroup);
 
 
             default:
@@ -68,15 +67,6 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
 
         }
     }
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void setDataList(List<Injections> data, List<InjectionGroup>arr){
-        this.datagroup=arr;
-        this.datainjection=data;
-        calculatorSection(data);
-        notifyDataSetChanged();
-
-    }
-
     @Override
     public int getCount() {
         return 4;
@@ -128,13 +118,6 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
                 dataInjection.add(arrTemp);
             }
         }
-
-//        for (int i=0 ; i<dataInjection.size(); i++) {
-//            Log.e("arrrrrr", "calculatorSection: "+ i);
-//            for (int j=0; j<dataInjection.get(i).size(); j++ ){
-//                Log.e("arrrrrr", "calculatorSection: "+ dataInjection.get(i).get(j).getDate());
-//            }
-//        }
         return dataInjection;
     }
 
@@ -183,11 +166,6 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
                 arrTemp.add(section.get(i));
             }
         }
-//        for (int i = 0; i < arrTemp.size(); i++) {
-//            Log.e("arrrrrr", "calculatorSection: "+ arrTemp.get(i) );
-//        }
-
-
         Collections.sort(arrTemp, new Comparator<String>() {
             @Override
             public int compare(String s, String t1) {

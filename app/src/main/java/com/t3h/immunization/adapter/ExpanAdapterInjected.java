@@ -134,7 +134,6 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         }
         if (System.currentTimeMillis()>temp){
             long days_left = (System.currentTimeMillis() - temp);
-//            long days_left = (System.currentTimeMillis() - temp);
             int days = (int) (days_left / (1000 * 60 * 60 * 24));
             String dateinjected = getDate(temp, "dd/MM/yyyy");
             childHolder.tvName.setText(groups.get(childPosition).getGroupTitle());
