@@ -40,6 +40,7 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
         this.datagroup=arr;
         this.datainjection=data;
         calculatorSection(data);
+        notifyDataSetChanged();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

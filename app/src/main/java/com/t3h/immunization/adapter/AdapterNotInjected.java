@@ -1,16 +1,17 @@
 package com.t3h.immunization.adapter;
+
 import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Build;
-//import android.util.Log;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.RequiresApi;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.InjectionGroup;
@@ -23,22 +24,24 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ExpanAdapterInjected extends BaseExpandableListAdapter {
+public class AdapterNotInjected extends BaseExpandableListAdapter {
     Context context;
     private List<List<Injections>> dataList;
     private List<InjectionGroup> groups;
    private  long temp;
 
 
-    public ExpanAdapterInjected(Context context) {
+    public AdapterNotInjected(Context context) {
         this.context = context;
 
     }
+
     public void setDataList(List<List<Injections>> dataList,List<InjectionGroup>groups) {
         this.dataList = dataList;
         this.groups=groups;
          notifyDataSetChanged();
     }
+
     @Override
     public int getGroupCount() {
         return groups.size();
@@ -46,7 +49,7 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return dataList.get(groupPosition).size();
+        return this.dataList.get(groupPosition).size();
     }
 
     @Override
@@ -90,14 +93,14 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         } else {
             groupHolder = (GroupHolder) convertView.getTag();
         }
-        if ( dataList.get((groupPosition)).get(0).getDate()!= null){
-            temp = (getMilliFromDate(GetBaby.getInstance().getBirthday())+
-                    ( Long.parseLong(String.valueOf(Long.parseLong(dataList.get((groupPosition)).get(0).getDate()) *
-                            Long.parseLong("" + (24 * 60 * 60 * 1000))))));
-            String dateInjection = getDate(temp, "MM");
-            String year= getDate(temp, "yyyy");
-            groupHolder.text.setText("Tháng  "+dateInjection+" Năm  "+ year);
-        }
+
+        temp = (getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(0).getDate()) *
+                        (Long.parseLong("" + (24 * 60 * 60 * 1000)))))));
+
+        String dateInjection = getDate(temp, "MM");
+        String year= getDate(temp, "yyyy");
+        groupHolder.text.setText("Tháng  "+dateInjection+" Năm  "+ year);
 
         return convertView;
 
@@ -135,11 +138,11 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
             long days_left = (System.currentTimeMillis() - temp);
             int days = (int) (days_left / (1000 * 60 * 60 * 24));
             String dateinjected = getDate(temp, "dd/MM/yyyy");
-            childHolder.tvName.setText(groups.get(groupPosition).getGroupTitle());
+            childHolder.tvName.setText(groups.get(childPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
                     (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                            (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
+                            (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(0).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse2);
                 childHolder.tvNgayConLai.setText("Bỏ lỡ : " + (days) + " ngày");
@@ -161,7 +164,7 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
                     (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                            (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
+                            (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(0).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse2);
                 childHolder.tvNgayConLai.setText("Bỏ lỡ : " + (days) + " ngày");
@@ -178,7 +181,6 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         }
             return convertView;
         }
-
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

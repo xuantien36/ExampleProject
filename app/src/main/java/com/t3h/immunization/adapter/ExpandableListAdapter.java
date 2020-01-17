@@ -125,7 +125,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         for (Injections injections : injectionsList) {
             if (injections.getIsInjected().equalsIgnoreCase("1")) {
                 count++;
-
             }
 
         }
