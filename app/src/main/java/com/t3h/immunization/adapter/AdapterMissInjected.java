@@ -17,6 +17,7 @@ import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import butterknife.BindView;
@@ -174,10 +175,11 @@ public class AdapterMissInjected extends BaseExpandableListAdapter {
                 childHolder.tvNgayConLai.setText("Chưa tiêm : " + (days) + " ngày");
             }
             childHolder.tvngayTiem.setText("Ngày tiêm : " + dateinjected);
-        }
-            return convertView;
+
         }
 
+            return convertView;
+        }
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;

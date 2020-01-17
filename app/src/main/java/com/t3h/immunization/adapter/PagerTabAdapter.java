@@ -30,7 +30,7 @@ import java.util.List;
 
 public class PagerTabAdapter extends FragmentStatePagerAdapter {
     private List<String> section=new ArrayList<>();
-    private List<List<Injections>> dataInjection=new ArrayList<>();
+    private List<List<Injections>> dataInjection =new ArrayList<>() ;
     private List<InjectionGroup> datagroup;
     private List<Injections> datainjection;
 
@@ -56,11 +56,11 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
                 return new HaveInjectedFragment();
 
             case 2:
-                return new NotinjectedFragment(groupDataInjection(datainjection,section),datagroup);
+                return new NotinjectedFragment((groupDataInjectionPrepare(datainjection, section)),datagroup);
 
 
             case 3:
-                return new MissFragment((groupDataInjection(datainjection,section)),datagroup);
+                return new MissFragment((groupDataInjectionMiss(datainjection, section)),datagroup);
 
 
             default:
@@ -123,24 +123,61 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public List groupDataInjectionMiss(List<List<Injections>> _dataInjection){
-        List<List<Injections>> newlist = new ArrayList<>();
+    public List groupDataInjectionMiss(List<Injections> data, List<String> sections){
 
-        for (int i = 0; i <_dataInjection.size() ; i++) {
-            List<Injections> temp = new ArrayList<>();
-            for (int j = 0; j <_dataInjection.get(i).size() ; j++) {
-                if (_dataInjection.get(i).get(j).getIsInjected().equalsIgnoreCase("0")&&
-                        (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                                (Long.parseLong(String.valueOf(Long.parseLong(_dataInjection.get(i).get(j).getDate()) *
-                                        Long.parseLong("" + (24 * 60 * 60 * 1000))))))))){
-                    temp.add(_dataInjection.get(i).get(j));
+        dataInjection = new ArrayList<>();
+        for (String section: sections) {
+            ArrayList<Injections> arrTemp = new ArrayList<>();
+            for (Injections injections: data ) {
+                if(injections.getIsInjected().equalsIgnoreCase("0")) {
+                    long temp = (getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                            ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
+                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))));
+                    long tempCurrent = System.currentTimeMillis();
+                    if (temp < tempCurrent) {
+                        String dateInjection = getDate(temp, "MM/yyyy");
+
+                        if(dateInjection.equalsIgnoreCase(section)){
+                            arrTemp.add(injections);
+                        }
+                    }
 
                 }
             }
-            newlist.add(temp);
+            if (arrTemp.size() > 0) {
+                dataInjection.add(arrTemp);
+            }
         }
+        return dataInjection;
+    }
 
-        return newlist;
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List groupDataInjectionPrepare(List<Injections> data, List<String> sections){
+
+        dataInjection = new ArrayList<>();
+        for (String section: sections) {
+            ArrayList<Injections> arrTemp = new ArrayList<>();
+            for (Injections injections: data ) {
+                if(injections.getIsInjected().equalsIgnoreCase("0")) {
+                    long temp = (getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                            ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
+                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))));
+                    long tempCurrent = System.currentTimeMillis();
+                    if (temp >= tempCurrent) {
+                        String dateInjection = getDate(temp, "MM/yyyy");
+
+                        if(dateInjection.equalsIgnoreCase(section)){
+                            arrTemp.add(injections);
+                        }
+                    }
+
+                }
+            }
+            if (arrTemp.size() > 0) {
+                dataInjection.add(arrTemp);
+            }
+        }
+        return dataInjection;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

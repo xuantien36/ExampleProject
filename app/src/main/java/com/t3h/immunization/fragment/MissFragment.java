@@ -36,10 +36,10 @@ public class MissFragment extends Fragment implements VaccineBookAdapter.ItemCli
         ButterKnife.bind(this, view);
         Log.e("TATTT", "onCreateView: "+dataInjection.size() );
         adapter = new AdapterMissInjected(getContext());
-        if (adapter!=null){
-            adapter.setDataList(dataInjection,groups);
+        if (adapter!=null) {
+            adapter.setDataList(dataInjection, groups);
             expandableList.setAdapter(adapter);
-            for (int i = 0; i <dataInjection.size() ; i++) {
+            for (int i = 0; i < dataInjection.size(); i++) {
                 expandableList.expandGroup(i);
             }
             expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -48,7 +48,6 @@ public class MissFragment extends Fragment implements VaccineBookAdapter.ItemCli
                     return true; // This way the expander cannot be collapsed
                 }
             });
-
         }
         return view;
     }

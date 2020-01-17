@@ -1,4 +1,5 @@
 package com.t3h.immunization.adapter;
+
 import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.RequiresApi;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.InjectionGroup;
@@ -27,21 +30,23 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
     Context context;
     private List<List<Injections>> dataList;
     private List<InjectionGroup> groups;
-   private  long temp;
+    private long temp;
 
 
     public ExpanAdapterInjected(Context context) {
         this.context = context;
 
     }
-    public void setDataList(List<List<Injections>> dataList,List<InjectionGroup>groups) {
+
+    public void setDataList(List<List<Injections>> dataList, List<InjectionGroup> groups) {
         this.dataList = dataList;
-        this.groups=groups;
-         notifyDataSetChanged();
+        this.groups = groups;
+        notifyDataSetChanged();
     }
+
     @Override
     public int getGroupCount() {
-        return groups.size();
+        return dataList.size();
     }
 
     @Override
@@ -85,23 +90,24 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_date_muitiem, parent, false);
             groupHolder = new GroupHolder();
-             groupHolder.text = convertView.findViewById(R.id.tv_date);
+            groupHolder.text = convertView.findViewById(R.id.tv_date);
             convertView.setTag(groupHolder);
         } else {
             groupHolder = (GroupHolder) convertView.getTag();
         }
-        if ( dataList.get((groupPosition)).get(0).getDate()!= null){
-            temp = (getMilliFromDate(GetBaby.getInstance().getBirthday())+
-                    ( Long.parseLong(String.valueOf(Long.parseLong(dataList.get((groupPosition)).get(0).getDate()) *
+        if (dataList.get((groupPosition)).get(0).getDate() != null) {
+            temp = (getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (Long.parseLong(String.valueOf(Long.parseLong(dataList.get((groupPosition)).get(0).getDate()) *
                             Long.parseLong("" + (24 * 60 * 60 * 1000))))));
             String dateInjection = getDate(temp, "MM");
-            String year= getDate(temp, "yyyy");
-            groupHolder.text.setText("Tháng  "+dateInjection+" Năm  "+ year);
+            String year = getDate(temp, "yyyy");
+            groupHolder.text.setText("Tháng  " + dateInjection + " Năm  " + year);
         }
 
         return convertView;
 
     }
+
     class ChildHolder {
         @BindView(R.id.txtMui)
         TextView tvMui;
@@ -114,6 +120,7 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         @BindView(R.id.imgTrangThai)
         ImageView imtrangThai;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
@@ -131,8 +138,8 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         } else {
             childHolder = (ChildHolder) convertView.getTag();
         }
-        if (System.currentTimeMillis()>temp){
-            long days_left = (System.currentTimeMillis() - temp);
+        if (System.currentTimeMillis() > temp) {
+            long days_left = ((System.currentTimeMillis()) - (temp));
             int days = (int) (days_left / (1000 * 60 * 60 * 24));
             String dateinjected = getDate(temp, "dd/MM/yyyy");
             childHolder.tvName.setText(groups.get(groupPosition).getGroupTitle());
@@ -151,13 +158,13 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
             } else if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
                     (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
-                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))))))){
+                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse_202);
                 childHolder.tvNgayConLai.setText("Chưa tiêm : " + (days) + " ngày");
             }
             childHolder.tvngayTiem.setText("Ngày tiêm : " + dateinjected);
-        }else {
-            long days_left = (temp - System.currentTimeMillis());
+        } else {
+            long days_left = ((temp) - (System.currentTimeMillis()));
             int days = (int) (days_left / (1000 * 60 * 60 * 24));
             String dateinjected = getDate(temp, "dd/MM/yyyy");
             childHolder.tvName.setText(groups.get(childPosition).getGroupTitle());
@@ -179,14 +186,16 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
             }
             childHolder.tvngayTiem.setText("Ngày tiêm : " + dateinjected);
         }
-            return convertView;
-        }
+        return convertView;
+    }
+
 
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public String getDate(long milliSeconds, String dateFormat) {
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
@@ -195,6 +204,7 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
     }
+
     public long getMilliFromDate(String dateFormat) {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
