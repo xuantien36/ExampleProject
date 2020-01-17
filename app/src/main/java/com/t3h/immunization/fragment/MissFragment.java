@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.t3h.immunization.R;
 import com.t3h.immunization.adapter.AdapterMissInjected;
+import com.t3h.immunization.adapter.ExpanAdapterInjected;
 import com.t3h.immunization.adapter.VaccineBookAdapter;
 import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
@@ -38,7 +39,15 @@ public class MissFragment extends Fragment implements VaccineBookAdapter.ItemCli
         if (adapter!=null){
             adapter.setDataList(dataInjection,groups);
             expandableList.setAdapter(adapter);
-            expandableList.setOnGroupClickListener((parent, v, groupPosition, id) -> true);
+            for (int i = 0; i <dataInjection.size() ; i++) {
+                expandableList.expandGroup(i);
+            }
+            expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                public boolean onGroupClick(ExpandableListView parent, View v,
+                                            int groupPosition, long id) {
+                    return true; // This way the expander cannot be collapsed
+                }
+            });
 
         }
         return view;

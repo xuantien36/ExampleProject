@@ -38,7 +38,16 @@ public class NotinjectedFragment extends Fragment implements VaccineBookAdapter.
         adapter = new AdapterNotInjected(getContext());
         adapter.setDataList(dataInjection,groups);
         expandableList.setAdapter(adapter);
-        expandableList.setOnGroupClickListener((parent, v, groupPosition, id) -> true);
+        expandableList.setAdapter(adapter);
+        for (int i = 0; i <dataInjection.size() ; i++) {
+            expandableList.expandGroup(i);
+        }
+        expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                return true; // This way the expander cannot be collapsed
+            }
+        });
         return view;
     }
     @Override

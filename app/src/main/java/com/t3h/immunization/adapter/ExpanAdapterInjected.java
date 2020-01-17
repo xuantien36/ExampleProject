@@ -148,7 +148,10 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse_200);
                 childHolder.tvNgayConLai.setText("Đã tiêm : " + days + " ngày");
 
-            } else {
+            } else if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
+                    (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                            (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
+                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))))))){
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse_202);
                 childHolder.tvNgayConLai.setText("Chưa tiêm : " + (days) + " ngày");
             }
