@@ -41,8 +41,6 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     ImageView imEdit;
     @BindView(R.id.image_gender)
     ImageView imageGender;
-    @BindView(R.id.gender)
-    ImageView gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +57,12 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
         tvName.setText(baBy.getName());
         tvNote.setText(baBy.getNote());
         if (baBy.getGender().equalsIgnoreCase("Nam")) {
-            imBaby.setImageResource(R.drawable.avatar_2);
+            imBaby.setImageResource(R.drawable.group_730);
             imageGender.setImageResource(R.drawable.ic_nam);
-            gender.setImageResource(R.drawable.ic_ellipse_33_a);
+
         } else {
-            imBaby.setImageResource(R.drawable.avatar);
+            imBaby.setImageResource(R.drawable.group_731);
             imageGender.setImageResource(R.drawable.ic_nu);
-            gender.setImageResource(R.drawable.ic_ellipse_33);
         }
         imBack.setOnClickListener(this);
         btnDelete.setOnClickListener(this);

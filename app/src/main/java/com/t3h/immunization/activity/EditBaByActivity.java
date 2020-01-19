@@ -1,6 +1,9 @@
 package com.t3h.immunization.activity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +17,11 @@ import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -36,6 +44,10 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.edit_birthday)
     EditText editBirthday;
     private Dialog dialog;
+    @BindView(R.id.radio_male)
+    RadioButton rdioMale;
+    @BindView(R.id.radio_female)
+    RadioButton rdioFemale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +60,11 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         edtName_Edit.setText(baby.getName());
         edtNote.setText(baby.getNote());
         editBirthday.setText(baby.getBirthday());
+        if (baby.getGender().equalsIgnoreCase("Nam")){
+            rdioMale.setChecked(true);
+        }else {
+            rdioFemale.setChecked(true);
+        }
 
     }
     public void editBaby() {
@@ -78,6 +95,10 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         });
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
+        editBirthday.setOnClickListener(this);
+        editBirthday.setCursorVisible(false);
+        editBirthday.setFocusableInTouchMode(false);
+        editBirthday.setFocusable(false);
     }
 
     @Override
@@ -86,6 +107,22 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         if (dialog!=null){
             dialog.dismiss();
         }
+    }
+    public void datePicker(final Context context, final EditText textView, final String type) {
+        Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(android.widget.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                newDate.set(year, monthOfYear, dayOfMonth);
+                textView.setText(dateFormatter.format(newDate.getTime()));
+
+            }
+
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
 
     @Override
@@ -96,6 +133,9 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.save_edit:
                 editBaby();
+                break;
+            case R.id.edit_birthday:
+                datePicker(this,editBirthday, String.valueOf(R.style.DialogTheme));
                 break;
         }
 

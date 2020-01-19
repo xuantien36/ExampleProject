@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,27 +19,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.t3h.immunization.R;
-import com.t3h.immunization.activity.CategoriActivity;
 import com.t3h.immunization.activity.ChangeLanguageActivity;
-import com.t3h.immunization.activity.FeedbackActivity;
 import com.t3h.immunization.activity.LoginActivity;
 import com.t3h.immunization.activity.NotificationActivity;
-import com.t3h.immunization.activity.SplashActivity;
 import com.t3h.immunization.adapter.OtherAdapter;
-import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.Other;
-import com.t3h.immunization.model.User;
-import com.t3h.immunization.respone.ResponeLogin;
-import com.t3h.immunization.util.AppPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class OtherFragment extends Fragment implements OtherAdapter.ItemClickListener, View.OnClickListener {
     private ArrayList<Other> data;
@@ -95,9 +84,9 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
                 showDialogInfor();
                 break;
             case 2:
-//                Uri uri1 = Uri.parse("");
-//                Intent intent1 = new Intent(Intent.ACTION_VIEW, uri1);
-//                startActivity(intent1);
+              Uri uri1 = Uri.parse("https://play.google.com/store/apps/details?id=vnshine.com.sotiemchung");
+                Intent intent1 = new Intent(Intent.ACTION_VIEW, uri1);
+                startActivity(intent1);
                 break;
             case 3:
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -109,7 +98,7 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
                         "Thống kê tất cả các mũi tiêm ở 3 trạng thái: Đã tiêm, Chưa tiêm, Bõ lỡ." +
                         " Bạn sẽ được thông báo mũi tiêm sắp tới để không bỏ lỡ bất kỳ mũi tiêm nào của bé. " +
                         "Bạn có thể xem thông tin về vắc xin, lịch tiêm chủng." +
-                        " Tải miễn phí tại 'https://apps.apple.com/us/app/so-tiem-phong-mamacare/id1286953679?ls=1'");
+                        " Tải miễn phí tại 'https://play.google.com/store/apps/details?id=vnshine.com.sotiemchung'");
                 startActivity(shareIntent);
                 break;
             case 4:

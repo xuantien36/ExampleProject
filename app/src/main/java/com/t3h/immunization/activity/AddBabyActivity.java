@@ -1,5 +1,7 @@
 package com.t3h.immunization.activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,6 +16,11 @@ import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -59,6 +66,10 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         });
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
+        edtBirthday.setOnClickListener(this);
+        edtBirthday.setCursorVisible(false);
+        edtBirthday.setFocusableInTouchMode(false);
+        edtBirthday.setFocusable(false);
     }
 
     public void addBaby() {
@@ -85,6 +96,18 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             });
         }
     }
+    public void datePicker(final Context context, final EditText textView, final String type) {
+        Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context, R.style.DialogTheme, (view, year, monthOfYear, dayOfMonth) -> {
+            Calendar newDate = Calendar.getInstance();
+            newDate.set(year, monthOfYear, dayOfMonth);
+            newDate.set(year, monthOfYear, dayOfMonth);
+            textView.setText(dateFormatter.format(newDate.getTime()));
+
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -93,6 +116,9 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.save:
                 addBaby();
+                break;
+            case R.id.edt_birthday:
+                datePicker(this,edtBirthday, String.valueOf(R.style.DialogTheme));
                 break;
         }
 
