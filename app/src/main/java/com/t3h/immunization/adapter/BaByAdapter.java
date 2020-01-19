@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.t3h.immunization.R;
@@ -44,6 +46,8 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         if (data.size()==0){
             GetBaby.getInstance().setBabyId(-1);
 
+        }else if (position == data.size()) {
+            Toast.makeText(context, "Không có", Toast.LENGTH_SHORT).show();
         }else {
             GetBaby.getInstance().setBabyId(data.get(position).getBabyId());
             GetBaby.getInstance().setBirthday(data.get(position).getBirthday());
