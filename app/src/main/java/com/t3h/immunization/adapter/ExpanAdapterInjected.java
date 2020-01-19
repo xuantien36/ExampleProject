@@ -207,7 +207,7 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
 
     public long getMilliFromDate(String dateFormat) {
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         try {
             date = formatter.parse(dateFormat);
         } catch (ParseException e) {

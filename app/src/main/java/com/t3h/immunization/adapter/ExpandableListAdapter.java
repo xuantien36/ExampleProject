@@ -195,7 +195,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 childHolder.date.setBackgroundResource(R.drawable.shape_custom_injectd);
                 childHolder.image.setImageResource(R.drawable.ic_ellipse_200);
 
-            }else {
+            }else if (getChild(groupPosition,childPosition).getIsInjected().equalsIgnoreCase("0") &&
+                    (System.currentTimeMillis() <= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                            ( Long.parseLong(String.valueOf(Long.parseLong(getChild(groupPosition,childPosition).getDate()) *
+                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))))))){
                 childHolder.image.setImageResource(R.drawable.ic_ellipse_202);
                 childHolder.date.setBackgroundResource(R.drawable.shape_custom_not_injectd);
 
@@ -209,7 +212,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     public long getMilliFromDate(String dateFormat) {
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         try {
             date = formatter.parse(dateFormat);
         } catch (ParseException e) {

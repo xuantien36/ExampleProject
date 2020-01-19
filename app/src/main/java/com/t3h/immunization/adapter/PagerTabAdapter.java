@@ -163,7 +163,7 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
                             ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))));
                     long tempCurrent = System.currentTimeMillis();
-                    if (temp >= tempCurrent) {
+                    if (temp > tempCurrent) {
                         String dateInjection = getDate(temp, "MM/yyyy");
 
                         if(dateInjection.equalsIgnoreCase(section)){
