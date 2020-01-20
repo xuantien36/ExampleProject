@@ -15,7 +15,7 @@ import com.t3h.immunization.fragment.StatisticalFragment;
 import com.t3h.immunization.fragment.VaccineFragment;
 import com.t3h.immunization.util.AppPreferences;
 import com.t3h.immunization.util.Constant;
-import com.t3h.immunization.util.Libs;
+import com.t3h.immunization.util.SaveData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +45,7 @@ public class CategoriActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Libs.updateLangua(this);
+        SaveData.updateLangua(this);
         setContentView(R.layout.activity_categori);
         ButterKnife.bind(this);
         AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN,true);

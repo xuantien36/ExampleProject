@@ -8,22 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.t3h.immunization.R;
-import com.t3h.immunization.adapter.VaccineBookAdapter;
-import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.InjectionGroup;
-import com.t3h.immunization.respone.ResponeStatistical;
 import java.util.ArrayList;
-import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class HaveInjectedFragment extends Fragment implements VaccineBookAdapter.ItemClickListener {
+public class InjectedFragment extends Fragment  {
     private ArrayList<InjectionGroup> data;
-    private VaccineBookAdapter adapter;
     @BindView(R.id.lv_passed)
     RecyclerView recyclerView;
 
@@ -41,19 +32,7 @@ public class HaveInjectedFragment extends Fragment implements VaccineBookAdapter
         initView();
     }
     private void initView() {
-        adapter = new VaccineBookAdapter(getContext());
-        recyclerView.setAdapter(adapter);
-        adapter.setOnListener(this);
-
-    }
-    @Override
-    public void onClicked(int position) {
-
     }
 
-    @Override
-    public void onLongClicked(int position) {
-
-    }
 }
 

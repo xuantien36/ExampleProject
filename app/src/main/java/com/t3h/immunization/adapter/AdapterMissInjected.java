@@ -183,7 +183,6 @@ public class AdapterMissInjected extends BaseExpandableListAdapter {
             childHolder.tvngayTiem.setText("Ngày tiêm : " + dateinjected);
 
         }
-
             return convertView;
         }
     @Override
@@ -208,7 +207,6 @@ public class AdapterMissInjected extends BaseExpandableListAdapter {
         }
         System.out.println("Today is " + date);
         return date.getTime();
-
     }
 
 }

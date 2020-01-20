@@ -2,7 +2,6 @@ package com.t3h.immunization.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.util.AppPreferences;
-import com.t3h.immunization.util.Libs;
+import com.t3h.immunization.util.SaveData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +26,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.t3h.immunization.util.Constant.KEY_LOGIN;
 import static com.t3h.immunization.util.Constant.KEY_NEXT;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -48,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Libs.updateLangua(this);
+        SaveData.updateLangua(this);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         intView();

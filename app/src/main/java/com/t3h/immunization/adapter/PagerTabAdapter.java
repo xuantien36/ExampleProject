@@ -11,9 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.t3h.immunization.R;
 import com.t3h.immunization.fragment.AllFragment;
-import com.t3h.immunization.fragment.HaveInjectedFragment;
+import com.t3h.immunization.fragment.InjectedFragment;
 import com.t3h.immunization.fragment.MissFragment;
 import com.t3h.immunization.fragment.NotinjectedFragment;
 import com.t3h.immunization.model.GetBaby;
@@ -53,7 +52,7 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
 
 
             case 1:
-                return new HaveInjectedFragment();
+                return new InjectedFragment();
 
             case 2:
                 return new NotinjectedFragment((groupDataInjectionPrepare(datainjection, section)),datagroup);

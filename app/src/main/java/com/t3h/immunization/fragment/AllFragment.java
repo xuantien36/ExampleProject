@@ -11,14 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.t3h.immunization.R;
 import com.t3h.immunization.adapter.ExpanAdapterInjected;
-import com.t3h.immunization.adapter.VaccineBookAdapter;
 import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AllFragment extends Fragment implements VaccineBookAdapter.ItemClickListener {
+public class AllFragment extends Fragment{
     private ExpanAdapterInjected adapter;
     @BindView(R.id.expandableListView)
     ExpandableListView expandableList;
@@ -53,14 +52,5 @@ public class AllFragment extends Fragment implements VaccineBookAdapter.ItemClic
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onClicked(int position) {
-    }
-
-    @Override
-    public void onLongClicked(int position) {
-
     }
 }

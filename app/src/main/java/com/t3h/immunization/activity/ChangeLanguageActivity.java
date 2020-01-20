@@ -10,7 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.t3h.immunization.R;
-import com.t3h.immunization.util.Libs;
+import com.t3h.immunization.util.SaveData;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -54,9 +54,9 @@ public class ChangeLanguageActivity extends AppCompatActivity {
                 break;
         }
 
-        Libs.savingPreferences(getApplicationContext(), "lang", lang);
-        Libs.savingPreferences(getApplicationContext(), "country", country);
-        Libs.updateLangua(getApplicationContext());
+        SaveData.savingPreferences(getApplicationContext(), "lang", lang);
+        SaveData.savingPreferences(getApplicationContext(), "country", country);
+        SaveData.updateLangua(getApplicationContext());
 
         Log.e("LANG ", lang);
 
