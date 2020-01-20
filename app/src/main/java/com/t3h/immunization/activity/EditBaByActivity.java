@@ -1,6 +1,5 @@
 package com.t3h.immunization.activity;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -17,11 +16,9 @@ import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;

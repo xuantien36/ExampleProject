@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
+import com.t3h.immunization.model.GetBaby;
+import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeInjections;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +58,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         String note = edtNote.getText().toString();
         String injected = edtInjected.getText().toString();
         String date = edtDate.getText().toString();
-        ApiBuilder.getInstance().updateInjections("","","1",medicine,note,injected,date).enqueue(new Callback<ResponeInjections>() {
+        ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()),"", String.valueOf(User.getInstans().getId()),note,date,medicine,injected).enqueue(new Callback<ResponeInjections>() {
             @Override
             public void onResponse(Call<ResponeInjections> call, Response<ResponeInjections> response) {
                 if (response.body().getStatus()==true){
@@ -72,8 +74,6 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
 
             }
         });
-
-
     }
 
     @Override
@@ -88,7 +88,6 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         }
 
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
