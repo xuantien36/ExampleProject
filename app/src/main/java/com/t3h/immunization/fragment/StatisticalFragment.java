@@ -52,11 +52,6 @@ public class StatisticalFragment extends Fragment {
                 arrayList.clear();
                 arrayList.addAll(data);
                 Log.e("STA", "onResponse: tttttt"+arrayList.size() );
-//                for (InjectionGroup injectedGrp : injectionGroup) {
-//                    if (injectedGrp.getGroupInjection().equalsIgnoreCase("4")) {
-//                        Log.e("TAG", "GET INJeCTION: " + data.get(4).getId());
-//                    }
-//                }
                 expandableListAdapter = new ExpandableListAdapter(getContext(), injectionGroup);
                 expandableListAdapter.setDataStatis(injectionGroup, data);
                 expandableListView.setAdapter(expandableListAdapter);
@@ -89,7 +84,11 @@ public class StatisticalFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        callApi();
+        if (GetBaby.getInstance().getBabyId()!=null){
+            callApi();
+        }else {
+            Toast.makeText(getContext(), "Không có gì để hiển thị", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

@@ -1,6 +1,5 @@
 package com.t3h.immunization.activity;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.Injections;
 import com.t3h.immunization.respone.ResponeInjections;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,9 +43,9 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
     }
 
     private void intView() {
-        Intent intent=getIntent();
-        String date= (String) intent.getSerializableExtra("child");
-        String name = intent.getStringExtra("title");
+        Intent intent = getIntent();
+        String date  =  intent.getStringExtra("child");
+        String name  = intent.getStringExtra("title");
         edtDate.setText(date);
         nameInjected.setText(name);
         edtMedicine.setText(name);
