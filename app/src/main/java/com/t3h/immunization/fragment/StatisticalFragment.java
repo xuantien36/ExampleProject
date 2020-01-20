@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,8 @@ public class StatisticalFragment extends Fragment {
     ExpandableListView expandableListView;
     private ArrayList<Injections> arrayList;
     ExpandableListAdapter expandableListAdapter;
+    @BindView(R.id.name_baby_injected)
+    TextView tvName;
 
     @Nullable
     @Override
@@ -55,6 +58,7 @@ public class StatisticalFragment extends Fragment {
                 expandableListAdapter = new ExpandableListAdapter(getContext(), injectionGroup);
                 expandableListAdapter.setDataStatis(injectionGroup, data);
                 expandableListView.setAdapter(expandableListAdapter);
+                tvName.setText(GetBaby.getInstance().getName());
                 expandableListAdapter.setChildListener(new ExpandableListAdapter.callBackChild() {
                     @Override
                     public void onclickChild(int position,String date,String name) {

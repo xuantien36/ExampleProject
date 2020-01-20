@@ -146,7 +146,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         int count = 0;
         for (Injections injections : injectionsList) {
             if (injections.getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 count++;
 
@@ -186,7 +186,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         Log.e("TAG", "realTime 2: "+(getMilliFromDate(GetBaby.getInstance().getBirthday()) + setDate) );
 
             if (getChild(groupPosition,childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             ( Long.parseLong(String.valueOf(Long.parseLong(getChild(groupPosition,childPosition).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.image.setImageResource(R.drawable.ic_ellipse2);
@@ -196,7 +196,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 childHolder.image.setImageResource(R.drawable.ic_ellipse_200);
 
             }else if (getChild(groupPosition,childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() <= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             ( Long.parseLong(String.valueOf(Long.parseLong(getChild(groupPosition,childPosition).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))){
                 childHolder.image.setImageResource(R.drawable.ic_ellipse_202);
@@ -212,7 +212,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     public long getMilliFromDate(String dateFormat) {
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
             date = formatter.parse(dateFormat);
         } catch (ParseException e) {

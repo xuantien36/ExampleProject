@@ -159,10 +159,12 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
             for (Injections injections: data ) {
                 if(injections.getIsInjected().equalsIgnoreCase("0")) {
                     long temp = (getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                            ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
-                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))));
+                             Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
+                                     (Long.parseLong("" + (24 * 60 * 60 * 1000))))));
                     long tempCurrent = System.currentTimeMillis();
-                    if (temp > tempCurrent) {
+                    if (temp >= tempCurrent) {
+                        Log.e("temp", "groupDataInjectionPrepare: "+temp );
+                        Log.e("current", "groupDataInjectionPrepare: "+System.currentTimeMillis() );
                         String dateInjection = getDate(temp, "MM/yyyy");
 
                         if(dateInjection.equalsIgnoreCase(section)){
@@ -185,8 +187,8 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
             if (injections.getIsInjected().equalsIgnoreCase("0")){
 
                 long temp = (getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                        ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
-                                Long.parseLong("" + (24 * 60 * 60 * 1000))))));
+                         Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
+                                 (Long.parseLong("" + (24 * 60 * 60 * 1000))))));
                 String dateInjection = getDate(temp, "MM/yyyy");
 
                 section.add(dateInjection);

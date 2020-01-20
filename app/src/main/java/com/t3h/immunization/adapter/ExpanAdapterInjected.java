@@ -138,14 +138,14 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         } else {
             childHolder = (ChildHolder) convertView.getTag();
         }
-        if (System.currentTimeMillis() > temp) {
+        if (System.currentTimeMillis() >= temp) {
             long days_left = ((System.currentTimeMillis()) - (temp));
-            int days = (int) (days_left / (1000 * 60 * 60 * 24));
+            int days = (int) ((days_left) / (1000 * 60 * 60 * 24));
             String dateinjected = getDate(temp, "dd/MM/yyyy");
             childHolder.tvName.setText(groups.get(groupPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse2);
@@ -165,12 +165,12 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
             childHolder.tvngayTiem.setText("Ngày tiêm : " + dateinjected);
         } else {
             long days_left = ((temp) - (System.currentTimeMillis()));
-            int days = (int) (days_left / (1000 * 60 * 60 * 24));
+            int days = (int) ((days_left) / (1000 * 60 * 60 * 24));
             String dateinjected = getDate(temp, "dd/MM/yyyy");
             childHolder.tvName.setText(groups.get(childPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse2);
@@ -180,7 +180,10 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse_200);
                 childHolder.tvNgayConLai.setText("Đã tiêm : " + days + " ngày");
 
-            } else {
+            } else if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
+                    (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                            (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
+                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))))))){
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse_202);
                 childHolder.tvNgayConLai.setText("Chưa tiêm : " + (days) + " ngày");
             }
@@ -188,9 +191,6 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         }
         return convertView;
     }
-
-
-
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
@@ -207,7 +207,7 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
 
     public long getMilliFromDate(String dateFormat) {
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
             date = formatter.parse(dateFormat);
         } catch (ParseException e) {

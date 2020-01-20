@@ -107,7 +107,7 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
     }
     public void datePicker(final Context context, final EditText textView, final String type) {
         Calendar calendar = Calendar.getInstance();
-        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         DatePickerDialog datePickerDialog = new DatePickerDialog(context, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(android.widget.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
