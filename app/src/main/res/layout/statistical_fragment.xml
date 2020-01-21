@@ -54,7 +54,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="62dp"
         android:src="@drawable/ic_mask_group_15" />
 
     <ExpandableListView
@@ -64,7 +64,7 @@
         android:layout_height="match_parent"
         android:divider="@null"
         android:layout_marginBottom="70dp"
-        android:transitionGroup="true"
+        android:transitionGroup="false"
         android:groupIndicator="@null"
         android:transcriptMode="alwaysScroll"/>
 

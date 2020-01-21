@@ -41,6 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BabyFragment extends Fragment implements View.OnClickListener, BaByAdapter.ItemClickListener {
+
     @BindView(R.id.btn_add)
     Button btnAdd;
     @BindView(R.id.lv_baby)
@@ -67,11 +68,13 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         init();
         return view;
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
     }
+
     public void callApi() {
         Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
         ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
@@ -83,13 +86,13 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     arr.clear();
                     arr.addAll(data);
                     adapter.setData(arr);
-//                    if (adapter != null) {
-//                        adapter.getItemBaby(currentPosition);
-//                    }
+                    if (adapter != null) {
+                        adapter.getItemBaby(currentPosition);
+                    }
                     Log.e("call", "onResponse: " + GetBaby.getInstance().getBabyId());
-                    if (currentPosition  < arr.size() - 1) {
+                    if (currentPosition < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
-                    }else if (currentPosition == arr.size()-1){
+                    } else if (currentPosition == arr.size() - 1) {
                         btnNext.setVisibility(View.GONE);
                     }
                     recyclerView.setVisibility(View.VISIBLE);
@@ -99,6 +102,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     tvEmpty.setVisibility(View.VISIBLE);
                 }
             }
+
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
 
@@ -106,6 +110,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         });
 
     }
+
     private void init() {
         btnAdd.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -115,12 +120,12 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-       recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-           @Override
-           public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-               recyclerView.stopScroll();
-           }
-       });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                recyclerView.stopScroll();
+            }
+        });
         adapter.setOnListener(this);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -143,73 +148,75 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     private void scrollToPositionRight() {
         currentPosition = layoutManager.findLastVisibleItemPosition();
 
-        if (currentPosition >= 0) {
-
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    recyclerView.smoothScrollToPosition(currentPosition +1);
-                    Log.e("IPos 1111:::", "scrollToPositionRight: "+ (currentPosition+1) );
-                }
-            }, 300);
+        if (currentPosition < arr.size() - 1) {
+            currentPosition++;
+            mHandler.postDelayed(() -> {
+                recyclerView.smoothScrollToPosition(currentPosition);
+                Log.e("IPos 1111:::", "scrollToPositionRight: " + (currentPosition));
+            }, 50);
 
         }
     }
+
     private void scrollToPositionLeft() {
         currentPosition = layoutManager.findFirstVisibleItemPosition();
-        if (currentPosition > 0) {
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    recyclerView.smoothScrollToPosition(currentPosition-1);
-                    Log.e("IPos 22222:::", "scrollToPositionLeft: "+ (currentPosition-1) );
-                }
-            }, 300);
+        if (currentPosition > 0 && currentPosition <= arr.size() - 1) {
+            currentPosition--;
+            mHandler.postDelayed(() -> {
+                recyclerView.smoothScrollToPosition(currentPosition);
+                Log.e("IPos 22222:::", "scrollToPositionLeft: " + (currentPosition));
+            }, 50);
         }
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_add :
+            case R.id.btn_add:
                 Intent intent = new Intent(getContext(), AddBabyActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.btn_back :
+            case R.id.btn_back:
                 btnNext.setVisibility(View.VISIBLE);
                 scrollToPositionLeft();
-                if ((currentPosition-1 )== 0){
-                    Log.e("LEFT", "onClick: "+(currentPosition-1));
+                Log.e("currentPosBack::::::", String.valueOf(currentPosition));
+                if (currentPosition == 0) {
+                    Log.e("LEFT", "onClick: " + (currentPosition));
                     btnBack.setVisibility(View.GONE);
                 }
-                adapter.getItemBaby(currentPosition-1);//thêm
+                adapter.getItemBaby(currentPosition);//thÃªm
                 break;
-            case R.id.btn_next :
+            case R.id.btn_next:
                 btnBack.setVisibility(View.VISIBLE);
                 scrollToPositionRight();
-                if ((currentPosition +1)  == arr.size()-1) {
-                    Log.e("RIGHT", "onClick: "+ (currentPosition+1));
+                Log.e("currentPosNext::::::", String.valueOf(currentPosition));
+                if (currentPosition == arr.size() - 1) {
+                    Log.e("RIGHT", "onClick: " + (currentPosition));
                     btnNext.setVisibility(View.GONE);
                 }
-                    adapter.getItemBaby(currentPosition+1 );//thêm
-                    break;
-                }
+                adapter.getItemBaby(currentPosition);//thÃªm
+                break;
         }
-        @Override
-        public void onClicked ( int position){
-            Intent intent = new Intent(getContext(), BabyInformationActivity.class);
-            intent.putExtra("baby", arr.get(position));
-            startActivity(intent);
-        }
-        @Override
-        public void onLongClicked ( int position){
+    }
 
-        }
-        @Override
-        public void onResume () {
-            super.onResume();
-            Log.e("BABY", "onResume: " + currentPosition);
-            callApi();
+    @Override
+    public void onClicked(int position) {
+        Intent intent = new Intent(getContext(), BabyInformationActivity.class);
+        intent.putExtra("baby", arr.get(position));
+        startActivity(intent);
+    }
 
-        }
+    @Override
+    public void onLongClicked(int position) {
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("BABY", "onResume: " + currentPosition);
+        callApi();
+
+    }
+
+}
