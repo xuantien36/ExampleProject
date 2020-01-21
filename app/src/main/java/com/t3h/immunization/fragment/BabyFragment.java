@@ -67,13 +67,11 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         init();
         return view;
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
     }
-
     public void callApi() {
         Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
         ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
@@ -85,13 +83,13 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     arr.clear();
                     arr.addAll(data);
                     adapter.setData(arr);
-                    if (adapter != null) {
-                        adapter.getItemBaby(currentPosition);
-                    }
+//                    if (adapter != null) {
+//                        adapter.getItemBaby(currentPosition);
+//                    }
                     Log.e("call", "onResponse: " + GetBaby.getInstance().getBabyId());
                     if (currentPosition  < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
-                    }else if (currentPosition==arr.size()-1){
+                    }else if (currentPosition == arr.size()-1){
                         btnNext.setVisibility(View.GONE);
                     }
                     recyclerView.setVisibility(View.VISIBLE);
@@ -172,11 +170,11 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_add:
+            case R.id.btn_add :
                 Intent intent = new Intent(getContext(), AddBabyActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.btn_back:
+            case R.id.btn_back :
                 btnNext.setVisibility(View.VISIBLE);
                 scrollToPositionLeft();
                 if ((currentPosition-1 )== 0){
@@ -185,7 +183,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 }
                 adapter.getItemBaby(currentPosition-1);//thêm
                 break;
-            case R.id.btn_next:
+            case R.id.btn_next :
                 btnBack.setVisibility(View.VISIBLE);
                 scrollToPositionRight();
                 if ((currentPosition +1)  == arr.size()-1) {
@@ -206,7 +204,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         public void onLongClicked ( int position){
 
         }
-
         @Override
         public void onResume () {
             super.onResume();
