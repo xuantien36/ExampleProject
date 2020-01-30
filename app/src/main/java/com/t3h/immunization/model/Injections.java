@@ -31,6 +31,15 @@ public class Injections {
     @SerializedName("injected_date")
     @Expose
     private String injectedDate;
+    public static Injections instant;
+    public static Injections getInstance(){
+        if (instant == null){
+            instant = new Injections();
+            return instant;
+        }else {
+            return  instant;
+        }
+    }
 
     public String getBabyId() {
         return babyId;

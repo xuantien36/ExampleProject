@@ -1,5 +1,7 @@
 package com.t3h.immunization.activity;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,11 +9,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
+import com.t3h.immunization.model.Injections;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeInjections;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -46,8 +51,8 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
 
     private void intView() {
         Intent intent = getIntent();
-        String date  =  intent.getStringExtra("child");
-        String name  = intent.getStringExtra("title");
+        String date = intent.getStringExtra("child");
+        String name = intent.getStringExtra("title");
         edtDate.setText(date);
         nameInjected.setText(name);
         edtMedicine.setText(name);
@@ -58,13 +63,14 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         String note = edtNote.getText().toString();
         String injected = edtInjected.getText().toString();
         String date = edtDate.getText().toString();
-        ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()),"", String.valueOf(User.getInstans().getId()),note,date,medicine,injected).enqueue(new Callback<ResponeInjections>() {
+        ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()), Injections.getInstance().getId(), String.valueOf(User.getInstans().getId()), note, date, medicine,
+                injected).enqueue(new Callback<ResponeInjections>() {
             @Override
             public void onResponse(Call<ResponeInjections> call, Response<ResponeInjections> response) {
-                if (response.body().getStatus()==true){
+                if (response.body().getStatus() == true) {
                     finish();
 
-                }else {
+                } else {
                     Toast.makeText(EditInjectionsActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
 
@@ -88,6 +94,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         }
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

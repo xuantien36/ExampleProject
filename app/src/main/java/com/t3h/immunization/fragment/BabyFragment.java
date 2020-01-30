@@ -184,7 +184,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     Log.e("LEFT", "onClick: " + (currentPosition));
                     btnBack.setVisibility(View.GONE);
                 }
-                adapter.getItemBaby(currentPosition);//thÃªm
+                adapter.getItemBaby(currentPosition);//thêm
                 break;
             case R.id.btn_next:
                 btnBack.setVisibility(View.VISIBLE);
@@ -194,11 +194,10 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     Log.e("RIGHT", "onClick: " + (currentPosition));
                     btnNext.setVisibility(View.GONE);
                 }
-                adapter.getItemBaby(currentPosition);//thÃªm
+                adapter.getItemBaby(currentPosition);//thêm
                 break;
         }
     }
-
     @Override
     public void onClicked(int position) {
         Intent intent = new Intent(getContext(), BabyInformationActivity.class);
@@ -210,7 +209,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     public void onLongClicked(int position) {
 
     }
-
     @Override
     public void onResume() {
         super.onResume();
