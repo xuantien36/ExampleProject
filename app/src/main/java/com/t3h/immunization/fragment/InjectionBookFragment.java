@@ -33,12 +33,6 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     @BindView(R.id.baby_name)
     TextView babyName;
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initView();
-    }
-
     private void initView() {
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
             @RequiresApi(api = Build.VERSION_CODES.N)

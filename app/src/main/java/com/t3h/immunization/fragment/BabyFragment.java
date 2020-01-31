@@ -65,13 +65,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         init();
         return view;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
-
     public void callApi() {
         Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
         ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
@@ -86,11 +79,14 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     if (adapter != null) {
                         adapter.getItemBaby(currentPosition);
                     }
+
                     Log.e("call", "onResponse: " + GetBaby.getInstance().getBabyId());
                     if (currentPosition < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
                     } else if (currentPosition == arr.size() - 1) {
                         btnNext.setVisibility(View.GONE);
+                    }else if (currentPosition == 0) {
+                        btnBack.setVisibility(View.GONE);
                     }
                     recyclerView.setVisibility(View.VISIBLE);
                     tvEmpty.setVisibility(View.GONE);
@@ -99,48 +95,46 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     tvEmpty.setVisibility(View.VISIBLE);
                 }
             }
-
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
 
             }
         });
-
     }
-
     private void init() {
-        btnAdd.setOnClickListener(this);
-        btnBack.setOnClickListener(this);
-        btnNext.setOnClickListener(this);
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        adapter = new BaByAdapter(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                recyclerView.stopScroll();
-            }
-        });
-        adapter.setOnListener(this);
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                RecyclerView.LayoutManager manager = parent.getLayoutManager();
-                int position = parent.getChildAdapterPosition(view);
-                if (manager instanceof GridLayoutManager) {
-                    if (position % 2 == 0) {
-                        outRect.set(DisplayUtil.dpToPx(10f), 0, DisplayUtil.dpToPx(5f), DisplayUtil.dpToPx(10f));
-                    } else {
-                        outRect.set(DisplayUtil.dpToPx(5f), 0, DisplayUtil.dpToPx(10f), DisplayUtil.dpToPx(10f));
-                    }
-                } else if (manager instanceof LinearLayoutManager) {
-                    outRect.set(DisplayUtil.dpToPx(3f), 0, DisplayUtil.dpToPx(3f), 0);
+            btnAdd.setOnClickListener(this);
+            btnBack.setOnClickListener(this);
+            btnNext.setOnClickListener(this);
+            layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            adapter = new BaByAdapter(getContext());
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    recyclerView.stopScroll();
                 }
-            }
-        });
-    }
+            });
+            adapter.setOnListener(this);
+            recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+                @Override
+                public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                    RecyclerView.LayoutManager manager = parent.getLayoutManager();
+                    int position = parent.getChildAdapterPosition(view);
+                    if (manager instanceof GridLayoutManager) {
+                        if (position % 2 == 0) {
+                            outRect.set(DisplayUtil.dpToPx(10f), 0, DisplayUtil.dpToPx(5f), DisplayUtil.dpToPx(10f));
+                        } else {
+                            outRect.set(DisplayUtil.dpToPx(5f), 0, DisplayUtil.dpToPx(10f), DisplayUtil.dpToPx(10f));
+                        }
+                    } else if (manager instanceof LinearLayoutManager) {
+                        outRect.set(DisplayUtil.dpToPx(3f), 0, DisplayUtil.dpToPx(3f), 0);
+                    }
+                }
+            });
+        }
+
     private void scrollToPositionRight() {
         currentPosition = layoutManager.findLastVisibleItemPosition();
 

@@ -47,7 +47,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     RadioGroup group;
     String checkedBox ;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

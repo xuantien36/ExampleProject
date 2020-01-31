@@ -56,11 +56,16 @@ public class StatisticalFragment extends Fragment {
                 expandableListAdapter.setDataStatis(injectionGroup, data);
                 expandableListView.setAdapter(expandableListAdapter);
                 tvName.setText(GetBaby.getInstance().getName());
-                expandableListAdapter.setChildListener((position, date, name) -> {
-                    Intent intent=new Intent(getContext(),EditInjectionsActivity.class);
-                    intent.putExtra("child",date);
-                    intent.putExtra("title",name);
-                    startActivity(intent);
+                expandableListAdapter.setChildListener(new ExpandableListAdapter.callBackChild() {
+                    @Override
+                    public void onclickChild(int position, String date, String name, Injections injections) {
+                        Intent intent=new Intent(getContext(),EditInjectionsActivity.class);
+                        intent.putExtra("child",date);
+                        intent.putExtra("title",name);
+                        intent.putExtra("object",injections);
+                        startActivity(intent);
+
+                    }
                 });
             }
             @Override
@@ -68,11 +73,6 @@ public class StatisticalFragment extends Fragment {
 
             }
         });
-    }
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
     }
     @Override
     public void onResume() {

@@ -205,7 +205,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             }
         if (child != null) {
             convertView.setOnClickListener(view -> child.onclickChild(childPosition, childHolder.date.getText().toString(),
-                    groupList.get(groupPosition).getGroupTitle()));
+                    groupList.get(groupPosition).getGroupTitle(),getChild(groupPosition,childPosition)));
         }
         return convertView;
     }
@@ -266,6 +266,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public interface callBackChild {
-        void onclickChild(int position, String date, String name);
+        void onclickChild(int position, String date, String name,Injections injections);
     }
 }

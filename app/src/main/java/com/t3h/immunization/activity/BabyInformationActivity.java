@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -53,6 +54,7 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     private void init() {
         Intent intent = getIntent();
         baBy = (GetBaby) intent.getSerializableExtra("baby");
+        Log.e("detail", "init: "+baBy.getName() );
         tvBirthday.setText(baBy.getBirthday());
         tvName.setText(baBy.getName());
         tvNote.setText(baBy.getNote());

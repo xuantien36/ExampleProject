@@ -3,7 +3,9 @@ package com.t3h.immunization.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Injections {
+import java.io.Serializable;
+
+public class Injections implements Serializable {
     @SerializedName("baby_id")
     @Expose
     private String babyId;
