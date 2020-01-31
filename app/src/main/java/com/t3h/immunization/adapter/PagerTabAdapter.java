@@ -52,7 +52,7 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
 
 
             case 1:
-                return new InjectedFragment();
+                return new InjectedFragment(groupDataInjected(datainjection,section),datagroup);
 
             case 2:
                 return new NotinjectedFragment((groupDataInjectionPrepare(datainjection, section)),datagroup);
@@ -106,6 +106,28 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
                         arrTemp.add(injections);
                     }
                 } else {
+                    String date_injected = injections.getInjectedDate();
+                    long temp = (getMilliFromDate(date_injected ));
+                    String dateInjected = getDate(temp, "MM/yyyy");
+                    if(dateInjected.equalsIgnoreCase(section)){
+                        arrTemp.add(injections);
+                    }
+                }
+            }
+            if (arrTemp.size() > 0) {
+                dataInjection.add(arrTemp);
+            }
+        }
+        return dataInjection;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List groupDataInjected(List<Injections> data, List<String> sections){
+
+        dataInjection = new ArrayList<>();
+        for (String section: sections) {
+            ArrayList<Injections> arrTemp = new ArrayList<>();
+            for (Injections injections: data ) {
+                if(injections.getIsInjected().equalsIgnoreCase("1")) {
                     String date_injected = injections.getInjectedDate();
                     long temp = (getMilliFromDate(date_injected ));
                     String dateInjected = getDate(temp, "MM/yyyy");

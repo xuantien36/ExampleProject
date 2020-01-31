@@ -25,8 +25,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText edtUser;
     @BindView(R.id.edt_name_register)
     EditText edtName;
-    @BindView(R.id.edt_birthday)
-    EditText edtBirthday;
     @BindView(R.id.edt_email)
     EditText edtEmail;
     @BindView(R.id.edt_pass)
@@ -55,10 +53,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.btn_register:
                 String user_name = edtUser.getText().toString();
+                String name=edtName.getText().toString();
                 String password = edtPass.getText().toString();
                 String phone = edtPhone.getText().toString();
                 String email = edtEmail.getText().toString();
-                ApiBuilder.getInstance().register(user_name, password,null,null, phone, email,null,null).enqueue(new Callback<ResponeRegister>() {
+
+                if (user_name.equals("")||password.equals("")||email.equals("")|| name.equals("")){
+                    Toast.makeText(this, "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+
+                }
+                ApiBuilder.getInstance().register(user_name, password,null,name, phone, email,null,null).enqueue(new Callback<ResponeRegister>() {
                     @Override
                     public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
                         if (response.body().getStatus() == true) {
@@ -66,8 +70,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             startActivity(intent);
                             finish();
                             Toast.makeText(RegisterActivity.this, "Register success", Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override

@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
             <EditText
-                android:id="@+id/edt_birthday"
+                android:id="@+id/edt_add_birthday"
                 android:gravity="center_horizontal"
                 android:hint="Sinh Nhật"
                 android:layout_margin="10dp"

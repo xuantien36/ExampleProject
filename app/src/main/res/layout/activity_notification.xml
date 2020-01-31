@@ -6,6 +6,7 @@
     android:background="@drawable/mask_ground"
     android:orientation="vertical"
     tools:context=".activity.NotificationActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,6 +19,7 @@
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:src="@drawable/ic_group_131" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,10 +35,12 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_group_83" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,10 +54,11 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_centerInParent="true"
-            android:layout_margin="20dp"/>
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp" />
 
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,61 +74,54 @@
             android:textColor="#C03869"
             android:textSize="20dp" />
 
-<!--        <FrameLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content">-->
-
-<!--            <ImageView-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:src="@drawable/ic_group_140" />-->
-                <TextView
-                    android:gravity="center"
-                    android:background="@drawable/ic_group_140"
-                   android:layout_gravity="center"
-                    android:id="@+id/tv_Time"
-                    android:layout_width="100dp"
-                    android:layout_height="60dp"
-                    android:padding="5dp"
-                    android:text=" 00 / 00"
-                    android:textColor="#C03869" />
-<!--        </FrameLayout>-->
+        <TextView
+            android:id="@+id/tv_Time"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_group_140"
+            android:gravity="center"
+            android:text="00 : 00"
+            android:padding="5dp"
+            android:textColor="#C03869" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:padding="20dp"
-            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:maxLines="1"
+            android:padding="20dp"
             android:text="Cài Đặt :"
             android:textColor="#C03869"
             android:textSize="18dp" />
+
         <RadioGroup
-            android:layout_gravity="center"
-           android:layout_margin="10dp"
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/radio_on_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="On Time"
-            android:textColor="#C03869" />
+            <RadioButton
+                android:id="@+id/radio_on_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On Time"
+                android:textColor="#C03869" />
 
-        <RadioButton
-            android:id="@+id/radio_before"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Before 1 day"
-            android:textColor="#C03869" />
+            <RadioButton
+                android:id="@+id/radio_before"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Before 1 day"
+                android:textColor="#C03869" />
         </RadioGroup>
     </LinearLayout>
 </LinearLayout>

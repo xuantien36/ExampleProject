@@ -34,7 +34,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     ImageView imSave;
     @BindView(R.id.edt_name_baby)
     EditText edtName;
-    @BindView(R.id.edt_birthday)
+    @BindView(R.id.edt_add_birthday)
     EditText edtBirthday;
     @BindView(R.id.edt_note)
     EditText edtNote;
@@ -117,7 +117,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.save:
                 addBaby();
                 break;
-            case R.id.edt_birthday:
+            case R.id.edt_add_birthday:
                 datePicker(this,edtBirthday, String.valueOf(R.style.DialogTheme));
                 break;
         }

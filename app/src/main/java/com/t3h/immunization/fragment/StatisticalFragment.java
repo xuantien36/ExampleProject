@@ -1,5 +1,4 @@
 package com.t3h.immunization.fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.EditInjectionsActivity;
 import com.t3h.immunization.adapter.ExpandableListAdapter;
@@ -59,36 +56,28 @@ public class StatisticalFragment extends Fragment {
                 expandableListAdapter.setDataStatis(injectionGroup, data);
                 expandableListView.setAdapter(expandableListAdapter);
                 tvName.setText(GetBaby.getInstance().getName());
-                expandableListAdapter.setChildListener(new ExpandableListAdapter.callBackChild() {
-                    @Override
-                    public void onclickChild(int position,String date,String name) {
-                        Intent intent=new Intent(getContext(),EditInjectionsActivity.class);
-                        intent.putExtra("child",date);
-                        intent.putExtra("title",name);
-                        startActivity(intent);
-                        Toast.makeText(getContext(), ""+name, Toast.LENGTH_SHORT).show();
-                    }
+                expandableListAdapter.setChildListener((position, date, name) -> {
+                    Intent intent=new Intent(getContext(),EditInjectionsActivity.class);
+                    intent.putExtra("child",date);
+                    intent.putExtra("title",name);
+                    startActivity(intent);
                 });
-
             }
             @Override
             public void onFailure(Call<ResponeStatistical> call, Throwable t) {
 
             }
         });
-
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
     }
-
     @Override
     public void onResume() {
         super.onResume();
-        if (GetBaby.getInstance().getBabyId()!=null){
+        if (GetBaby.getInstance().getBabyId()!= null){
             callApi();
         }else {
             Toast.makeText(getContext(), "Không có gì để hiển thị", Toast.LENGTH_SHORT).show();

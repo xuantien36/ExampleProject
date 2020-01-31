@@ -1,21 +1,30 @@
 package com.t3h.immunization.activity;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.Injections;
 import com.t3h.immunization.model.User;
-import com.t3h.immunization.respone.ResponeInjections;
+import com.t3h.immunization.respone.ResponeRegister;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,12 +41,13 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
     EditText edtMedicine;
     @BindView(R.id.note)
     EditText edtNote;
-    @BindView(R.id.injected)
-    EditText edtInjected;
     @BindView(R.id.date)
     EditText edtDate;
     @BindView(R.id.name_injected)
     TextView nameInjected;
+    @BindView(R.id.spinner)
+    Spinner spinner;
+    private  int poss ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,40 +58,74 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         back.setOnClickListener(this);
         imSave.setOnClickListener(this);
     }
-
     private void intView() {
         Intent intent = getIntent();
         String date = intent.getStringExtra("child");
         String name = intent.getStringExtra("title");
         edtDate.setText(date);
         nameInjected.setText(name);
-        edtMedicine.setText(name);
-    }
-
-    private void callApi() {
-        String medicine = edtMedicine.getText().toString();
-        String note = edtNote.getText().toString();
-        String injected = edtInjected.getText().toString();
-        String date = edtDate.getText().toString();
-        ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()), Injections.getInstance().getId(), String.valueOf(User.getInstans().getId()), note, date, medicine,
-                injected).enqueue(new Callback<ResponeInjections>() {
+        ArrayList<String> injected =new ArrayList<>();
+        injected.add("Bỏ lỡ");
+        injected.add("Đã tiêm");
+        injected.add("Chưa tiêm");
+        ArrayAdapter adapter=new ArrayAdapter(this,android.R.layout.simple_spinner_item,injected);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onResponse(Call<ResponeInjections> call, Response<ResponeInjections> response) {
-                if (response.body().getStatus() == true) {
-                    finish();
-
-                } else {
-                    Toast.makeText(EditInjectionsActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                }
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                poss = position;
+                Toast.makeText(EditInjectionsActivity.this, "" +position, Toast.LENGTH_SHORT).show();
 
             }
             @Override
-            public void onFailure(Call<ResponeInjections> call, Throwable t) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-    }
+        edtDate.setOnClickListener(this);
+        edtDate.setCursorVisible(false);
+        edtDate.setFocusableInTouchMode(false);
+        edtDate.setFocusable(false);
 
+    }
+    private void callApi() {
+        String date = edtDate.getText().toString();
+        String medicine = edtMedicine.getText().toString();
+        String note = edtNote.getText().toString();
+        if (medicine.equals("") || note.equals("")) {
+            Toast.makeText(this, "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+        } else {
+            ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()), Injections.getInstance().getId(),
+                    String.valueOf(User.getInstans().getId()), note, date, medicine, poss)
+                    .enqueue(new Callback<ResponeRegister>() {
+
+                        @Override
+                        public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
+                            if (response.body().getStatus() == true) {
+                                Log.e("Message", "onResponse: " + response.body().getMessage());
+                                finish();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ResponeRegister> call, Throwable t) {
+
+                        }
+                    });
+        }
+    }
+    public void datePicker(final Context context, final EditText textView, final String type) {
+        Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context, R.style.DialogTheme, (view, year, monthOfYear, dayOfMonth) -> {
+            Calendar newDate = Calendar.getInstance();
+            newDate.set(year, monthOfYear, dayOfMonth);
+            newDate.set(year, monthOfYear, dayOfMonth);
+            textView.setText(dateFormatter.format(newDate.getTime()));
+
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -91,12 +135,20 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
             case R.id.save_injected:
                 callApi();
                 break;
+            case R.id.date:
+                datePicker(this,edtDate, String.valueOf(R.style.DialogTheme));
+                break;
         }
-
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        callApi();
+    }
 }
+

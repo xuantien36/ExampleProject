@@ -6,16 +6,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -144,7 +141,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }
         });
     }
-
     private void scrollToPositionRight() {
         currentPosition = layoutManager.findLastVisibleItemPosition();
 
@@ -157,7 +153,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
         }
     }
-
     private void scrollToPositionLeft() {
         currentPosition = layoutManager.findFirstVisibleItemPosition();
         if (currentPosition > 0 && currentPosition <= arr.size() - 1) {

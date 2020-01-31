@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.t3h.immunization.R;
-import com.t3h.immunization.adapter.ExpanAdapterInjected;
+import com.t3h.immunization.adapter.AdapterMissInjected;
 import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
 import java.util.List;
@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AllFragment extends Fragment{
-    private ExpanAdapterInjected adapter;
+    private AdapterMissInjected adapter;
     @BindView(R.id.expandableListView)
     ExpandableListView expandableList;
     List<InjectionGroup> groups;
@@ -34,7 +34,7 @@ public class AllFragment extends Fragment{
         View view = inflater.inflate(R.layout.all_fragment, container, false);
         ButterKnife.bind(this, view);
         Log.e("TATTT", "onCreateView: " + dataInjection.size());
-        adapter = new ExpanAdapterInjected(getContext());
+        adapter = new AdapterMissInjected(getContext());
         adapter.setDataList(dataInjection, groups);
         expandableList.setAdapter(adapter);
         for (int i = 0; i <dataInjection.size() ; i++) {

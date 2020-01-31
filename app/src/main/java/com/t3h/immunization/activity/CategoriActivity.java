@@ -104,7 +104,6 @@ public class CategoriActivity extends AppCompatActivity  {
             switch (index) {
                 case TAB1:
                     fragment = new VaccineFragment();
-
                     break;
                 case TAB2:
                     fragment = new StatisticalFragment();

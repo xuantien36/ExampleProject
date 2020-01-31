@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -15,7 +16,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import androidx.appcompat.app.AppCompatActivity;
 import com.t3h.immunization.R;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,7 +34,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     RadioButton radio_OnTime;
     @BindView(R.id.radio_before)
     RadioButton radio_Before;
-    private Handler handler = new Handler();
     private Dialog dialog;
     @BindView(R.id.tv_Time)
     TextView tvTime;
@@ -43,52 +48,48 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         ButterKnife.bind(this);
+        String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+        Log.e("time", "init: "+currentTime );
+        tvTime.setText(currentTime+"");
         init();
     }
-
     private void init() {
         sharedPreferences = getSharedPreferences("SaveNotification", Context.MODE_PRIVATE);
-        tvTime.setText(sharedPreferences.getString("time", ""));
+        tvTime.setText(sharedPreferences.getString("time",tvTime.getText().toString()));
         radio_OnTime.setChecked(sharedPreferences.getBoolean("onTime", true));
         radio_Before.setChecked(sharedPreferences.getBoolean("before", false));
         status.setChecked(sharedPreferences.getBoolean("status", false));
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
+
         tvTime.setOnClickListener(view -> {
             final Calendar calendar = Calendar.getInstance();
             ihours = calendar.get(Calendar.HOUR_OF_DAY);
             iminute = calendar.get(Calendar.MINUTE);
             TimePickerDialog timePickerDialog;
-            timePickerDialog = new TimePickerDialog(NotificationActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                    ihours = i;
-                    iminute = i1;
-                    timeSet = new StringBuffer().append((ihours)).append(":").append(iminute).toString();
-                    tvTime.setText(timeSet);
+            timePickerDialog = new TimePickerDialog(NotificationActivity.this, (timePicker, i, i1) -> {
+                ihours = i;
+                iminute = i1;
+                timeSet = new StringBuffer().append((ihours)).append(":").append(iminute).toString();
+                tvTime.setText(timeSet);
 
-                }
             }, ihours, iminute, true);
             timePickerDialog.show();
 
         });
-        status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("status", true);
-                    editor.commit();
+        status.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("status", true);
+                editor.commit();
 
-                } else {
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.remove("status");
-                    editor.commit();
-                }
+            } else {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("status");
+                editor.commit();
             }
         });
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -111,7 +112,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             case R.id.btn_agree:
         }
     }
-
     public void showDialog() {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_sending);
