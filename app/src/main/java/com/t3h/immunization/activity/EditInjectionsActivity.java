@@ -1,7 +1,5 @@
 package com.t3h.immunization.activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,21 +13,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.Injections;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -94,7 +89,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                     poss = position;
-                    Toast.makeText(EditInjectionsActivity.this, "okkk" + poss, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditInjectionsActivity.this, "spanner:::" + poss, Toast.LENGTH_SHORT).show();
 
                 }
                 @Override
@@ -126,7 +121,6 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                                 finish();
                             }
                         }
-
                         @Override
                         public void onFailure(Call<ResponeRegister> call, Throwable t) {
 
@@ -134,7 +128,6 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                     });
         }
     }
-
     public void datePicker(final Context context, final EditText textView, final String type) {
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -147,7 +140,6 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -162,7 +154,6 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                 break;
         }
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
