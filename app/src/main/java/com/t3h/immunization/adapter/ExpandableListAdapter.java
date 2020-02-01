@@ -115,11 +115,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
 
     }
+
     class ChildHolder {
         TextView name;
         TextView date;
         ImageView image;
     }
+
     public String countInjected(List<Injections> injectionsList) {
         int count = 0;
         for (Injections injections : injectionsList) {
@@ -134,20 +136,21 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public String countNotInjected(List<Injections> injectionsList) {
         int count = 0;
         for (Injections injections : injectionsList) {
-            if (injections.getIsInjected().equalsIgnoreCase("0") &&  (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                    ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
+            if (injections.getIsInjected().equalsIgnoreCase("0") && (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 count++;
 
             }
         }
         return String.valueOf(count);
     }
+
     public String countMisInjected(List<Injections> injectionsList) {
         int count = 0;
         for (Injections injections : injectionsList) {
             if (injections.getIsInjected().equalsIgnoreCase("0") &&
                     (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                            ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
+                            (Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 count++;
 
             }
@@ -182,30 +185,30 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         Log.e("BBBBBBB", "getChildView: " + childPosition + "\\\\\\\\\\" + getChild(groupPosition, childPosition).getDate());
         Log.e("tongdate", "getChildView: " + childPosition + "\\\\\\\\\\" + getMilliFromDate(GetBaby.getInstance().getBirthday()));
 
-        Log.e("TAG", "realTime 1 : "+System.currentTimeMillis() );
-        Log.e("TAG", "realTime 2: "+(getMilliFromDate(GetBaby.getInstance().getBirthday()) + setDate) );
+        Log.e("TAG", "realTime 1 : " + System.currentTimeMillis());
+        Log.e("TAG", "realTime 2: " + (getMilliFromDate(GetBaby.getInstance().getBirthday()) + setDate));
 
-            if (getChild(groupPosition,childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                            ( Long.parseLong(String.valueOf(Long.parseLong(getChild(groupPosition,childPosition).getDate()) *
-                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
-                childHolder.image.setImageResource(R.drawable.ic_ellipse2);
-                childHolder.date.setBackgroundResource(R.drawable.shape_custom_miss_injected);
-            }else if (getChild(groupPosition,childPosition).getIsInjected().equalsIgnoreCase("1")){
-                childHolder.date.setBackgroundResource(R.drawable.shape_custom_injectd);
-                childHolder.image.setImageResource(R.drawable.ic_ellipse_200);
+        if (getChild(groupPosition, childPosition).getIsInjected().equalsIgnoreCase("0") &&
+                (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                        (Long.parseLong(String.valueOf(Long.parseLong(getChild(groupPosition, childPosition).getDate()) *
+                                Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
+            childHolder.image.setImageResource(R.drawable.ic_ellipse2);
+            childHolder.date.setBackgroundResource(R.drawable.shape_custom_miss_injected);
+        } else if (getChild(groupPosition, childPosition).getIsInjected().equalsIgnoreCase("1")) {
+            childHolder.date.setBackgroundResource(R.drawable.shape_custom_injectd);
+            childHolder.image.setImageResource(R.drawable.ic_ellipse_200);
 
-            }else if (getChild(groupPosition,childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                            ( Long.parseLong(String.valueOf(Long.parseLong(getChild(groupPosition,childPosition).getDate()) *
-                                    Long.parseLong("" + (24 * 60 * 60 * 1000))))))))){
-                childHolder.image.setImageResource(R.drawable.ic_ellipse_202);
-                childHolder.date.setBackgroundResource(R.drawable.shape_custom_not_injectd);
+        } else if (getChild(groupPosition, childPosition).getIsInjected().equalsIgnoreCase("0") &&
+                (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                        (Long.parseLong(String.valueOf(Long.parseLong(getChild(groupPosition, childPosition).getDate()) *
+                                Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
+            childHolder.image.setImageResource(R.drawable.ic_ellipse_202);
+            childHolder.date.setBackgroundResource(R.drawable.shape_custom_not_injectd);
 
-            }
+        }
         if (child != null) {
             convertView.setOnClickListener(view -> child.onclickChild(childPosition, childHolder.date.getText().toString(),
-                    groupList.get(groupPosition).getGroupTitle(),getChild(groupPosition,childPosition)));
+                    groupList.get(groupPosition).getGroupTitle(), getChild(groupPosition, childPosition)));
         }
         return convertView;
     }
@@ -266,6 +269,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public interface callBackChild {
-        void onclickChild(int position, String date, String name,Injections injections);
+        void onclickChild(int position, String date, String name, Injections injections);
     }
 }

@@ -1,5 +1,7 @@
 package com.t3h.immunization.activity;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,18 +15,21 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.Injections;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -76,33 +81,35 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         spinner.setAdapter(adapter);
         if (injections.getIsInjected().equalsIgnoreCase("1")) {
             spinner.setSelection(1);
-        } else if (injections.getIsInjected().equalsIgnoreCase("0")&&  (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
-                        Long.parseLong("" + (24 * 60 * 60 * 1000)))))))))  {
-                spinner.setSelection(0);
-            }else if (injections.getIsInjected().equalsIgnoreCase("0")&&(System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                ( Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
+        } else if (injections.getIsInjected().equalsIgnoreCase("0") && (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                (Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
+                        Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
+            spinner.setSelection(0);
+        } else if (injections.getIsInjected().equalsIgnoreCase("0") && (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                (Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
                         Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
             spinner.setSelection(2);
         }
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                    poss = position;
-                    Toast.makeText(EditInjectionsActivity.this, "spanner:::" + poss, Toast.LENGTH_SHORT).show();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                poss = position;
+                Toast.makeText(EditInjectionsActivity.this, "spanner:::" + poss, Toast.LENGTH_SHORT).show();
 
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
+            }
 
-                }
-            });
-            edtDate.setOnClickListener(this);
-            edtDate.setCursorVisible(false);
-            edtDate.setFocusableInTouchMode(false);
-            edtDate.setFocusable(false);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-        }
+            }
+        });
+        edtDate.setOnClickListener(this);
+        edtDate.setCursorVisible(false);
+        edtDate.setFocusableInTouchMode(false);
+        edtDate.setFocusable(false);
+
+    }
+
     private void callApi() {
         String date = edtDate.getText().toString();
         String medicine = edtMedicine.getText().toString();
@@ -110,7 +117,8 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         if (medicine.equals("") || note.equals("")) {
             Toast.makeText(this, "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         } else {
-            ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()), Injections.getInstance().getId(),
+            ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()),
+                    injections.getId(),
                     String.valueOf(User.getInstans().getId()), note, date, medicine, poss)
                     .enqueue(new Callback<ResponeRegister>() {
 
@@ -121,6 +129,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                                 finish();
                             }
                         }
+
                         @Override
                         public void onFailure(Call<ResponeRegister> call, Throwable t) {
 
@@ -128,6 +137,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                     });
         }
     }
+
     public void datePicker(final Context context, final EditText textView, final String type) {
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -140,6 +150,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -154,6 +165,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                 break;
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -164,17 +176,18 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         super.onRestart();
         callApi();
     }
-        public long getMilliFromDate(String dateFormat) {
-            Date date = new Date();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                date = formatter.parse(dateFormat);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Today is " + date);
-            return date.getTime();
 
+    public long getMilliFromDate(String dateFormat) {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date = formatter.parse(dateFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        System.out.println("Today is " + date);
+        return date.getTime();
+
+    }
 }
 

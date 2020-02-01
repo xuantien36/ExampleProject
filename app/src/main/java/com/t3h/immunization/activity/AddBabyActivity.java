@@ -1,4 +1,5 @@
 package com.t3h.immunization.activity;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
@@ -45,7 +48,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     private Dialog dialog;
     @BindView(R.id.radio_group)
     RadioGroup group;
-    String checkedBox ;
+    String checkedBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +79,9 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
 
-        if (name.equals("")||birthday.equals("")||note.equals("")|| checkedBox.equals("")){
+        if (name.equals("") || birthday.equals("") || note.equals("") || checkedBox.equals("")) {
             Toast.makeText(AddBabyActivity.this, "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,
                     true).enqueue(new Callback<ResponeRegister>() {
                 @Override
@@ -88,6 +91,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                         finish();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResponeRegister> call, Throwable t) {
 
@@ -95,6 +99,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             });
         }
     }
+
     public void datePicker(final Context context, final EditText textView, final String type) {
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -107,6 +112,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -117,22 +123,26 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                 addBaby();
                 break;
             case R.id.edt_add_birthday:
-                datePicker(this,edtBirthday, String.valueOf(R.style.DialogTheme));
+                datePicker(this, edtBirthday, String.valueOf(R.style.DialogTheme));
                 break;
         }
 
     }
+
     public void showDialog() {
-        dialog = new Dialog(this);
+        if (dialog == null) {
+            dialog = new Dialog(AddBabyActivity.this);
+        }
         dialog.setContentView(R.layout.custom_dialog_add);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dialog!=null){
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
     }

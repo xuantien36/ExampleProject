@@ -54,7 +54,7 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     private void init() {
         Intent intent = getIntent();
         baBy = (GetBaby) intent.getSerializableExtra("baby");
-        Log.e("detail", "init: "+baBy.getName() );
+        Log.e("detail", "init: " + baBy.getName());
         tvBirthday.setText(baBy.getBirthday());
         tvName.setText(baBy.getName());
         tvNote.setText(baBy.getNote());
@@ -107,7 +107,9 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     }
 
     public void showDialog() {
-        dialog = new Dialog(this);
+        if (dialog == null) {
+            dialog = new Dialog(BabyInformationActivity.this);
+        }
         dialog.setContentView(R.layout.custom_dialog_delete);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
@@ -116,7 +118,7 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dialog != null) {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
     }

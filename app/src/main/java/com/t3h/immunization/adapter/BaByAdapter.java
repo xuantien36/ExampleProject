@@ -13,10 +13,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.EditBaByActivity;
 import com.t3h.immunization.model.GetBaby;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -36,39 +39,42 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         this.context = context;
 
     }
+
     public void setData(List<GetBaby> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
-    public void  getItemBaby(int position) {
-        Log.e("testt", "getItemBaby:    "+ position +"   //  list size "+data.size());
-        if (data.size()==0){
+    public void getItemBaby(int position) {
+        Log.e("testt", "getItemBaby:    " + position + "   //  list size " + data.size());
+        if (data.size() == 0) {
             GetBaby.getInstance().setBabyId(-1);
-        }else if (position == data.size()) {
-            Toast.makeText(context, "Không có", Toast.LENGTH_SHORT).show();
-        }else {
+//        } else if (position == data.size()) {
+//            Toast.makeText(context, "Không có", Toast.LENGTH_SHORT).show();
+//        } else {
+        } else if (position < data.size() - 1) {
             GetBaby.getInstance().setBabyId(data.get(position).getBabyId());
             GetBaby.getInstance().setBirthday(data.get(position).getBirthday());
             GetBaby.getInstance().setName(data.get(position).getName());
         }
     }
+
     @NonNull
     @Override
     public VaccineHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = inflater.inflate(R.layout.item_baby, parent, false);
         return new VaccineHolder(v);
     }
+
     @Override
     public void onBindViewHolder(@NonNull VaccineHolder holder, final int position) {
-
         GetBaby name = data.get(position);
         poss = position;
         holder.bindData(name);
-       holder. btnRepair.setOnClickListener(view -> {
+        holder.btnRepair.setOnClickListener(view -> {
             Intent intent = new Intent(context.getApplicationContext(), EditBaByActivity.class);
             intent.putExtra("data", data.get(position));
-            Log.e("bin", "bindData: "+position);
+            Log.e("bin", "bindData: " + position);
             context.startActivity(intent);
         });
         if (listener != null) {
@@ -86,6 +92,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         }
 
     }
+
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
@@ -114,17 +121,18 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         public void bindData(GetBaby item) {
             tvName.setText(item.getName());
             tvHave_injected.setText("Đã tiêm : " + item.getInjected());
-            tvMiss.setText("Bỏ lỡ : " +item.getMissInjected());
-            tvnot_injected.setText("Chưa tiêm : " +item.getNotInjected());
-          if (item.getGender().equalsIgnoreCase("Nam")){
-              imAvatar.setImageResource(R.drawable.avatar_2);
-          }else {
-              imAvatar.setImageResource(R.drawable.avatar);
-          }
+            tvMiss.setText("Bỏ lỡ : " + item.getMissInjected());
+            tvnot_injected.setText("Chưa tiêm : " + item.getNotInjected());
+            if (item.getGender().equalsIgnoreCase("Nam")) {
+                imAvatar.setImageResource(R.drawable.avatar_2);
+            } else {
+                imAvatar.setImageResource(R.drawable.avatar);
+            }
 
         }
 
     }
+
     public interface ItemClickListener {
         void onClicked(int position);
 
