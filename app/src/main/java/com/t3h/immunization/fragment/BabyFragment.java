@@ -1,5 +1,4 @@
 package com.t3h.immunization.fragment;
-
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -11,14 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.AddBabyActivity;
 import com.t3h.immunization.activity.BabyInformationActivity;
@@ -28,10 +25,8 @@ import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.BaByRespone;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.util.DisplayUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -66,7 +61,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         init();
         return view;
     }
-
     public void callApi() {
         Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
         ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
@@ -78,23 +72,17 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     arr.clear();
                     arr.addAll(data);
                     adapter.setData(arr);
-                    Log.e("arrBaByRespone::::", String.valueOf(arr.size()));
                     if (adapter != null) {
                         adapter.getItemBaby(currentPosition);
                     }
+
                     Log.e("call", "onResponse: " + GetBaby.getInstance().getBabyId());
-                    if (currentPosition > 0 && currentPosition < arr.size()) {
-                        Log.e("btnNextResponse::::", "VISIBLE");
+                    if (currentPosition < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
-                        btnBack.setVisibility(View.GONE);
                     } else if (currentPosition == arr.size() - 1) {
-                        Log.e("btnNextResponse::::", "GONE");
                         btnNext.setVisibility(View.GONE);
+                    }else if (currentPosition == 0) {
                         btnBack.setVisibility(View.GONE);
-                    } else if (currentPosition == 0) {
-                        Log.e("btnBackResponse::::", "GONE");
-                        btnBack.setVisibility(View.GONE);
-                        btnNext.setVisibility(View.VISIBLE);
                     }
                     recyclerView.setVisibility(View.VISIBLE);
                     tvEmpty.setVisibility(View.GONE);
@@ -103,14 +91,12 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     tvEmpty.setVisibility(View.VISIBLE);
                 }
             }
-
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
 
             }
         });
     }
-
     private void init() {
         btnAdd.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -157,7 +143,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
         }
     }
-
     private void scrollToPositionLeft() {
         currentPosition = layoutManager.findFirstVisibleItemPosition();
         if (currentPosition > 0 && currentPosition <= arr.size() - 1) {
@@ -198,7 +183,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 break;
         }
     }
-
     @Override
     public void onClicked(int position) {
         Intent intent = new Intent(getContext(), BabyInformationActivity.class);
@@ -210,15 +194,11 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     public void onLongClicked(int position) {
 
     }
-
     @Override
     public void onResume() {
         super.onResume();
         Log.e("BABY", "onResume: " + currentPosition);
-        if (currentPosition > 0) {
-            currentPosition--;
-        }
         callApi();
-    }
 
+    }
 }

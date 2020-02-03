@@ -77,7 +77,7 @@ public class StatisticalFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (GetBaby.getInstance().getBabyId()!= null){
+        if (GetBaby.getInstance().getBabyId()!=null){
             callApi();
         }else {
             Toast.makeText(getContext(), "Không có gì để hiển thị", Toast.LENGTH_SHORT).show();

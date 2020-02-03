@@ -49,10 +49,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         Log.e("testt", "getItemBaby:    " + position + "   //  list size " + data.size());
         if (data.size() == 0) {
             GetBaby.getInstance().setBabyId(-1);
-//        } else if (position == data.size()) {
-//            Toast.makeText(context, "Không có", Toast.LENGTH_SHORT).show();
-//        } else {
-        } else if (position < data.size() - 1) {
+        } else if (position <= data.size() - 1) {
             GetBaby.getInstance().setBabyId(data.get(position).getBabyId());
             GetBaby.getInstance().setBirthday(data.get(position).getBirthday());
             GetBaby.getInstance().setName(data.get(position).getName());

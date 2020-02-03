@@ -93,8 +93,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_statistical, parent, false);
             groupHolder = new GroupHolder();
-            groupHolder.text = (TextView) convertView.findViewById(R.id.name_statistical);
-            groupHolder.image = (ImageView) convertView.findViewById(R.id.icon);
+            groupHolder.text =  convertView.findViewById(R.id.name_statistical);
+            groupHolder.image = convertView.findViewById(R.id.icon);
             groupHolder.tvInjected = convertView.findViewById(R.id.tv_injected);
             groupHolder.tvNotInjected = convertView.findViewById(R.id.tv_not_injected);
             groupHolder.tvMiss = convertView.findViewById(R.id.tv_miss);
