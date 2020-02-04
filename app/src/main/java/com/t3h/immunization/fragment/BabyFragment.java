@@ -74,12 +74,13 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     arr.clear();
                     arr.addAll(data);
                     adapter.setData(arr);
+                    if (currentPosition >= arr.size()){
+                        currentPosition = arr.size()-1;
+                        Log.e("BUG", "onResponse: "+ currentPosition);
+                    }
                     if (adapter != null) {
                         adapter.getItemBaby(currentPosition);
-                        if (currentPosition >= arr.size()){
-                            currentPosition = arr.size()-1;
-                            Log.e("BUG", "onResponse: "+ currentPosition);
-                        }
+
                     }
 
                     if (currentPosition < arr.size() - 1) {
