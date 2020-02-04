@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
     <RelativeLayout
         android:padding="10dp"
+        android:layout_margin="20dp"
         android:background="@drawable/custom_dialog"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -24,6 +25,5 @@
             android:textColor="#FCF8F8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
     </RelativeLayout>
 </LinearLayout>

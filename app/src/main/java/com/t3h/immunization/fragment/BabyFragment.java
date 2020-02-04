@@ -58,9 +58,11 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         View view = inflater.inflate(R.layout.baby_fragment, container, false);
         ButterKnife.bind(this, view);
         arr = new ArrayList<>();
+        callApi();
         init();
         return view;
     }
+
     public void callApi() {
         Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
         ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
@@ -74,16 +76,26 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     adapter.setData(arr);
                     if (adapter != null) {
                         adapter.getItemBaby(currentPosition);
+                        if (currentPosition >= arr.size()){
+                            currentPosition = arr.size()-1;
+                            Log.e("BUG", "onResponse: "+ currentPosition);
+                        }
                     }
 
-                    Log.e("call", "onResponse: " + GetBaby.getInstance().getBabyId());
                     if (currentPosition < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
-                    } else if (currentPosition == arr.size() - 1) {
-                        btnNext.setVisibility(View.GONE);
+                        Log.e("BUG", "xoa0" );
                     }else if (currentPosition == 0) {
+                        Log.e("BUG", "xoa2" );
+                        btnNext.setVisibility(View.GONE);
                         btnBack.setVisibility(View.GONE);
+                    } else if (currentPosition == arr.size() - 1) {
+                        btnNext.setVisibility(View.VISIBLE);
+                        btnBack.setVisibility(View.GONE);
+                        Log.e("BUG", "xoa1" );
+
                     }
+                    Log.e("call", "onResponse: " + GetBaby.getInstance().getBabyId());
                     recyclerView.setVisibility(View.VISIBLE);
                     tvEmpty.setVisibility(View.GONE);
                 } else {
@@ -91,12 +103,14 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     tvEmpty.setVisibility(View.VISIBLE);
                 }
             }
+
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
-
+                Log.e("BUG", "onFailure: "+t.toString() );
             }
         });
     }
+
     private void init() {
         btnAdd.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -130,7 +144,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }
         });
     }
-
     private void scrollToPositionRight() {
         currentPosition = layoutManager.findLastVisibleItemPosition();
 
@@ -145,6 +158,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     }
     private void scrollToPositionLeft() {
         currentPosition = layoutManager.findFirstVisibleItemPosition();
+
         if (currentPosition > 0 && currentPosition <= arr.size() - 1) {
             currentPosition--;
             mHandler.postDelayed(() -> {
@@ -153,7 +167,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }, 50);
         }
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -164,14 +177,17 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             case R.id.btn_back:
                 btnNext.setVisibility(View.VISIBLE);
                 scrollToPositionLeft();
+
                 Log.e("currentPosBack::::::", String.valueOf(currentPosition));
                 if (currentPosition == 0) {
                     Log.e("LEFT", "onClick: " + (currentPosition));
                     btnBack.setVisibility(View.GONE);
                 }
-                adapter.getItemBaby(currentPosition);//thêm
+                adapter.getItemBaby(currentPosition);
+
                 break;
             case R.id.btn_next:
+
                 btnBack.setVisibility(View.VISIBLE);
                 scrollToPositionRight();
                 Log.e("currentPosNext::::::", String.valueOf(currentPosition));
@@ -179,7 +195,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     Log.e("RIGHT", "onClick: " + (currentPosition));
                     btnNext.setVisibility(View.GONE);
                 }
-                adapter.getItemBaby(currentPosition);//thêm
+                adapter.getItemBaby(currentPosition);
                 break;
         }
     }
@@ -188,6 +204,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         Intent intent = new Intent(getContext(), BabyInformationActivity.class);
         intent.putExtra("baby", arr.get(position));
         startActivity(intent);
+
     }
 
     @Override
@@ -197,8 +214,8 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("BABY", "onResume: " + currentPosition);
         callApi();
+        Log.e("BUG", "Gọi lại" + (currentPosition));
 
     }
 }

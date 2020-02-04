@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -128,7 +129,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             if (injections.getIsInjected().equalsIgnoreCase("1")) {
                 count++;
             }
-
         }
         return String.valueOf(count);
     }

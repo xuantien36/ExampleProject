@@ -1,11 +1,11 @@
 package com.t3h.immunization.activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,21 +15,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.Injections;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -52,6 +49,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
     @BindView(R.id.spinner)
     Spinner spinner;
     private int poss;
+    private Dialog dialog;
     private Injections injections;
 
     @Override
@@ -93,9 +91,20 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                poss = position;
-                Toast.makeText(EditInjectionsActivity.this, "spanner:::" + poss, Toast.LENGTH_SHORT).show();
-
+                switch (position) {
+                    case 0:
+                        poss = 0;
+                        Toast.makeText(EditInjectionsActivity.this, "" + poss, Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        poss = 1;
+                        Toast.makeText(EditInjectionsActivity.this, "" + poss, Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        poss = 0;
+                        Toast.makeText(EditInjectionsActivity.this, "" + poss, Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
 
             @Override
@@ -107,7 +116,6 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         edtDate.setCursorVisible(false);
         edtDate.setFocusableInTouchMode(false);
         edtDate.setFocusable(false);
-
     }
 
     private void callApi() {
@@ -115,7 +123,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         String medicine = edtMedicine.getText().toString();
         String note = edtNote.getText().toString();
         if (medicine.equals("") || note.equals("")) {
-            Toast.makeText(this, "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Yêu cầu điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         } else {
             ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()),
                     injections.getId(),
@@ -125,8 +133,11 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                         @Override
                         public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
                             if (response.body().getStatus() == true) {
+                              showDialog();
                                 Log.e("Message", "onResponse: " + response.body().getMessage());
                                 finish();
+                            } else {
+                                Toast.makeText(EditInjectionsActivity.this, "Error", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -165,18 +176,22 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                 break;
         }
     }
+    public void showDialog() {
+        if (dialog == null) {
+            dialog = new Dialog(EditInjectionsActivity.this);
+        }
+        dialog.setContentView(R.layout.custom_dialog_edit_injected);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
 
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        callApi();
-    }
-
     public long getMilliFromDate(String dateFormat) {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

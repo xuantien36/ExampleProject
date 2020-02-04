@@ -60,6 +60,7 @@
     <string name="detail">Chi Tiết Mũi Tiêm</string>
     <string name="baby_information">Thông Tin Bé</string>
     <string name="delete_baby_infomation">Xóa bé khỏi danh sách</string>
+    <string name="tv_edit_injected">Thay đổi thông tin mũi tiêm thành công!</string>
     <string-array name="language_names">
         <item>@string/language_english</item>
         <item>@string/language_vietnamese</item>

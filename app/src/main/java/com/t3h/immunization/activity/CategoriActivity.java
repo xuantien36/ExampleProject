@@ -130,6 +130,5 @@ public class CategoriActivity extends AppCompatActivity  {
         super.onRestart();
 
     }
-
 }
 

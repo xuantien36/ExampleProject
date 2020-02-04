@@ -1,5 +1,7 @@
 package com.t3h.immunization.activity;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.UpdateApp;
@@ -17,6 +20,7 @@ import com.t3h.immunization.respone.ResponeApp;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.util.AppPreferences;
 import com.t3h.immunization.util.Constant;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,19 +36,21 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_splash);
         initView();
     }
+
     public void showDialog(String i) {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_update);
         dialog.setCanceledOnTouchOutside(false);
         Button btnYes = dialog.findViewById(R.id.btn_yes);
-         btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo = dialog.findViewById(R.id.btn_no);
         btnYes.setOnClickListener(this);
         btnNo.setOnClickListener(this);
-        if (Integer.parseInt(i) == 2){
+        if (Integer.parseInt(i) == 2) {
             btnNo.setVisibility(View.GONE);
         }
         dialog.show();
     }
+
     public void saveData() {
         handler = new Handler();
         handler.postDelayed(() -> {
@@ -79,7 +85,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                         @Override
                         public void run() {
                             showDialog(String.valueOf(data.getIsUpdate()));
-                    }
+                        }
                     });
 
                 }
@@ -90,6 +96,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+
     public void handlerlogin() {
         ApiBuilder.getInstance().login(AppPreferences.getInstance(getApplicationContext()).getString("taikhoan"),
                 AppPreferences.getInstance(getApplicationContext()).getString("matkhau")).enqueue(new Callback<ResponeLogin>() {
@@ -105,6 +112,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 finish();
             }
+
             @Override
             public void onFailure(Call<ResponeLogin> call, Throwable t) {
                 Toast.makeText(SplashActivity.this, "Error", Toast.LENGTH_SHORT).show();

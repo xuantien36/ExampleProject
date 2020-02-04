@@ -113,11 +113,20 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         }
     }
     public void showDialog() {
-        dialog = new Dialog(this);
+        if (dialog==null){
+            dialog = new Dialog(NotificationActivity.this);
+        }
         dialog.setContentView(R.layout.custom_dialog_sending);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         finish();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 }
 

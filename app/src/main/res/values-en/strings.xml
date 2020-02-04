@@ -49,6 +49,7 @@
     <string name="tv_update">New updates available, update now</string>
     <string name="btn_Yes">Yes</string>
     <string name="btn_No">No</string>
+    <string name="tv_edit_injected">Change injection information successfully!</string>
     <string name="detail">Injection Details</string>
     <string name="edit_injected">Edit Injection Information</string>
     <string name="tv_feedback">Suggestion Box</string>

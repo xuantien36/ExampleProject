@@ -17,6 +17,8 @@ import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.respone.ResponeRegister;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -111,7 +113,7 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
             dialog = new Dialog(BabyInformationActivity.this);
         }
         dialog.setContentView(R.layout.custom_dialog_delete);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
     }
 

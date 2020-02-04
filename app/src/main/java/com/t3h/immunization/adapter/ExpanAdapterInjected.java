@@ -1,29 +1,22 @@
 package com.t3h.immunization.adapter;
-
 import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Build;
-//import android.util.Log;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.RequiresApi;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import butterknife.BindView;
 
 public class ExpanAdapterInjected extends BaseExpandableListAdapter {
@@ -103,11 +96,9 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
             String year = getDate(temp, "yyyy");
             groupHolder.text.setText("Tháng  " + dateInjection + " Năm  " + year);
         }
-
         return convertView;
 
     }
-
     class ChildHolder {
         @BindView(R.id.txtMui)
         TextView tvMui;

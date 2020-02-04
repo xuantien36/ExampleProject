@@ -49,20 +49,19 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         Log.e("testt", "getItemBaby:    " + position + "   //  list size " + data.size());
         if (data.size() == 0) {
             GetBaby.getInstance().setBabyId(-1);
+
         } else if (position <= data.size() - 1) {
             GetBaby.getInstance().setBabyId(data.get(position).getBabyId());
             GetBaby.getInstance().setBirthday(data.get(position).getBirthday());
             GetBaby.getInstance().setName(data.get(position).getName());
         }
     }
-
     @NonNull
     @Override
     public VaccineHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = inflater.inflate(R.layout.item_baby, parent, false);
         return new VaccineHolder(v);
     }
-
     @Override
     public void onBindViewHolder(@NonNull VaccineHolder holder, final int position) {
         GetBaby name = data.get(position);
@@ -89,12 +88,10 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         }
 
     }
-
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
     }
-
     public class VaccineHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.name_baby)
         TextView tvName;
@@ -113,8 +110,6 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
-
         public void bindData(GetBaby item) {
             tvName.setText(item.getName());
             tvHave_injected.setText("Đã tiêm : " + item.getInjected());
@@ -129,7 +124,6 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         }
 
     }
-
     public interface ItemClickListener {
         void onClicked(int position);
 

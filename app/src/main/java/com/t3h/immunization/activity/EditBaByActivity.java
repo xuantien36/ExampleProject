@@ -134,6 +134,9 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
 
     }
     public void showDialog() {
+        if (dialog==null){
+            dialog=new Dialog(EditBaByActivity.this);
+        }
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_edit);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
