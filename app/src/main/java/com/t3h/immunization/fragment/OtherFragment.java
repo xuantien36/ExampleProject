@@ -1,12 +1,14 @@
 package com.t3h.immunization.fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,8 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
     @BindView(R.id.lv_other)
     RecyclerView recyclerView;
     private Dialog dialog;
+    private Handler handler=new Handler();
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -63,10 +67,20 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
         data.add(new Other(R.drawable.ic_ung_dung_khac, getActivity().getString(R.string.another_app)));
         data.add(new Other(R.drawable.ic_group_286, getActivity().getString(R.string.change_language_title)));
         data.add(new Other(R.drawable.ic_group_720, getActivity().getString(R.string.log_out)));
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        },1000);
         adapter.setData(data);
     }
 
     private void initView() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         adapter = new OtherAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);

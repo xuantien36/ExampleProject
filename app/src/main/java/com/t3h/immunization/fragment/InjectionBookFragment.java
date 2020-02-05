@@ -1,6 +1,8 @@
 package com.t3h.immunization.fragment;
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +34,14 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     ViewPager viewPager;
     @BindView(R.id.baby_name)
     TextView babyName;
+    private Handler handler=new Handler();
+    private ProgressDialog progressDialog;
 
     private void initView() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -41,6 +49,13 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
                 if (response.body().getStatus()==true){
                     adapter = new PagerTabAdapter(getActivity().getSupportFragmentManager(),response.body().getData(),response.body().getInjectionGroup());
                     viewPager.setAdapter(adapter);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+
+                        }
+                    },1000);
                     viewPager.setCurrentItem(0);
                     viewPager.setOffscreenPageLimit(4);
                     tabLayout.setupWithViewPager(viewPager);

@@ -1,6 +1,8 @@
 package com.t3h.immunization.fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,8 @@ public class StatisticalFragment extends Fragment {
     ExpandableListAdapter expandableListAdapter;
     @BindView(R.id.name_baby_injected)
     TextView tvName;
+    private Handler handler=new Handler();
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -44,6 +48,10 @@ public class StatisticalFragment extends Fragment {
         return view;
     }
     public void callApi(){
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
             @Override
             public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
@@ -53,6 +61,13 @@ public class StatisticalFragment extends Fragment {
                 arrayList.addAll(data);
                 Log.e("STA", "onResponse: tttttt"+arrayList.size() );
                 expandableListAdapter = new ExpandableListAdapter(getContext(), injectionGroup);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+
+                    }
+                },500);
                 expandableListAdapter.setDataStatis(injectionGroup, data);
                 expandableListView.setAdapter(expandableListAdapter);
                 tvName.setText(GetBaby.getInstance().getName());

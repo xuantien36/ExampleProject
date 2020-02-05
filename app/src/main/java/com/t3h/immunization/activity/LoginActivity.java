@@ -2,14 +2,17 @@ package com.t3h.immunization.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +45,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SharedPreferences sharedPreferences;
     @BindView(R.id.tv_forget)
     TextView tvForget;
+    private Handler handler =new Handler();
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
        edtName.setText( AppPreferences.getInstance(getApplicationContext()).getString(("taikhoan")));
       edtPass.setText( AppPreferences.getInstance(getApplicationContext()).getString("matkhau"));
         Log.e("LOGIN", "key Check box  "+AppPreferences.getInstance(getApplicationContext()).getBoolean("checked") );
-        checkBox.setChecked(AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));//cho nay
-//        edtName.setText(sharedPreferences.getString("taikhoan", ""));
-//        edtPass.setText(sharedPreferences.getString("matkhau", ""));
-//        checkBox.setChecked(sharedPreferences.getBoolean("checked", false));// cho này key khac nhau a ơi
-//    }
+        checkBox.setChecked(AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
     }
 
     @Override
@@ -83,36 +84,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-
     public  void callApiLogin() {
         String user_name = edtName.getText().toString();
         String password = edtPass.getText().toString();
         if (user_name.isEmpty() && password.isEmpty()) {
             Toast.makeText(this, "Please complete the form", Toast.LENGTH_SHORT).show();
         }
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         ApiBuilder.getInstance().login(user_name, password).enqueue(new Callback<ResponeLogin>() {
             @Override
             public void onResponse(Call<ResponeLogin> call, Response<ResponeLogin> response) {
                 if (response.body().getStatus() == true) {
                     Log.e("TAG", "CHECK LOGIN SUCCESS!");
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+
+                        }
+                    },500);
                     Intent intent = new Intent(LoginActivity.this, CategoriActivity.class);
                     startActivity(intent);
                     Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     User.getInstans().setId(response.body().getData().getId());
                     if (checkBox.isChecked()) {
-//                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                                    editor.putString("taikhoan", user_name);
-//                                    editor.putString("matkhau", password);
-//                                    editor.putBoolean("checked", true);
-//                                    AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN, true);
+
                         AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
                         AppPreferences.getInstance(getApplicationContext()).putString("matkhau", password);
-                        AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", true);//cho nay
+                        AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", true);
                         Log.e("LOGIN", "onResponse: check  "+AppPreferences.getInstance(getApplicationContext()).getBoolean("checked") );
-//                                    editor.commit();
 
                     } else {
-//                                    AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_LOGIN, true);
                         AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", "");
                         AppPreferences.getInstance(getApplicationContext()).putString("matkhau", "");
                         AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", false);

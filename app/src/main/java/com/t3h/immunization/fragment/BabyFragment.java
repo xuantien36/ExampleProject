@@ -1,4 +1,6 @@
 package com.t3h.immunization.fragment;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -10,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.AddBabyActivity;
 import com.t3h.immunization.activity.BabyInformationActivity;
@@ -25,8 +29,10 @@ import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.BaByRespone;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.util.DisplayUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -50,6 +56,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     private LinearLayoutManager layoutManager;
     int currentPosition = 0;
     private Handler mHandler = new Handler();
+    private ProgressDialog progressDialog;
 
 
     @Nullable
@@ -58,12 +65,16 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         View view = inflater.inflate(R.layout.baby_fragment, container, false);
         ButterKnife.bind(this, view);
         arr = new ArrayList<>();
-        callApi();
+//        callApi();
         init();
         return view;
     }
 
     public void callApi() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
         ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
             @Override
@@ -73,27 +84,37 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     Log.e("BABY", "DATA SIZE " + response.body().getData().size());
                     arr.clear();
                     arr.addAll(data);
-                    adapter.setData(arr);
-                    if (currentPosition >= arr.size()){
-                        currentPosition = arr.size()-1;
-                        Log.e("BUG", "onResponse: "+ currentPosition);
-                    }
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                        }
+                    }, 500);
+                    adapter.setData(data);
                     if (adapter != null) {
                         adapter.getItemBaby(currentPosition);
+                    }
+                    if (currentPosition >= arr.size()) {
+                        currentPosition = arr.size() - 1;
+                        Log.e("BUG", "onResponse: " + currentPosition);
 
                     }
 
                     if (currentPosition < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
-                        Log.e("BUG", "xoa0" );
-                    }else if (currentPosition == 0) {
-                        Log.e("BUG", "xoa2" );
+                        Log.e("BUG", "xoa0");
+                    } else if (currentPosition == 0) {
+
+                        Log.e("BUG", "xoa2");
                         btnNext.setVisibility(View.GONE);
                         btnBack.setVisibility(View.GONE);
+
+
                     } else if (currentPosition == arr.size() - 1) {
+
                         btnNext.setVisibility(View.VISIBLE);
                         btnBack.setVisibility(View.GONE);
-                        Log.e("BUG", "xoa1" );
+                        Log.e("BUG", "xoa1");
 
                     }
                     Log.e("call", "onResponse: " + GetBaby.getInstance().getBabyId());
@@ -107,7 +128,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
-                Log.e("BUG", "onFailure: "+t.toString() );
+                Log.e("BUG", "onFailure: " + t.toString());
             }
         });
     }
@@ -145,6 +166,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }
         });
     }
+
     private void scrollToPositionRight() {
         currentPosition = layoutManager.findLastVisibleItemPosition();
 
@@ -157,6 +179,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
         }
     }
+
     private void scrollToPositionLeft() {
         currentPosition = layoutManager.findFirstVisibleItemPosition();
 
@@ -168,6 +191,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }, 50);
         }
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -179,11 +203,15 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 btnNext.setVisibility(View.VISIBLE);
                 scrollToPositionLeft();
 
-                Log.e("currentPosBack::::::", String.valueOf(currentPosition));
                 if (currentPosition == 0) {
                     Log.e("LEFT", "onClick: " + (currentPosition));
                     btnBack.setVisibility(View.GONE);
                 }
+                if (currentPosition >= arr.size()) {
+                    currentPosition = arr.size() - 1;
+                    Log.e("BUG", "Back: " + currentPosition);
+                }
+
                 adapter.getItemBaby(currentPosition);
 
                 break;
@@ -191,7 +219,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
                 btnBack.setVisibility(View.VISIBLE);
                 scrollToPositionRight();
-                Log.e("currentPosNext::::::", String.valueOf(currentPosition));
+
                 if (currentPosition == arr.size() - 1) {
                     Log.e("RIGHT", "onClick: " + (currentPosition));
                     btnNext.setVisibility(View.GONE);
@@ -200,6 +228,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 break;
         }
     }
+
     @Override
     public void onClicked(int position) {
         Intent intent = new Intent(getContext(), BabyInformationActivity.class);
@@ -212,11 +241,13 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     public void onLongClicked(int position) {
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
         callApi();
-        Log.e("BUG", "Gọi lại" + (currentPosition));
+        Log.e("BUG", "Gọi lại " + (currentPosition));
+
 
     }
 }

@@ -73,7 +73,8 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
 
-        if (name.equals("") || birthday.equals("") || note.equals("") || checkedBox.equals("")) {
+        if (name.equals("") || birthday.equals("") || note.equals("")|| checkedBox.equalsIgnoreCase("")) {
+
             Toast.makeText(AddBabyActivity.this, "Yêu cầu điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         } else {
             ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,

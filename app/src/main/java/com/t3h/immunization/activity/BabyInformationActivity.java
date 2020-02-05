@@ -77,7 +77,8 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_back:
-                finish();
+                Intent finish=new Intent(this,CategoriActivity.class);
+                startActivity(finish);
                 break;
             case R.id.btn_delete:
                 deleteBaby();

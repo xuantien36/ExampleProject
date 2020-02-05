@@ -1,7 +1,10 @@
 package com.t3h.immunization.activity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +36,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText edtEnterPass;
     @BindView(R.id.edt_phone)
     EditText edtPhone;
+    private Handler handler=new Handler();
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -59,13 +64,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String email = edtEmail.getText().toString();
 
                 if (user_name.equals("")||password.equals("")||email.equals("")|| name.equals("")){
-                    Toast.makeText(this, "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, " Yêu cầu điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
 
                 }
+                progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage("Loading...");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
                 ApiBuilder.getInstance().register(user_name, password,null,name, phone, email,null,null).enqueue(new Callback<ResponeRegister>() {
                     @Override
                     public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
                         if (response.body().getStatus() == true) {
+                            progressDialog.dismiss();
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
@@ -77,7 +87,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                     }
                 });
-
                 break;
             case R.id.im_back:
                 finish();

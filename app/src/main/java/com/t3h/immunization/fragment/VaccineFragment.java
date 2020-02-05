@@ -1,10 +1,13 @@
 package com.t3h.immunization.fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +32,8 @@ public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClic
     private VaccineAdapter adapter;
     @BindView(R.id.lv_vaccine)
     RecyclerView recyclerView;
+    private Handler handler=new Handler();
+    private ProgressDialog progressDialog;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,11 +51,22 @@ public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClic
     }
 
     public void callApi() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         ApiBuilder.getInstance().getVaccine("vi").enqueue(new Callback<ResponeInjections>() {
             @Override
             public void onResponse(Call<ResponeInjections> call, Response<ResponeInjections> response) {
                 List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
                 if (injectionGroup != null) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+
+                        }
+                    },500);
                     adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
                     data.clear();
                     data.addAll(injectionGroup);
@@ -79,7 +95,6 @@ public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClic
         Intent intent = new Intent(getContext(),DetailActivity.class);
         intent.putExtra("webview", data.get(position).getLinkUrl());
         startActivity(intent);
-        Log.e("vac", "onClick: "+position );
 
     }
     @Override
