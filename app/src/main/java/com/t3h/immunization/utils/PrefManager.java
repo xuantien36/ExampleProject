@@ -1,4 +1,4 @@
-package com.t3h.immunization.util;
+package com.t3h.immunization.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

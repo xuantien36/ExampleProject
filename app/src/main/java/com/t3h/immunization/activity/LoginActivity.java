@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +19,8 @@ import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeLogin;
-import com.t3h.immunization.util.AppPreferences;
-import com.t3h.immunization.util.SaveData;
+import com.t3h.immunization.utils.AppPreferences;
+import com.t3h.immunization.utils.SaveData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.t3h.immunization.util.Constant.KEY_NEXT;
+import static com.t3h.immunization.utils.Constant.KEY_NEXT;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.btn_register)

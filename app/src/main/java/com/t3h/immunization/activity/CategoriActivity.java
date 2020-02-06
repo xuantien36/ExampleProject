@@ -7,26 +7,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.t3h.immunization.R;
-import com.t3h.immunization.customize.ItemBottomBar;
+import com.t3h.immunization.customxml.ItemBottomBar;
 import com.t3h.immunization.fragment.BabyFragment;
 import com.t3h.immunization.fragment.InjectionBookFragment;
 import com.t3h.immunization.fragment.OtherFragment;
 import com.t3h.immunization.fragment.StatisticalFragment;
 import com.t3h.immunization.fragment.VaccineFragment;
-import com.t3h.immunization.util.AppPreferences;
-import com.t3h.immunization.util.Constant;
-import com.t3h.immunization.util.SaveData;
+import com.t3h.immunization.utils.AppPreferences;
+import com.t3h.immunization.utils.Constant;
+import com.t3h.immunization.utils.SaveData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.t3h.immunization.util.Constant.KEY_LOGIN;
-import static com.t3h.immunization.util.Constant.TAB1;
-import static com.t3h.immunization.util.Constant.TAB2;
-import static com.t3h.immunization.util.Constant.TAB3;
-import static com.t3h.immunization.util.Constant.TAB4;
-import static com.t3h.immunization.util.Constant.TAB5;
+import static com.t3h.immunization.utils.Constant.KEY_LOGIN;
+import static com.t3h.immunization.utils.Constant.TAB1;
+import static com.t3h.immunization.utils.Constant.TAB2;
+import static com.t3h.immunization.utils.Constant.TAB3;
+import static com.t3h.immunization.utils.Constant.TAB4;
+import static com.t3h.immunization.utils.Constant.TAB5;
 
 public class CategoriActivity extends AppCompatActivity  {
     @BindView(R.id.ivImage1)

@@ -18,8 +18,8 @@ import com.t3h.immunization.model.UpdateApp;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeApp;
 import com.t3h.immunization.respone.ResponeLogin;
-import com.t3h.immunization.util.AppPreferences;
-import com.t3h.immunization.util.Constant;
+import com.t3h.immunization.utils.AppPreferences;
+import com.t3h.immunization.utils.Constant;
 
 import retrofit2.Call;
 import retrofit2.Callback;

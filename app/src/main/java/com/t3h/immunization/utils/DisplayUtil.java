@@ -1,4 +1,4 @@
-package com.t3h.immunization.util;
+package com.t3h.immunization.utils;
 
 import android.app.Activity;
 import android.content.Context;

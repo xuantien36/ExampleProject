@@ -21,9 +21,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.t3h.immunization.util.AppPreferences;
-import com.t3h.immunization.util.Constant;
-import com.t3h.immunization.util.PrefManager;
+import com.t3h.immunization.utils.AppPreferences;
+import com.t3h.immunization.utils.PrefManager;
 import com.t3h.immunization.R;
 import com.t3h.immunization.adapter.HomeAdapter;
 import com.t3h.immunization.fragment.FirstFragment;
@@ -33,7 +32,7 @@ import com.t3h.immunization.fragment.SecondFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.t3h.immunization.util.Constant.KEY_NEXT;
+import static com.t3h.immunization.utils.Constant.KEY_NEXT;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener{
     private MyViewPagerAdapter myViewPagerAdapter;

@@ -1,4 +1,4 @@
-package com.t3h.immunization.customize;
+package com.t3h.immunization.customxml;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;

@@ -28,7 +28,7 @@ import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.BaByRespone;
 import com.t3h.immunization.model.GetBaby;
-import com.t3h.immunization.util.DisplayUtil;
+import com.t3h.immunization.utils.DisplayUtil;
 
 import java.util.ArrayList;
 import java.util.List;

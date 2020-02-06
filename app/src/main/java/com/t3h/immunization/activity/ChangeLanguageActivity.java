@@ -10,7 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.t3h.immunization.R;
-import com.t3h.immunization.util.SaveData;
+import com.t3h.immunization.utils.SaveData;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
