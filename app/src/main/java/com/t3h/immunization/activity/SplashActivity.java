@@ -56,7 +56,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         handler.postDelayed(() -> {
             if (AppPreferences.getInstance(getApplicationContext()).getBoolean(Constant.KEY_NEXT)) {
                 if (AppPreferences.getInstance(getApplicationContext()).getBoolean("checked")) {
-                    handlerlogin();
+                    handlerLogin();
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 
@@ -66,6 +66,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             }
         }, 1500);
     }
+
     private void initView() {
         ApiBuilder.getInstance().updateApp("android", 1).enqueue(new Callback<ResponeApp>() {
             @Override
@@ -90,6 +91,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
             }
+
             @Override
             public void onFailure(Call<ResponeApp> call, Throwable t) {
 
@@ -97,7 +99,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-    public void handlerlogin() {
+    public void handlerLogin() {
         ApiBuilder.getInstance().login(AppPreferences.getInstance(getApplicationContext()).getString("taikhoan"),
                 AppPreferences.getInstance(getApplicationContext()).getString("matkhau")).enqueue(new Callback<ResponeLogin>() {
             @Override

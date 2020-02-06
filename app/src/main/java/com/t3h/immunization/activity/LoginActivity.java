@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Please complete the form", Toast.LENGTH_SHORT).show();
         }
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
+        progressDialog.setMessage("Please Wait....");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         ApiBuilder.getInstance().login(user_name, password).enqueue(new Callback<ResponeLogin>() {

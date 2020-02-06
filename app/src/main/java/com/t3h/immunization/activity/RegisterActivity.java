@@ -36,7 +36,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText edtEnterPass;
     @BindView(R.id.edt_phone)
     EditText edtPhone;
-    private Handler handler=new Handler();
     private ProgressDialog progressDialog;
 
 
@@ -68,10 +67,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 }
                 progressDialog = new ProgressDialog(this);
-                progressDialog.setMessage("Loading...");
+                progressDialog.setMessage("Please wait data is Processing...");
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
-                ApiBuilder.getInstance().register(user_name, password,null,name, phone, email,null,null).enqueue(new Callback<ResponeRegister>() {
+                ApiBuilder.getInstance().register(user_name, password,"",name, phone, email,"","").enqueue(new Callback<ResponeRegister>() {
                     @Override
                     public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
                         if (response.body().getStatus() == true) {

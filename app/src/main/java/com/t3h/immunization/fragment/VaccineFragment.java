@@ -52,7 +52,7 @@ public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClic
 
     public void callApi() {
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading...");
+        progressDialog.setMessage("Please wait data is Processing...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         ApiBuilder.getInstance().getVaccine("vi").enqueue(new Callback<ResponeInjections>() {

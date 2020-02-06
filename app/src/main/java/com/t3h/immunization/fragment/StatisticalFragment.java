@@ -49,7 +49,7 @@ public class StatisticalFragment extends Fragment {
     }
     public void callApi(){
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading...");
+        progressDialog.setMessage("Please wait data is Processing...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {

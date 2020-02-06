@@ -117,12 +117,12 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_edit:
-                finish();
+                Intent finish = new Intent(this,CategoriActivity.class);
+                startActivity(finish);
                 break;
             case R.id.save_edit:
                 editBaby();

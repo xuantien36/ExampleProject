@@ -78,7 +78,7 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
 
     private void initView() {
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading...");
+        progressDialog.setMessage("Please wait data is Processing...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         adapter = new OtherAdapter(getContext());

@@ -66,16 +66,18 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         edtBirthday.setCursorVisible(false);
         edtBirthday.setFocusableInTouchMode(false);
         edtBirthday.setFocusable(false);
+
     }
 
     public void addBaby() {
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
-
-        if (name.equals("") || birthday.equals("") || note.equals("")|| checkedBox.equalsIgnoreCase("")) {
+        if (name.equals("") || birthday.equals("") || note.equals("") || !male.isChecked() && !female.isChecked() ) {
 
             Toast.makeText(AddBabyActivity.this, "Yêu cầu điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+
+
         } else {
             ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,
                     true).enqueue(new Callback<ResponeRegister>() {
@@ -86,7 +88,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                         finish();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResponeRegister> call, Throwable t) {
 
@@ -94,7 +95,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             });
         }
     }
-
     public void datePicker(final Context context, final EditText textView, final String type) {
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);

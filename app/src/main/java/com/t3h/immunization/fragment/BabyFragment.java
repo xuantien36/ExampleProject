@@ -72,7 +72,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
     public void callApi() {
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading...");
+        progressDialog.setMessage("Please wait data is Processing...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
