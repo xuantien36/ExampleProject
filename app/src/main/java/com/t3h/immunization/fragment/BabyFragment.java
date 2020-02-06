@@ -65,11 +65,9 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         View view = inflater.inflate(R.layout.baby_fragment, container, false);
         ButterKnife.bind(this, view);
         arr = new ArrayList<>();
-//        callApi();
         init();
         return view;
     }
-
     public void callApi() {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Please wait data is Processing...");
@@ -91,33 +89,29 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                         }
                     }, 500);
                     adapter.setData(data);
-                    if (adapter != null) {
-                        adapter.getItemBaby(currentPosition);
-                    }
-                    if (currentPosition >= arr.size()) {
-                        currentPosition = arr.size() - 1;
-                        Log.e("BUG", "onResponse: " + currentPosition);
 
-                    }
+                        if (currentPosition >= arr.size()) {
+                            currentPosition = arr.size() - 1;
+                            Log.e("BUG", "onResponse: " + currentPosition);
+                            if (adapter != null) {
+                                adapter.getItemBaby(currentPosition);
 
+                        }
+                    }
                     if (currentPosition < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
                         Log.e("BUG", "xoa0");
                     } else if (currentPosition == 0) {
-
-                        Log.e("BUG", "xoa2");
                         btnNext.setVisibility(View.GONE);
                         btnBack.setVisibility(View.GONE);
-
+                        Log.e("BUG", "xoa2");
 
                     } else if (currentPosition == arr.size() - 1) {
-
                         btnNext.setVisibility(View.VISIBLE);
                         btnBack.setVisibility(View.GONE);
                         Log.e("BUG", "xoa1");
 
                     }
-                    Log.e("call", "onResponse: " + GetBaby.getInstance().getBabyId());
                     recyclerView.setVisibility(View.VISIBLE);
                     tvEmpty.setVisibility(View.GONE);
                 } else {

@@ -32,11 +32,8 @@
         android:id="@+id/lv_baby"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ln_choose"
-        android:layout_gravity="center"
         android:nestedScrollingEnabled="false"
         android:layout_centerVertical="true"
-        android:layout_marginTop="0dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_baby" />
@@ -57,7 +54,6 @@
     <ImageButton
         android:background="@null"
         android:visibility="gone"
-       android:layout_margin="10dp"
         android:id="@+id/btn_back"
         android:src="@drawable/ic_path_3677"
         android:layout_width="40dp"
@@ -65,16 +61,10 @@
     <ImageButton
         android:background="@null"
         android:visibility="gone"
-        android:layout_margin="10dp"
         android:id="@+id/btn_next"
        android:layout_alignParentRight="true"
         android:src="@drawable/ic_group_609"
         android:layout_width="40dp"
         android:layout_height="40dp"/>
     </RelativeLayout>
-<!--    <ProgressBar-->
-<!--        android:id="@+id/progressbar"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"/>-->
 </RelativeLayout>

@@ -33,13 +33,11 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
     public void setOnListener(ItemClickListener listener) {
         this.listener = listener;
     }
-
     public BaByAdapter(Context context) {
         inflater = LayoutInflater.from(context);
         this.context = context;
 
     }
-
     public void setData(List<GetBaby> data) {
         this.data = data;
         notifyDataSetChanged();

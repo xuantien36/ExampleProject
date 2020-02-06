@@ -39,7 +39,7 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
 
     private void initView() {
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Please Wait....");
+        progressDialog.setMessage("Please wait data is Processing...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
