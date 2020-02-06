@@ -46,14 +46,13 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
         ButterKnife.bind(this);
         init();
     }
-
     private void init() {
         Intent intent = getIntent();
         baBy = (GetBaby) intent.getSerializableExtra("baby");
         Log.e("detail", "init: " + baBy.getName());
         tvBirthday.setText(baBy.getBirthday());
         tvName.setText(baBy.getName());
-        tvNote.setText(baBy.getNote());
+        tvNote.setText("'' "+baBy.getNote()+" ''");
         if (baBy.getGender().equalsIgnoreCase("Nam")) {
             imBaby.setImageResource(R.drawable.group_730);
             imageGender.setImageResource(R.drawable.ic_nam);

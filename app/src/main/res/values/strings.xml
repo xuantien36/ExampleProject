@@ -13,8 +13,8 @@
     <string name="so_tiem">Sổ tiêm</string>
     <string name="tv_dialog">Xóa thông tin</string>
     <string name="tv_dialog_information">Thông tin lưu ý</string>
-    <string name="tv_dicription_information">Mọi thông tin của ứng dụng chỉ mang tính tham khảo.Quý vị cần tham khảo ý kiến bác sĩ chuyên khoa y tế dự phòng trước khi sử dụng bất kì thông tin gì
-        ,chúng tôi không chịu trách nhiệm gì về việc sử dụng thông tin của quý vị.Xin cảm ơn!</string>
+    <string name="tv_dicription_information">Mọi thông tin của ứng dụng chỉ mang tính tham khảo.Quý vị cần tham khảo ý kiến\n bác sĩ chuyên khoa y tế dự phòng trước\nkhi sử dụng bất kì thông tin gì
+        ,chúng tôi\n không chịu trách nhiệm gì về việc sử dụng thông tin của quý vị.Xin cảm ơn!</string>
     <string name="sending">Gửi Thành Công</string>
     <string name="choose_vaccine">Lựa chọn vắc xin cần tiêm cho bé A</string>
     <string name="tv_statistical">Mẹ nhớ đưa bé đi tiêm để đảm\nbảo sức khỏe cho bé nhé!</string>
@@ -43,7 +43,7 @@
     <string name="other_information">Thông Tin Khác</string>
     <string name="vaccination_book">Sổ Tiêm Chủng</string>
     <string name="remember_the_password">Nhớ mật khẩu</string>
-    <string name="forgot_your_login_information">Quên thông tin đăng nhập?</string>
+    <string name="forgot_your_login_information">Quên mật khẩu đăng nhập?</string>
     <string name="register">Đăng ký</string>
     <string name="log_in">Đăng nhập</string>
     <string name="user_name">Tên đăng nhập</string>

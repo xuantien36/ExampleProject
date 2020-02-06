@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:maxLines="1"
                 android:inputType="textPassword"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:maxLines="1"
                 android:inputType="textPassword"
                 android:textStyle="bold"
                 android:gravity="center"

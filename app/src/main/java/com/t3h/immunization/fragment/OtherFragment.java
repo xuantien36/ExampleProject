@@ -74,6 +74,7 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
             }
         },1000);
         adapter.setData(data);
+
     }
 
     private void initView() {

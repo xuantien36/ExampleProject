@@ -42,13 +42,15 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     String timeSet;
     @BindView(R.id.status)
     Switch status;
+    private Handler handler=new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         ButterKnife.bind(this);
-        String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+        String currentTime = new SimpleDateFormat("HH / mm", Locale.getDefault()).format(new Date());
         Log.e("time", "init: "+currentTime );
         tvTime.setText(currentTime+"");
         init();
@@ -70,7 +72,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             timePickerDialog = new TimePickerDialog(NotificationActivity.this, (timePicker, i, i1) -> {
                 ihours = i;
                 iminute = i1;
-                timeSet = new StringBuffer().append((ihours)).append(":").append(iminute).toString();
+                timeSet = new StringBuffer().append((ihours)).append(" / ").append(iminute).toString();
                 tvTime.setText(timeSet);
 
             }, ihours, iminute, true);
@@ -105,21 +107,23 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 editor.putBoolean("before", radio_Before.isChecked());
                 editor.commit();
                 break;
-
-            case R.id.btn_close:
-                dialog.dismiss();
-                break;
-            case R.id.btn_agree:
         }
     }
     public void showDialog() {
+
         if (dialog==null){
             dialog = new Dialog(NotificationActivity.this);
         }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+
+            }
+        },2000);
         dialog.setContentView(R.layout.custom_dialog_sending);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
-        finish();
     }
     @Override
     protected void onDestroy() {

@@ -21,6 +21,7 @@
             android:src="@drawable/ic_group_131" />
 
         <TextView
+            android:fontFamily="@font/svn_pokys"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
             <EditText
+                android:maxLines="1"
                 android:id="@+id/medicine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
             <EditText
+                android:maxLines="1"
                 android:id="@+id/note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
             <EditText
+                android:maxLines="1"
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

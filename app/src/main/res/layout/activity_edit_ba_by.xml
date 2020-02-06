@@ -45,6 +45,7 @@
             android:layout_marginTop="20dp"
             android:layout_height="wrap_content">
             <EditText
+                android:maxLines="1"
                 android:id="@+id/edit_name_baby"
                 android:hint="Tên Bé"
                android:layout_margin="15dp"
@@ -98,6 +99,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/edit_birthday"
                 android:hint="Birthday"
                 android:layout_margin="15dp"
@@ -111,6 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
             <EditText
+                android:maxLines="1"
                 android:padding="50dp"
                 android:id="@+id/edit_note"
                 android:hint="Ghi Chú"

@@ -2,6 +2,7 @@ package com.t3h.immunization.adapter;
 
 import android.content.Context;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,11 +15,13 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.bumptech.glide.Glide;
 import com.t3h.immunization.R;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,7 +86,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     class GroupHolder {
         TextView text;
-        ImageView image;
+        ImageView image,avatarỊnection;
         TextView tvInjected, tvNotInjected, tvMiss;
 
     }
@@ -96,6 +99,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             groupHolder = new GroupHolder();
             groupHolder.text =  convertView.findViewById(R.id.name_statistical);
             groupHolder.image = convertView.findViewById(R.id.icon);
+            groupHolder.avatarỊnection =convertView.findViewById(R.id.avatar_injection);
             groupHolder.tvInjected = convertView.findViewById(R.id.tv_injected);
             groupHolder.tvNotInjected = convertView.findViewById(R.id.tv_not_injected);
             groupHolder.tvMiss = convertView.findViewById(R.id.tv_miss);
@@ -104,6 +108,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             groupHolder = (GroupHolder) convertView.getTag();
         }
         groupHolder.text.setText(groupList.get(groupPosition).getGroupTitle());
+        Glide.with(context)
+                .load( Uri.fromFile(new File("//android_asset/vaccine/group"+ groupPosition +".png")))
+                .error(R.drawable.avatar)
+                .into(groupHolder.avatarỊnection);
         groupHolder.tvInjected.setText(countInjected(list_item.get(groupList.get(groupPosition).getGroupTitle())));
         groupHolder.tvNotInjected.setText(countNotInjected(list_item.get(groupList.get(groupPosition).getGroupTitle())));
         groupHolder.tvMiss.setText(countMisInjected(list_item.get(groupList.get(groupPosition).getGroupTitle())));

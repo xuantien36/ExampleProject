@@ -26,6 +26,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:maxLines="1"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:id="@+id/edt_email"
