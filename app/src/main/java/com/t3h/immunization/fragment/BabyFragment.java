@@ -90,13 +90,19 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     }, 500);
                     adapter.setData(data);
 
-                        if (currentPosition >= arr.size()) {
+                    if (adapter != null) {
+                        if (currentPosition > 0) {
                             currentPosition = arr.size() - 1;
-                            Log.e("BUG", "onResponse: " + currentPosition);
-                            if (adapter != null) {
-                                adapter.getItemBaby(currentPosition);
 
+                        }else {
+                            currentPosition = 0;
                         }
+                        Log.e("BUG", "Gọi lại " + (currentPosition));
+
+                        recyclerView.scrollToPosition(currentPosition);
+                        adapter.getItemBaby(currentPosition);
+                    }else {
+                        currentPosition =0;
                     }
                     if (currentPosition < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
@@ -107,14 +113,15 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                         Log.e("BUG", "xoa2");
 
                     } else if (currentPosition == arr.size() - 1) {
-                        btnNext.setVisibility(View.VISIBLE);
-                        btnBack.setVisibility(View.GONE);
+                        btnNext.setVisibility(View.GONE);
+                        btnBack.setVisibility(View.VISIBLE);
                         Log.e("BUG", "xoa1");
 
                     }
                     recyclerView.setVisibility(View.VISIBLE);
                     tvEmpty.setVisibility(View.GONE);
                 } else {
+                    progressDialog.dismiss();
                     recyclerView.setVisibility(View.GONE);
                     tvEmpty.setVisibility(View.VISIBLE);
                 }
@@ -240,7 +247,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     public void onResume() {
         super.onResume();
         callApi();
-        Log.e("BUG", "Gọi lại " + (currentPosition));
 
 
     }

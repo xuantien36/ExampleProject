@@ -129,10 +129,13 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         } else {
             childHolder = (ChildHolder) convertView.getTag();
         }
-        if (System.currentTimeMillis() >= temp) {
-            long days_left = ((System.currentTimeMillis()) - (temp));
-            int days = (int) ((days_left) / (1000 * 60 * 60 * 24));
-            String dateinjected = getDate(temp, "dd/MM/yyyy");
+        long time = (getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
+                        Long.parseLong("" + (24 * 60 * 60 * 1000))))));
+        if (System.currentTimeMillis() >= time) {
+            long days_left = ((System.currentTimeMillis()) - (time));
+            long days = ((days_left) / (1000 * 60 * 60 * 24));
+//            String dateinjected = getDate(temp, "dd/MM/yyyy");
             childHolder.tvName.setText(groups.get(groupPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
@@ -153,11 +156,11 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse_202);
                 childHolder.tvNgayConLai.setText("Chưa tiêm : " + (days) + " ngày");
             }
-            childHolder.tvngayTiem.setText("Ngày tiêm : " + dateinjected);
+            childHolder.tvngayTiem.setText("Ngày tiêm : " + getDate(time, "dd/MM/yyyy"));
         } else {
-            long days_left = ((temp) - (System.currentTimeMillis()));
+            long days_left = ((time) - (System.currentTimeMillis()));
             int days = (int) ((days_left) / (1000 * 60 * 60 * 24));
-            String dateinjected = getDate(temp, "dd/MM/yyyy");
+//            String dateinjected = getDate(temp, "dd/MM/yyyy");
             childHolder.tvName.setText(groups.get(childPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
@@ -178,7 +181,7 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse_202);
                 childHolder.tvNgayConLai.setText("Chưa tiêm : " + (days) + " ngày");
             }
-            childHolder.tvngayTiem.setText("Ngày tiêm : " + dateinjected);
+            childHolder.tvngayTiem.setText("Ngày tiêm : " + getDate(time, "dd/MM/yyyy"));
         }
         return convertView;
     }
