@@ -70,7 +70,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     }
     public void callApi() {
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Please wait data is Processing...");
+        progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
@@ -133,7 +133,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }
         });
     }
-
     private void init() {
         btnAdd.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -237,17 +236,13 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         startActivity(intent);
 
     }
-
     @Override
     public void onLongClicked(int position) {
 
     }
-
     @Override
     public void onResume() {
         super.onResume();
         callApi();
-
-
     }
 }

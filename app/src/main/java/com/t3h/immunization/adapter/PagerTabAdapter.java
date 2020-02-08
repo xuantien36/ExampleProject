@@ -241,9 +241,7 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
 
         section = arrTemp;
 
-        Log.e("arrrrrr", "calculatorSection: "+ arrTemp.size() );
-
-
+        Log.e("arrrrrr", "calculatorSection: "+ arrTemp.size());
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     public String getDate(long milliSeconds, String dateFormat) {

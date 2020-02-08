@@ -1,9 +1,12 @@
 package com.t3h.immunization.activity;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,8 +19,12 @@ import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
+import com.tsongkha.spinnerdatepicker.DatePicker;
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditBaByActivity extends AppCompatActivity implements View.OnClickListener {
+public class EditBaByActivity extends AppCompatActivity implements View.OnClickListener, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateCancelListener {
     @BindView(R.id.back_edit)
     ImageView imBack;
     @BindView(R.id.save_edit)
@@ -45,6 +52,7 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
     RadioButton rdioMale;
     @BindView(R.id.radio_female)
     RadioButton rdioFemale;
+    SimpleDateFormat simpleDateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +104,7 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         editBirthday.setCursorVisible(false);
         editBirthday.setFocusableInTouchMode(false);
         editBirthday.setFocusable(false);
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     }
 
     @Override
@@ -117,18 +126,19 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_edit:
-                Intent finish = new Intent(this,CategoriActivity.class);
-                startActivity(finish);
+                finish();
                 break;
             case R.id.save_edit:
                 editBaby();
                 break;
             case R.id.edit_birthday:
-                datePicker(this,editBirthday, String.valueOf(R.style.DialogTheme));
+                showDate(2020,01,02,R.style.DatePickerSpinner);
+//                datePicker(this,editBirthday, String.valueOf(R.style.DialogTheme));
                 break;
         }
 
@@ -141,6 +151,32 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         dialog.setContentView(R.layout.custom_dialog_edit);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @VisibleForTesting
+    public void showDate(int year, int monthOfYear, int dayOfMonth, int spinnerTheme) {
+        new SpinnerDatePickerDialogBuilder()
+                .context(EditBaByActivity.this)
+                .callback(EditBaByActivity.this)
+                .onCancel(EditBaByActivity.this)
+                .spinnerTheme(spinnerTheme)
+                .defaultDate(year, monthOfYear, dayOfMonth)
+                .build()
+                .show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+        editBirthday.setText(simpleDateFormat.format(calendar.getTime()));
+
+
+    }
+
+    @Override
+    public void onCancelled(DatePicker view) {
+        editBirthday.setText("");
 
     }
 }

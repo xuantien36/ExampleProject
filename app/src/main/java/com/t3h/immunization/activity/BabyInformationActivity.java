@@ -1,5 +1,7 @@
 package com.t3h.immunization.activity;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.respone.ResponeRegister;
+
 import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -46,13 +51,14 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
         ButterKnife.bind(this);
         init();
     }
+
     private void init() {
         Intent intent = getIntent();
         baBy = (GetBaby) intent.getSerializableExtra("baby");
         Log.e("detail", "init: " + baBy.getName());
         tvBirthday.setText(baBy.getBirthday());
         tvName.setText(baBy.getName());
-        tvNote.setText("'' "+baBy.getNote()+" ''");
+        tvNote.setText("'' " + baBy.getNote() + " ''");
         if (baBy.getGender().equalsIgnoreCase("Nam")) {
             imBaby.setImageResource(R.drawable.group_730);
             imageGender.setImageResource(R.drawable.ic_nam);
@@ -70,8 +76,7 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_back:
-                Intent finish=new Intent(this,CategoriActivity.class);
-                startActivity(finish);
+                finish();
                 break;
             case R.id.btn_delete:
                 deleteBaby();

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,6 +57,7 @@
         app:tabSelectedTextColor="@drawable/textcolor_selector"
         app:tabTextColor="#FAF9F9" />
     <androidx.viewpager.widget.ViewPager
+
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

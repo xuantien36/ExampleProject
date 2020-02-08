@@ -61,6 +61,9 @@
     <string name="baby_information">Thông Tin Bé</string>
     <string name="delete_baby_infomation">Xóa bé khỏi danh sách</string>
     <string name="tv_edit_injected">Thay đổi thông tin mũi tiêm thành công!</string>
+    <string name="message">Vui lòng đợi dữ liệu đang xử lý ...</string>
+    <string name="message_box_title">Tiêu đề</string>
+    <string name="message_dialog">Những thông tin trong này chỉ mang tính chất tham khảo !!!</string>
     <string-array name="language_names">
         <item>@string/language_english</item>
         <item>@string/language_vietnamese</item>

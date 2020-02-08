@@ -144,8 +144,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public String countNotInjected(List<Injections> injectionsList) {
         int count = 0;
         for (Injections injections : injectionsList) {
-            if (injections.getIsInjected().equalsIgnoreCase("0") && (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                    (Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
+            if (injections.getIsInjected().equalsIgnoreCase("0") && ((System.currentTimeMillis() <= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000)))))))))) {
                 count++;
 
             }
@@ -157,10 +157,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         int count = 0;
         for (Injections injections : injectionsList) {
             if (injections.getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
-                            (Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
+                    ((System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                            (Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) * Long.parseLong("" + (24 * 60 * 60 * 1000)))))))))) {
                 count++;
-
             }
         }
         return String.valueOf(count);

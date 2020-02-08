@@ -3,20 +3,29 @@ package com.t3h.immunization.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddBabyActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddBabyActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateCancelListener {
     @BindView(R.id.back)
     ImageView imBack;
     @BindView(R.id.save)
@@ -43,6 +52,8 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.radio_group)
     RadioGroup group;
     String checkedBox;
+    private DatePickerDialog datePickerDialog;
+    SimpleDateFormat simpleDateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +62,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
         init();
     }
-
     private void init() {
         group.setOnCheckedChangeListener((radioGroup, i) -> {
             int checkedRadio = radioGroup.getCheckedRadioButtonId();
@@ -66,6 +76,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         edtBirthday.setCursorVisible(false);
         edtBirthday.setFocusableInTouchMode(false);
         edtBirthday.setFocusable(false);
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
     }
 
@@ -108,6 +119,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         datePickerDialog.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -118,7 +130,9 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                 addBaby();
                 break;
             case R.id.edt_add_birthday:
-                datePicker(this, edtBirthday, String.valueOf(R.style.DialogTheme));
+                showDate(2020,01,02,R.style.DatePickerSpinner);
+
+//                datePicker(this, edtBirthday, String.valueOf(R.style.DialogTheme));
                 break;
         }
 
@@ -140,5 +154,42 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialogInterface) {
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @VisibleForTesting
+    public void showDate(int year, int monthOfYear, int dayOfMonth, int spinnerTheme) {
+        new SpinnerDatePickerDialogBuilder()
+                .context(AddBabyActivity.this)
+                .callback(AddBabyActivity.this)
+                .onCancel(AddBabyActivity.this)
+                .spinnerTheme(spinnerTheme)
+                .defaultDate(year, monthOfYear, dayOfMonth)
+                .build()
+                .show();
+    }
+
+    @Override
+    public void onDateSet(com.tsongkha.spinnerdatepicker.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+        edtBirthday.setText(simpleDateFormat.format(calendar.getTime()));
+
+    }
+
+    @Override
+    public void onCancelled(com.tsongkha.spinnerdatepicker.DatePicker view) {
+        edtBirthday.setText("");
+
     }
 }

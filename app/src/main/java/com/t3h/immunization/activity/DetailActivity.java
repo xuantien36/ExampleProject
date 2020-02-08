@@ -37,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Lưu ý");
         builder.setCancelable(false);
-        builder.setMessage("Những thông tin trong này chỉ mang tính chất tham khảo !!!");
+        builder.setMessage(this.getString(R.string.message_dialog));
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,
                                 int which) {

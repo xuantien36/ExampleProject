@@ -143,7 +143,7 @@ public class AdapterMissInjected extends BaseExpandableListAdapter {
             childHolder.tvName.setText(groups.get(childPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse2);
@@ -154,7 +154,7 @@ public class AdapterMissInjected extends BaseExpandableListAdapter {
                 childHolder.tvNgayConLai.setText("Đã tiêm : " + days + " ngày");
 
             } else if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (System.currentTimeMillis() <= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse_202);
@@ -168,7 +168,7 @@ public class AdapterMissInjected extends BaseExpandableListAdapter {
             childHolder.tvName.setText(groups.get(childPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() >= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (System.currentTimeMillis() > ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse2);
@@ -179,7 +179,7 @@ public class AdapterMissInjected extends BaseExpandableListAdapter {
                 childHolder.tvNgayConLai.setText("Đã tiêm : " + days + " ngày");
 
             } else if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
-                    (System.currentTimeMillis() < ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                    (System.currentTimeMillis() <= ((getMilliFromDate(GetBaby.getInstance().getBirthday()) +
                             (Long.parseLong(String.valueOf(Long.parseLong(dataList.get(groupPosition).get(childPosition).getDate()) *
                                     Long.parseLong("" + (24 * 60 * 60 * 1000))))))))) {
                 childHolder.imtrangThai.setImageResource(R.drawable.ic_ellipse_202);

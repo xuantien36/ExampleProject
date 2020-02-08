@@ -1,5 +1,4 @@
 package com.t3h.immunization.adapter;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -9,17 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.EditBaByActivity;
 import com.t3h.immunization.model.GetBaby;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,7 +22,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
     private LayoutInflater inflater;
     private ItemClickListener listener;
     private Context context;
-    private int poss = 0;
+
 
     public void setOnListener(ItemClickListener listener) {
         this.listener = listener;
@@ -44,7 +38,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
     }
 
     public void getItemBaby(int position) {
-        Log.e("testt", "getItemBaby:    " + position + "   //  list size " + data.size());
+        Log.e("BUG", "getItemBaby:    " + position + "   //  list size " + data.size());
         if (data.size() == 0) {
             GetBaby.getInstance().setBabyId(-1);
 
@@ -63,7 +57,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
     @Override
     public void onBindViewHolder(@NonNull VaccineHolder holder, final int position) {
         GetBaby name = data.get(position);
-        poss = position;
+
         holder.bindData(name);
         holder.btnRepair.setOnClickListener(view -> {
             Intent intent = new Intent(context.getApplicationContext(), EditBaByActivity.class);

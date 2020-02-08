@@ -30,6 +30,7 @@
     <string name="notification">Notification settings</string>
     <string name="information_note">Information Note</string>
     <string name="vote">App reviews</string>
+    <string name="message">Please wait data is Processing...</string>
     <string name="share_app">Application Sharing</string>
     <string name="feedback">Application Comments</string>
     <string name="another_app">Other Application</string>
@@ -58,4 +59,6 @@
     <string name="delete_baby_infomation">Remove baby from the list</string>
     <string name="tv_dicription_information">All information of the application is for reference only.You need to consult
         a preventive medicine specialist before using any information, we are not responsible for the use of information.</string>
+    <string name="message_box_title">Title</string>
+    <string name="message_dialog">The information in this is for reference only !!!</string>
 </resources>
