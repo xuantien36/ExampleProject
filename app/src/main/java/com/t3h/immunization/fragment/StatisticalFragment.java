@@ -1,4 +1,5 @@
 package com.t3h.immunization.fragment;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.EditInjectionsActivity;
 import com.t3h.immunization.adapter.ExpandableListAdapter;
@@ -21,8 +24,10 @@ import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
 import com.t3h.immunization.respone.ResponeStatistical;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -36,8 +41,10 @@ public class StatisticalFragment extends Fragment {
     ExpandableListAdapter expandableListAdapter;
     @BindView(R.id.name_baby_injected)
     TextView tvName;
-    private Handler handler=new Handler();
+    private Handler handler = new Handler();
     private ProgressDialog progressDialog;
+    @BindView(R.id.empty)
+    TextView textView;
 
     @Nullable
     @Override
@@ -47,7 +54,8 @@ public class StatisticalFragment extends Fragment {
         arrayList = new ArrayList<>();
         return view;
     }
-    public void callApi(){
+
+    public void callApi() {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
@@ -59,7 +67,7 @@ public class StatisticalFragment extends Fragment {
                 List<Injections> data = response.body().getData();
                 arrayList.clear();
                 arrayList.addAll(data);
-                Log.e("STA", "onResponse: tttttt"+arrayList.size() );
+                Log.e("STA", "onResponse: tttttt" + arrayList.size());
                 expandableListAdapter = new ExpandableListAdapter(getContext(), injectionGroup);
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -67,17 +75,17 @@ public class StatisticalFragment extends Fragment {
                         progressDialog.dismiss();
 
                     }
-                },500);
+                }, 500);
                 expandableListAdapter.setDataStatis(injectionGroup, data);
                 expandableListView.setAdapter(expandableListAdapter);
                 tvName.setText(GetBaby.getInstance().getName());
                 expandableListAdapter.setChildListener(new ExpandableListAdapter.callBackChild() {
                     @Override
                     public void onclickChild(int position, String date, String name, Injections injections) {
-                        Intent intent=new Intent(getContext(),EditInjectionsActivity.class);
-                        intent.putExtra("child",date);
-                        intent.putExtra("title",name);
-                        intent.putExtra("object",injections);
+                        Intent intent = new Intent(getContext(), EditInjectionsActivity.class);
+                        intent.putExtra("child", date);
+                        intent.putExtra("title", name);
+                        intent.putExtra("object", injections);
                         startActivity(intent);
 
                     }
@@ -89,14 +97,16 @@ public class StatisticalFragment extends Fragment {
             }
         });
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        if (GetBaby.getInstance().getBabyId()!=null){
+        if (GetBaby.getInstance().getBabyId() != null) {
             callApi();
-        }else {
-            Toast.makeText(getContext(), "Không có gì để hiển thị", Toast.LENGTH_SHORT).show();
+        } else {
+            textView.setVisibility(View.VISIBLE);
         }
     }
+
 }
 

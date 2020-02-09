@@ -13,6 +13,7 @@ import com.t3h.immunization.fragment.InjectionBookFragment;
 import com.t3h.immunization.fragment.OtherFragment;
 import com.t3h.immunization.fragment.StatisticalFragment;
 import com.t3h.immunization.fragment.VaccineFragment;
+import com.t3h.immunization.model.Statistical;
 import com.t3h.immunization.utils.AppPreferences;
 import com.t3h.immunization.utils.Constant;
 import com.t3h.immunization.utils.SaveData;
@@ -95,6 +96,7 @@ public class CategoriActivity extends AppCompatActivity  {
             case R.id.ivImage5:
                 this.activeTab(TAB5);
                 changeTabBottom(TAB5);
+
                 break;
         }
     }
@@ -116,6 +118,7 @@ public class CategoriActivity extends AppCompatActivity  {
                     break;
                 case TAB5:
                     fragment = new OtherFragment();
+
                     break;
             }
 

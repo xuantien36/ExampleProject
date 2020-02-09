@@ -70,7 +70,7 @@
             </intent-filter>
         </activity>
         <receiver
-            android:name=".utils.BoasCastManager"
+            android:name=".utils.AlarmReceiver"
             android:label="BroadcastReceiverAux">
             <intent-filter>
                 <action android:name="ALARM" />

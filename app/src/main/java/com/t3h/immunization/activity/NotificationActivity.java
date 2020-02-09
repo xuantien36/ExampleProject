@@ -1,9 +1,11 @@
 package com.t3h.immunization.activity;
+
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.app.TaskStackBuilder;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -16,27 +18,40 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
 import com.t3h.immunization.R;
+import com.t3h.immunization.adapter.ExpandableListAdapter;
+import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
+import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
+import com.t3h.immunization.respone.ResponeStatistical;
 import com.t3h.immunization.utils.AlarmReceiver;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NotificationActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.back_notification)
@@ -55,12 +70,15 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     String timeSet;
     @BindView(R.id.status)
     Switch status;
-    private Handler handler=new Handler();
+    private Handler handler = new Handler();
     String currentTime;
     String checkedBox;
     @BindView(R.id.radioGroup)
     RadioGroup group;
     long time;
+    int mDay, mMonth, mYear;
+    private Calendar mCalendar;
+    private List<String> section = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -68,15 +86,17 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         ButterKnife.bind(this);
-       currentTime  = new SimpleDateFormat("HH : mm", Locale.getDefault()).format(new Date());
-        Log.e("time", "init: "+currentTime );
-        tvTime.setText(currentTime+"");
+        callApi();
+        currentTime = new SimpleDateFormat("HH : mm", Locale.getDefault()).format(new Date());
+        Log.e("time", "init: " + currentTime);
+        tvTime.setText(currentTime + "");
         init();
     }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void init() {
         sharedPreferences = getSharedPreferences("SaveNotification", Context.MODE_PRIVATE);
-        tvTime.setText(sharedPreferences.getString("time",tvTime.getText().toString()));
+        tvTime.setText(sharedPreferences.getString("time", tvTime.getText().toString()));
         radio_OnTime.setChecked(sharedPreferences.getBoolean("onTime", true));
         radio_Before.setChecked(sharedPreferences.getBoolean("before", false));
         status.setChecked(sharedPreferences.getBoolean("status", false));
@@ -94,11 +114,13 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 if ((checkedBox).equals(radio_OnTime.getText().toString())) {
                     checkedBox = currentDateTime;
                     Toast.makeText(NotificationActivity.this, "" + checkedBox, Toast.LENGTH_SHORT).show();
-
+                    mDay = Integer.valueOf(checkedBox.split("/")[0]);
+                    mMonth = Integer.valueOf(checkedBox.split("/")[1]);
+                    mYear = Integer.valueOf(checkedBox.split("/")[2]);
                 } else {
-                    long milis = ((System.currentTimeMillis())-((24*60*60*1000)));
-                    checkedBox = getDate(milis,"dd/MM/yyyy") ;
-                    Toast.makeText(NotificationActivity.this, "" +getDate(milis,"dd/MM/yyyy"), Toast.LENGTH_SHORT).show();
+                    long milis = ((System.currentTimeMillis()) - ((24 * 60 * 60 * 1000)));
+                    checkedBox = getDate(milis, "dd/MM/yyyy");
+                    Toast.makeText(NotificationActivity.this, "" + getDate(milis, "dd/MM/yyyy"), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -122,7 +144,8 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             if (b) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("status", true);
-                showNotification();
+//                handleNotification();
+//                showNotification();
 //                showNotification(this,"Lịch tiêm phòng cho bé : "+ GetBaby.getInstance().getName(),"Ngày"+checkedBox);
                 editor.commit();
             } else {
@@ -133,36 +156,37 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         });
         boolean alarm = (PendingIntent.getBroadcast(this, 0, new Intent("ALARM"), PendingIntent.FLAG_NO_CREATE) == null);
 
-        if(alarm){
+        if (alarm) {
             Intent itAlarm = new Intent("ALARM");
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,itAlarm,0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, itAlarm, 0);
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.add(Calendar.SECOND, 3);
             AlarmManager alarme = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarme.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),60000, pendingIntent);
+            alarme.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60000, pendingIntent);
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public  void showNotification() {
-        ArrayList<Injections> data =new ArrayList<>();
+    public void showNotification() {
+        ArrayList<Injections> data = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String currentDateTime = sdf.format(new Date());
         if ((tvTime.getText().toString()).equals(currentTime) && status.isChecked()) {
             if (radio_OnTime.isChecked()) {
-                for (Injections injections:data){
-                    if (((Long.parseLong(injections.getDate())*(24*60*60*1000) +
-                            GetBaby.getInstance().getBirthday()).equals(checkedBox))){
-                        showNotification(this,"Lịch tiêm phòng cho bé : "+ GetBaby.getInstance().getName(),"Ngày "+checkedBox
+                for (Injections injections : data) {
+                    if (((Long.parseLong(injections.getDate()) * (24 * 60 * 60 * 1000) +
+                            GetBaby.getInstance().getBirthday()).equals(checkedBox))) {
+                        showNotification(this, "Lịch tiêm phòng cho bé : " + GetBaby.getInstance().getName(), "Ngày " + checkedBox
                         );
-                       time = Long.parseLong((Long.parseLong(injections.getDate())*(24*60*60*1000) +
-                               (GetBaby.getInstance().getBirthday())));
-                        Log.e("show", "showNotification:4 "+ injections.getDate());
+                        time = Long.parseLong((Long.parseLong(injections.getDate()) * (24 * 60 * 60 * 1000) +
+                                (GetBaby.getInstance().getBirthday())));
+                        Log.e("show", "showNotification:4 " + injections.getDate());
                     }
 
                 }
-            }else {
-                showNotification(this,"Lịch tiêm phòng cho bé : "+ GetBaby.getInstance().getName(),"Ngày "+checkedBox
+            } else {
+                showNotification(this, "Lịch tiêm phòng cho bé : " + GetBaby.getInstance().getName(), "Ngày " + checkedBox
                 );
             }
         }
@@ -172,6 +196,35 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
 
     }
+    public void callApi() {
+        ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
+                List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
+                List<Injections> data = response.body().getData();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                String currentDateTime = sdf.format(new Date());
+                for (Injections injections : data) {
+                    if (injections.getIsInjected().equalsIgnoreCase("0")) {
+                        long temp = (getMilliFromDate(GetBaby.getInstance().getBirthday()) +
+                                (Long.parseLong(String.valueOf(Long.parseLong(injections.getDate()) *
+                                        Long.parseLong("" + (24 * 60 * 60 * 1000))))));
+                        String dateInjection = getDate(temp, "dd/MM/yyyy");
+                        section.add(dateInjection);
+                        Log.e("data:::::", "onResponse: " + section);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponeStatistical> call, Throwable t) {
+
+            }
+        });
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View view) {
@@ -181,20 +234,32 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 break;
 
             case R.id.save:
-                showDialog();
+//                showDialog();
+                Log.e("testttt:::", String.valueOf(mMonth));
+                Log.e("ihours:::", String.valueOf(ihours));
+                Log.e("iminute:::", String.valueOf(iminute));
+                mCalendar = Calendar.getInstance();
+                mCalendar.set(Calendar.MONTH, --mMonth);
+                mCalendar.set(Calendar.YEAR, mYear);
+                mCalendar.set(Calendar.DAY_OF_MONTH, mDay);
+                mCalendar.set(Calendar.HOUR_OF_DAY, ihours);
+                mCalendar.set(Calendar.MINUTE, iminute);
+                mCalendar.set(Calendar.SECOND, 0);
+                new AlarmReceiver().setAlarm(getApplicationContext(), mCalendar, 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("time", timeSet);
                 editor.putBoolean("onTime", radio_OnTime.isChecked());
                 editor.putBoolean("before", radio_Before.isChecked());
-                showNotification(this,"Lịch tiêm phòng cho bé : "+ GetBaby.getInstance().getName(),"Ngày "+checkedBox
-                );
+//                showNotification(this, "Lịch tiêm phòng cho bé : " + GetBaby.getInstance().getName(), "Ngày " + checkedBox
+//                );
                 editor.commit();
                 break;
         }
     }
+
     public void showDialog() {
 
-        if (dialog==null){
+        if (dialog == null) {
             dialog = new Dialog(NotificationActivity.this);
         }
         handler.postDelayed(new Runnable() {
@@ -203,11 +268,12 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 finish();
 
             }
-        },2000);
+        }, 2000);
         dialog.setContentView(R.layout.custom_dialog_sending);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -215,12 +281,14 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             dialog.dismiss();
         }
     }
+
     private void handleNotification() {
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pendingIntent);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void showNotification(Context context, String title, String body) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -252,6 +320,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         notificationManager.notify(notificationId, mBuilder.build());
 
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public String getDate(long milliSeconds, String dateFormat) {
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
@@ -260,6 +329,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
     }
+
     public long getMilliFromDate(String dateFormat) {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

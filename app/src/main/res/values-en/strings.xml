@@ -61,4 +61,5 @@
         a preventive medicine specialist before using any information, we are not responsible for the use of information.</string>
     <string name="message_box_title">Title</string>
     <string name="message_dialog">The information in this is for reference only !!!</string>
+    <string name="emrty">Data Empty...</string>
 </resources>
