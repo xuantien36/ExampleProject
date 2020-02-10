@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String email = edtEmail.getText().toString();
 
                 if (user_name.equals("")||password.equals("")||email.equals("")|| name.equals("")){
-                    Toast.makeText(this, " Yêu cầu điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
 
                 }
                 progressDialog = new ProgressDialog(this);

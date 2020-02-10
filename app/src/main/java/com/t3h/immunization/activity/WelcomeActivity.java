@@ -75,14 +75,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 R.layout.first_slide,
                 R.layout.second_slide,
                 R.layout.four_slide};
-
-
         addBottomDots(0);
-
         changeStatusBarColor();
-
         myViewPagerAdapter = new MyViewPagerAdapter();
-
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
 }
@@ -123,9 +118,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
         finish();
     }
-
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-
         @Override
         public void onPageSelected(int position) {
             addBottomDots(position);
@@ -141,7 +134,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
             }
         }
-
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
 
@@ -152,7 +144,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         }
     };
-
     private void changeStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -160,7 +151,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             window.setStatusBarColor(Color.TRANSPARENT);
         }
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){

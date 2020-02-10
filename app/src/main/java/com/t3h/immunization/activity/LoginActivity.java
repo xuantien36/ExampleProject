@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String user_name = edtName.getText().toString();
         String password = edtPass.getText().toString();
         if (user_name.isEmpty() && password.isEmpty()) {
-            Toast.makeText(this, "Please complete the form", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
         }
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.message));

@@ -26,6 +26,7 @@ import com.t3h.immunization.activity.LoginActivity;
 import com.t3h.immunization.activity.NotificationActivity;
 import com.t3h.immunization.adapter.OtherAdapter;
 import com.t3h.immunization.model.Other;
+import com.t3h.immunization.utils.SaveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.other_fragment, container, false);
+        SaveData.updateLangua(getContext());
         ButterKnife.bind(this, view);
         return view;
     }

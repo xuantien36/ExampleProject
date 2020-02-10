@@ -1,5 +1,7 @@
 package com.t3h.immunization.activity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +27,7 @@ public class SetupActivity extends AppCompatActivity implements View.OnClickList
     EditText edtPass;
     @BindView(R.id.confirm_password)
     EditText edtConfirm;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,10 @@ public class SetupActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btn_setup:
+                progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage(getResources().getString(R.string.message));
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
                 btnSetup.setBackgroundColor(getResources().getColor(R.color.colorBG1));
                 String confirm = edtConfirm.getText().toString();
                 String pass = edtPass.getText().toString();
@@ -54,9 +61,11 @@ public class SetupActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
                             if (response.body().getStatus() == true) {
+                                progressDialog.dismiss();
                                 Intent intent = new Intent(SetupActivity.this, LoginActivity.class);
                                 startActivity(intent);
                             }else {
+                                progressDialog.dismiss();
                                 Toast.makeText(SetupActivity.this, "Error", Toast.LENGTH_SHORT).show();
                             }
                         }

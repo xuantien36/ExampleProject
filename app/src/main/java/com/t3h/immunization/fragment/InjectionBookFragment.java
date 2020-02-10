@@ -22,6 +22,7 @@ import com.t3h.immunization.adapter.PagerTabAdapter;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.respone.ResponeStatistical;
+import com.t3h.immunization.utils.SaveData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,6 +81,7 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.injectionbook_fragment, container, false);
+        SaveData.updateLangua(getContext());
         ButterKnife.bind(this, view);
         return view;
     }

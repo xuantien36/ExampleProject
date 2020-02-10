@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.t3h.immunization.R;
+import com.t3h.immunization.utils.SaveData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +25,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        SaveData.updateLangua(this);
         showDialog();
         ButterKnife.bind(this);
         Intent intent = getIntent();

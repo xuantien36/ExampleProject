@@ -67,7 +67,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             int checkedRadio = radioGroup.getCheckedRadioButtonId();
             RadioButton checkedRadioButton = findViewById(checkedRadio);
             checkedBox = checkedRadioButton.getText().toString();
-            Toast.makeText(AddBabyActivity.this, "" + checkedBox, Toast.LENGTH_SHORT).show();
 
         });
         imBack.setOnClickListener(this);
@@ -86,7 +85,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String note = edtNote.getText().toString();
         if (name.equals("") || birthday.equals("") || note.equals("") || !male.isChecked() && !female.isChecked() ) {
 
-            Toast.makeText(AddBabyActivity.this, "Yêu cầu điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddBabyActivity.this, getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
 
 
         } else {

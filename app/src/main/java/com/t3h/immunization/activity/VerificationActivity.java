@@ -1,5 +1,7 @@
 package com.t3h.immunization.activity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +25,7 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
     Button btnVerification;
     @BindView(R.id.edt_verification)
     EditText edtVerification;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -44,16 +47,21 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 break;
             case R.id.btn_verification:
+                progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage(getResources().getString(R.string.message));
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
                 btnVerification.setBackgroundColor(getResources().getColor(R.color.colorBG1));
-
                 String code =edtVerification.getText().toString();
                 ApiBuilder.getInstance().verifycode(code).enqueue(new Callback<ResponeRegister>() {
                     @Override
                     public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
                         if (response.body().getStatus() == true){
+                            progressDialog.dismiss();
                             Intent intent=new Intent(VerificationActivity.this,SetupActivity.class);
                             startActivity(intent);
                         }else {
+                            progressDialog.dismiss();
                             Toast.makeText(VerificationActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }
                     }

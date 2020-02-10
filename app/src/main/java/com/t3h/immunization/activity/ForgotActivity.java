@@ -1,5 +1,7 @@
 package com.t3h.immunization.activity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +25,7 @@ public class ForgotActivity extends AppCompatActivity implements View.OnClickLis
     Button btnForgot;
     @BindView(R.id.edt_email)
     EditText edtEmail;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +47,22 @@ public class ForgotActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.btn_forgot:
+                progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage(getResources().getString(R.string.message));
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
                 btnForgot.setBackgroundColor(getResources().getColor(R.color.colorBG1));
-
                 String email=edtEmail.getText().toString();
+
                 ApiBuilder.getInstance().forgot(email).enqueue(new Callback<ResponeRegister>() {
                     @Override
                     public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
                         if (response.body().getStatus()==true){
+                            progressDialog.dismiss();
                             Intent intent=new Intent(ForgotActivity.this,VerificationActivity.class);
                             startActivity(intent);
                         }else {
+                            progressDialog.dismiss();
                             Toast.makeText(ForgotActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }
 

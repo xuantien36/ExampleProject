@@ -89,7 +89,6 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
         return getPageTitle(position);
 
     }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List groupDataInjection(List<Injections> data, List<String> sections){
 

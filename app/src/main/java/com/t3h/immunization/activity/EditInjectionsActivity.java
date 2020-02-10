@@ -94,15 +94,12 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                 switch (position) {
                     case 0:
                         poss = 0;
-                        Toast.makeText(EditInjectionsActivity.this, "" + poss, Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         poss = 1;
-                        Toast.makeText(EditInjectionsActivity.this, "" + poss, Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
                         poss = 0;
-                        Toast.makeText(EditInjectionsActivity.this, "" + poss, Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -123,7 +120,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         String medicine = edtMedicine.getText().toString();
         String note = edtNote.getText().toString();
         if (medicine.equals("") || note.equals("")) {
-            Toast.makeText(this, "Yêu cầu điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
         } else {
             ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()),
                     injections.getId(),

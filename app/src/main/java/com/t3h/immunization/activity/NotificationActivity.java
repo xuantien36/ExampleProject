@@ -71,7 +71,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_notification);
         ButterKnife.bind(this);
         callApiData();
-        callApi();
+//        callApi();
         currentTime = new SimpleDateFormat("HH : mm", Locale.getDefault()).format(new Date());
         Log.e("time", "init: " + currentTime);
         tvTime.setText(currentTime + "");

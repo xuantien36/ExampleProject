@@ -41,13 +41,11 @@ public class ChangeLanguageActivity extends AppCompatActivity {
         int idChecked = radioGroup.getCheckedRadioButtonId();
         switch (idChecked) {
             case R.id.radio_english:
-                Toast.makeText(this, "en", Toast.LENGTH_SHORT).show();
                 lang = "en";
                 country = "en";
                 en.setChecked(true);
                 break;
             case R.id.radio_vietnamese:
-                Toast.makeText(this, "vi", Toast.LENGTH_SHORT).show();
                 lang = "vi";
                 country = "vi";
                 vi.setChecked(true);

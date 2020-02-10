@@ -62,6 +62,9 @@
     <string name="message_box_title">Vaccination schedule for babies</string>
     <string name="message_dialog">The information in this is for reference only !!!</string>
     <string name="emrty">Data Empty...</string>
-    <string name="textNotification">Appointment schedule</string>
+    <string name="textNotification"></string>
     <string name="title">Note</string>
+    <string name="notifi">Notification Settings</string>
+    <string name="setting">Setting :</string>
+    <string name="toast">Please complete the form</string>
 </resources>

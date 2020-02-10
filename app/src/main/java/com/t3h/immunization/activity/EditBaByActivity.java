@@ -95,7 +95,6 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
             int checkedRadio = radioGroup.getCheckedRadioButtonId();
             RadioButton checkedRadioButton = findViewById(checkedRadio);
             checkedBox = checkedRadioButton.getText().toString();
-            Toast.makeText(EditBaByActivity.this, "" + checkedBox, Toast.LENGTH_SHORT).show();
 
         });
         imBack.setOnClickListener(this);
