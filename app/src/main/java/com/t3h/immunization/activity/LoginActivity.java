@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Please complete the form", Toast.LENGTH_SHORT).show();
         }
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait....");
+        progressDialog.setMessage(getResources().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         ApiBuilder.getInstance().login(user_name, password).enqueue(new Callback<ResponeLogin>() {
@@ -125,6 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                     finish();
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
 

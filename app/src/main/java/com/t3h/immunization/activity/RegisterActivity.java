@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 }
                 progressDialog = new ProgressDialog(this);
-                progressDialog.setMessage("Please wait data is Processing...");
+                progressDialog.setMessage(getResources().getString(R.string.message));
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
                 ApiBuilder.getInstance().register(user_name, password,"",name, phone, email,"","").enqueue(new Callback<ResponeRegister>() {
@@ -81,6 +81,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                     @Override
                     public void onFailure(Call<ResponeRegister> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
                     }
                 });

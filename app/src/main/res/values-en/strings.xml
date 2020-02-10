@@ -11,7 +11,7 @@
     <string name="edit">Correction successful</string>
     <string name="delete_baby">Delete successful</string>
     <string name="add_baby">More children succeed</string>
-    <string name="text_verification">* Please enter the verification code sent to the email address \\ n ********** g@gmail.com</string>
+    <string name="text_verification">* Please enter the verification code sent to the email address\n ********** g@gmail.com</string>
     <string name="text_pass">* Enter a new password to login</string>
     <string name="text_forgot">* Please enter your registered email address</string>
     <string name="skip">SKIP</string>
@@ -59,7 +59,8 @@
     <string name="delete_baby_infomation">Remove baby from the list</string>
     <string name="tv_dicription_information">All information of the application is for reference only.You need to consult
         a preventive medicine specialist before using any information, we are not responsible for the use of information.</string>
-    <string name="message_box_title">Title</string>
+    <string name="message_box_title">Vaccination schedule for babies</string>
     <string name="message_dialog">The information in this is for reference only !!!</string>
     <string name="emrty">Data Empty...</string>
+    <string name="textNotification">Appointment schedule</string>
 </resources>

@@ -24,10 +24,8 @@ import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
 import com.t3h.immunization.respone.ResponeStatistical;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -97,7 +95,6 @@ public class StatisticalFragment extends Fragment {
             }
         });
     }
-
     @Override
     public void onResume() {
         super.onResume();

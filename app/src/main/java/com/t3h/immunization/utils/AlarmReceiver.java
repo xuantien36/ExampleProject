@@ -36,9 +36,10 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(context)
                             .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentText(context.getResources().getString(R.string.textNotification))
                             .setContentTitle(context.getResources().getString(R.string.message_box_title))
-                            .setSound(soundUri)
-                            .setContentText("");
+                            .setSound(soundUri);
+
             Intent resultIntent = new Intent(context, CategoriActivity.class);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
             stackBuilder.addParentStack(CategoriActivity.class);

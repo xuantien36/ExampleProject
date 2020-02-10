@@ -120,8 +120,11 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     long milis = ((System.currentTimeMillis()) - ((24 * 60 * 60 * 1000)));
                     checkedBox = getDate(milis, "dd/MM/yyyy");
-                    Toast.makeText(NotificationActivity.this, "" + getDate(milis, "dd/MM/yyyy"), Toast.LENGTH_SHORT).show();
-
+                    mDay = Integer.valueOf(checkedBox.split("/")[0]);
+                    mMonth = Integer.valueOf(checkedBox.split("/")[1]);
+                    mYear = Integer.valueOf(checkedBox.split("/")[2]);
+                    Toast.makeText(NotificationActivity.this, "" + getDate(milis,
+                            "dd/MM/yyyy"), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -138,15 +141,11 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
             }, ihours, iminute, true);
             timePickerDialog.show();
-
         });
         status.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("status", true);
-//                handleNotification();
-//                showNotification();
-//                showNotification(this,"Lịch tiêm phòng cho bé : "+ GetBaby.getInstance().getName(),"Ngày"+checkedBox);
                 editor.commit();
             } else {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -154,47 +153,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 editor.commit();
             }
         });
-        boolean alarm = (PendingIntent.getBroadcast(this, 0, new Intent("ALARM"), PendingIntent.FLAG_NO_CREATE) == null);
-
-        if (alarm) {
-            Intent itAlarm = new Intent("ALARM");
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, itAlarm, 0);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.add(Calendar.SECOND, 3);
-            AlarmManager alarme = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarme.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60000, pendingIntent);
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void showNotification() {
-        ArrayList<Injections> data = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String currentDateTime = sdf.format(new Date());
-        if ((tvTime.getText().toString()).equals(currentTime) && status.isChecked()) {
-            if (radio_OnTime.isChecked()) {
-                for (Injections injections : data) {
-                    if (((Long.parseLong(injections.getDate()) * (24 * 60 * 60 * 1000) +
-                            GetBaby.getInstance().getBirthday()).equals(checkedBox))) {
-                        showNotification(this, "Lịch tiêm phòng cho bé : " + GetBaby.getInstance().getName(), "Ngày " + checkedBox
-                        );
-                        time = Long.parseLong((Long.parseLong(injections.getDate()) * (24 * 60 * 60 * 1000) +
-                                (GetBaby.getInstance().getBirthday())));
-                        Log.e("show", "showNotification:4 " + injections.getDate());
-                    }
-
-                }
-            } else {
-                showNotification(this, "Lịch tiêm phòng cho bé : " + GetBaby.getInstance().getName(), "Ngày " + checkedBox
-                );
-            }
-        }
-        Log.e("show", "showNotification: 1 " + tvTime.getText().toString());
-        Log.e("show", "showNotification: 2 " + currentTime);
-        Log.e("show", "showNotification: 3 " + currentDateTime);
-
-
     }
     public void callApi() {
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
@@ -203,8 +161,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
                 List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
                 List<Injections> data = response.body().getData();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                String currentDateTime = sdf.format(new Date());
                 for (Injections injections : data) {
                     if (injections.getIsInjected().equalsIgnoreCase("0")) {
                         long temp = (getMilliFromDate(GetBaby.getInstance().getBirthday()) +
@@ -234,7 +190,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 break;
 
             case R.id.save:
-//                showDialog();
+                showDialog();
                 Log.e("testttt:::", String.valueOf(mMonth));
                 Log.e("ihours:::", String.valueOf(ihours));
                 Log.e("iminute:::", String.valueOf(iminute));
@@ -250,15 +206,12 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 editor.putString("time", timeSet);
                 editor.putBoolean("onTime", radio_OnTime.isChecked());
                 editor.putBoolean("before", radio_Before.isChecked());
-//                showNotification(this, "Lịch tiêm phòng cho bé : " + GetBaby.getInstance().getName(), "Ngày " + checkedBox
-//                );
                 editor.commit();
                 break;
         }
     }
 
     public void showDialog() {
-
         if (dialog == null) {
             dialog = new Dialog(NotificationActivity.this);
         }
@@ -281,46 +234,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             dialog.dismiss();
         }
     }
-
-    private void handleNotification() {
-        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pendingIntent);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void showNotification(Context context, String title, String body) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        int notificationId = 1;
-        String channelId = "channel-01";
-        String channelName = "Channel Name";
-        int importance = NotificationManager.IMPORTANCE_HIGH;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel mChannel = new NotificationChannel(
-                    channelId, channelName, importance);
-            notificationManager.createNotificationChannel(mChannel);
-        }
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setSound(soundUri);
-        Intent intent = new Intent(context, CategoriActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addNextIntent(intent);
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(
-                0,
-                PendingIntent.FLAG_UPDATE_CURRENT
-        );
-        mBuilder.setContentIntent(resultPendingIntent);
-
-        notificationManager.notify(notificationId, mBuilder.build());
-
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     public String getDate(long milliSeconds, String dateFormat) {
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);

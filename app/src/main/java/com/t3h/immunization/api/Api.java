@@ -1,12 +1,10 @@
 package com.t3h.immunization.api;
-
 import com.t3h.immunization.respone.BaByRespone;
 import com.t3h.immunization.respone.ResponeApp;
 import com.t3h.immunization.respone.ResponeInjections;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.respone.ResponeRegister;
 import com.t3h.immunization.respone.ResponeStatistical;
-
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
