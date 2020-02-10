@@ -139,4 +139,28 @@ public class GetBaby implements Serializable {
         this.missInjected = missInjected;
     }
 
+    @Override
+    public String toString() {
+        return "GetBaby{" +
+                "babyId=" + babyId +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", linkAvatar='" + linkAvatar + '\'' +
+                ", note='" + note + '\'' +
+                ", isSavedOnServer='" + isSavedOnServer + '\'' +
+                ", id=" + id +
+                ", injected='" + injected + '\'' +
+                ", notInjected='" + notInjected + '\'' +
+                ", missInjected='" + missInjected + '\'' +
+                '}';
+    }
 }
+
+
+
+
+
+
+
+

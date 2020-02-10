@@ -66,6 +66,7 @@
     <string name="message_dialog">Những thông tin trong này chỉ mang tính chất tham khảo !!!</string>
     <string name="emrty">Dữ liệu trống...</string>
     <string name="textNotification">Lịch hẹn</string>
+    <string name="title">Lưu ý</string>
     <string-array name="language_names">
         <item>@string/language_english</item>
         <item>@string/language_vietnamese</item>

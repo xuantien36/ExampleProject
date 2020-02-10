@@ -35,7 +35,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Lưu ý");
+        builder.setTitle(getResources().getString(R.string.title));
         builder.setCancelable(false);
         builder.setMessage(this.getString(R.string.message_dialog));
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {

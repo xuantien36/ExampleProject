@@ -65,7 +65,7 @@ public class StatisticalFragment extends Fragment {
                 List<Injections> data = response.body().getData();
                 arrayList.clear();
                 arrayList.addAll(data);
-                Log.e("STA", "onResponse: tttttt" + arrayList.size());
+                Log.e("babyid", "onResponse: tttttt" +GetBaby.getInstance().getBabyId() );
                 expandableListAdapter = new ExpandableListAdapter(getContext(), injectionGroup);
                 handler.postDelayed(new Runnable() {
                     @Override
