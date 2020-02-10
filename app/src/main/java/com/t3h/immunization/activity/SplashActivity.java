@@ -66,7 +66,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             }
         }, 1500);
     }
-
     private void initView() {
         ApiBuilder.getInstance().updateApp("android", 1).enqueue(new Callback<ResponeApp>() {
             @Override
@@ -114,7 +113,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 finish();
             }
-
             @Override
             public void onFailure(Call<ResponeLogin> call, Throwable t) {
                 Toast.makeText(SplashActivity.this, "Error", Toast.LENGTH_SHORT).show();
@@ -123,13 +121,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_yes:
-                startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/details?id=vnshine.com.sotiemchung")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=vnshine.com.sotiemchung")));
                 break;
             case R.id.btn_no:
                 saveData();

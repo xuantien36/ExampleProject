@@ -19,7 +19,6 @@ public class SaveData {
         String curLang = pre.getString(key, "");
         return curLang;
     }
-
     public static void updateLangua(Context context) {
         String lang = getPreferences(context, "lang");
         String country = getPreferences(context, "country");
