@@ -25,10 +25,6 @@ public class ChangeLanguageActivity extends AppCompatActivity {
     String country = "";
     @BindView(R.id.radioGroup_language)
     RadioGroup radioGroup;
-    //    @BindView(R.id.radio_vietnamese)
-//    RadioButton vi;
-//    @BindView(R.id.radio_english)
-//    RadioButton en;
     @BindView(R.id.im_back_language)
     ImageView imLanguageBack;
     private SharedPreferences sharedPreferences;
