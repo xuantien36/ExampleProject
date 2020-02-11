@@ -46,6 +46,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
             GetBaby.getInstance().setBabyId(data.get(position).getBabyId());
             GetBaby.getInstance().setBirthday(data.get(position).getBirthday());
             GetBaby.getInstance().setName(data.get(position).getName());
+            GetBaby.getInstance().setGender(data.get(position).getGender());
         }
     }
     @NonNull

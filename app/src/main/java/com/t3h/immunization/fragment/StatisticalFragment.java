@@ -1,5 +1,4 @@
 package com.t3h.immunization.fragment;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,13 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.EditInjectionsActivity;
 import com.t3h.immunization.adapter.ExpandableListAdapter;
@@ -43,6 +40,8 @@ public class StatisticalFragment extends Fragment {
     private ProgressDialog progressDialog;
     @BindView(R.id.empty)
     TextView textView;
+    @BindView(R.id.im_avatar)
+    ImageView imAvaTar;
 
     @Nullable
     @Override
@@ -52,7 +51,6 @@ public class StatisticalFragment extends Fragment {
         arrayList = new ArrayList<>();
         return view;
     }
-
     public void callApi() {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage(getActivity().getString(R.string.message));
@@ -71,12 +69,16 @@ public class StatisticalFragment extends Fragment {
                     @Override
                     public void run() {
                         progressDialog.dismiss();
-
                     }
                 }, 500);
                 expandableListAdapter.setDataStatis(injectionGroup, data);
                 expandableListView.setAdapter(expandableListAdapter);
                 tvName.setText(GetBaby.getInstance().getName());
+              if (GetBaby.getInstance().getGender().equalsIgnoreCase("Nam")){
+                  imAvaTar.setImageResource(R.drawable.group_730);
+              }else {
+                  imAvaTar.setImageResource(R.drawable.group_731);
+              }
                 expandableListAdapter.setChildListener(new ExpandableListAdapter.callBackChild() {
                     @Override
                     public void onclickChild(int position, String date, String name, Injections injections) {
@@ -85,7 +87,6 @@ public class StatisticalFragment extends Fragment {
                         intent.putExtra("title", name);
                         intent.putExtra("object", injections);
                         startActivity(intent);
-
                     }
                 });
             }

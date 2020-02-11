@@ -79,6 +79,7 @@
                 android:showDividers="middle">
 
             <RadioButton
+                android:buttonTint="@color/ontime"
                 android:id="@+id/radio_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,7 +116,6 @@
             android:layout_marginTop="20dp">
             <EditText
                 android:maxLines="1"
-                android:padding="50dp"
                 android:id="@+id/edit_note"
                 android:hint="Ghi Chú"
                 android:layout_margin="15dp"
@@ -126,10 +126,12 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
     <ImageView
+        android:padding="10dp"
+        android:background="@drawable/ic_group_376"
         android:id="@+id/image_avatar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
-        android:src="@drawable/ic_group_373"
-        android:layout_width="60dp"
-        android:layout_height="60dp"/>
+        android:src="@drawable/group_730"
+        android:layout_width="70dp"
+        android:layout_height="70dp"/>
 </RelativeLayout>

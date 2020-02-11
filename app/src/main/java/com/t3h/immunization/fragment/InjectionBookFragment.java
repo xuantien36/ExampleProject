@@ -7,15 +7,13 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
 import com.t3h.immunization.R;
 import com.t3h.immunization.adapter.PagerTabAdapter;
@@ -23,7 +21,6 @@ import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.respone.ResponeStatistical;
 import com.t3h.immunization.utils.SaveData;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -42,6 +39,8 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     private ProgressDialog progressDialog;
     @BindView(R.id.empty_book)
     TextView textView;
+    @BindView(R.id.imgAnhBe)
+    ImageView imAvatar;
 
     private void initView() {
         progressDialog = new ProgressDialog(getContext());
@@ -59,24 +58,24 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
                         @Override
                         public void run() {
                             progressDialog.dismiss();
-
                         }
                     }, 1000);
                     viewPager.setCurrentItem(0);
                     viewPager.setOffscreenPageLimit(4);
                     tabLayout.setupWithViewPager(viewPager);
                     babyName.setText(GetBaby.getInstance().getName());
+                    if (GetBaby.getInstance().getGender().equalsIgnoreCase("Nam")){
+                        imAvatar.setImageResource(R.drawable.group_730);
+                    }else {
+                        imAvatar.setImageResource(R.drawable.group_731);
+                    }
                 }
             }
-
             @Override
             public void onFailure(Call<ResponeStatistical> call, Throwable t) {
-
             }
         });
-
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,22 +84,18 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
         ButterKnife.bind(this, view);
         return view;
     }
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
-
     @Override
     public void onPageSelected(int position) {
 
     }
-
     @Override
     public void onPageScrollStateChanged(int state) {
 
     }
-
     @Override
     public void onResume() {
         super.onResume();

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
@@ -27,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -54,6 +56,8 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     String checkedBox;
     private DatePickerDialog datePickerDialog;
     SimpleDateFormat simpleDateFormat;
+    @BindView(R.id.avatar_add)
+    ImageView imAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +71,12 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             int checkedRadio = radioGroup.getCheckedRadioButtonId();
             RadioButton checkedRadioButton = findViewById(checkedRadio);
             checkedBox = checkedRadioButton.getText().toString();
-
+            if (checkedBox.equalsIgnoreCase("Nam")){
+                imAvatar.setImageResource(R.drawable.group_730);
+            }else {
+                imAvatar.setImageResource(R.drawable.group_731);
+            }
+            Toast.makeText(this, ""+checkedBox, Toast.LENGTH_SHORT).show();
         });
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
@@ -83,7 +92,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
-        if (name.equals("") || birthday.equals("") || note.equals("") || !male.isChecked() && !female.isChecked() ) {
+        if (name.equals("") || birthday.equals("") || note.equals("") || !male.isChecked() && !female.isChecked()) {
 
             Toast.makeText(AddBabyActivity.this, getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
 
@@ -98,6 +107,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                         finish();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResponeRegister> call, Throwable t) {
 
@@ -105,6 +115,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             });
         }
     }
+
     public void datePicker(final Context context, final EditText textView, final String type) {
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -129,7 +140,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                 addBaby();
                 break;
             case R.id.edt_add_birthday:
-                showDate(2020,01,02,R.style.DatePickerSpinner);
+                showDate(2020, 01, 02, R.style.DatePickerSpinner);
 
 //                datePicker(this, edtBirthday, String.valueOf(R.style.DialogTheme));
                 break;

@@ -17,12 +17,14 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
+        android:padding="10dp"
+        android:background="@drawable/ic_group_376"
         android:id="@+id/im_avatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_margin="10dp"
-        android:src="@drawable/ic_group_587" />
+        android:src="@drawable/ic_group_253" />
     <TextView
         android:id="@+id/name_baby_injected"
         android:layout_width="match_parent"

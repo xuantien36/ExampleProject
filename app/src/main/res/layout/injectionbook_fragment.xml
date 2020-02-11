@@ -23,11 +23,13 @@
             android:orientation="vertical">
 
             <ImageView
+                android:padding="10dp"
+                android:background="@drawable/ic_group_376"
                 android:id="@+id/imgAnhBe"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="5dp"
-                android:src="@drawable/ic_group_373" />
+                android:src="@drawable/ic_group_253" />
             <TextView
                 android:id="@+id/baby_name"
                 android:textColor="@android:color/white"
