@@ -42,19 +42,9 @@ public class ChangeLanguageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_language);
         ButterKnife.bind(this);
-        init();
-//        sharedPreferences=getSharedPreferences("Save",MODE_PRIVATE);
-//        radioButton_En.setChecked(sharedPreferences.getBoolean("check_en", false));
-//        radioButton_Vi.setChecked(sharedPreferences.getBoolean("check_vi", true));
-
-//        radioButton_Vi.setOnCheckedChangeListener(listenerRadio);
-//        radioButton_En.setOnCheckedChangeListener(listenerRadio);
-
-    }
-    private void init() {
         sharedPreferences = getSharedPreferences("SaveChecked", Context.MODE_PRIVATE);
-        radioButton_En.setChecked(sharedPreferences.getBoolean("check_vi", false));
-        radioButton_Vi.setChecked(sharedPreferences.getBoolean("check_en", false));
+        radioButton_En.setChecked(sharedPreferences.getBoolean("check_en", false));
+        radioButton_Vi.setChecked(sharedPreferences.getBoolean("check_vi", false));
         imLanguageBack.setOnClickListener(v -> finish());
     }
 
@@ -64,24 +54,23 @@ public class ChangeLanguageActivity extends AppCompatActivity {
             case R.id.radio_english:
                 lang = "en";
                 country = "en";
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("check_en", radioButton_En.isChecked());
-                editor.commit();
+                SharedPreferences.Editor en = sharedPreferences.edit();
+                en.putBoolean("check_en", radioButton_En.isChecked());
+                en.remove("check_vi");
+                en.commit();
                 Toast.makeText(this, ""+ radioButton_En.isChecked(), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(ChangeLanguageActivity.this, CategoriActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-
+                Intent intent = new Intent(ChangeLanguageActivity.this, CategoriActivity.class);
+                startActivity(intent);
                 break;
             case R.id.radio_vietnamese:
                 lang = "vi";
                 country = "vi";
-                SharedPreferences.Editor editor_vi = sharedPreferences.edit();
-                editor_vi.putBoolean("check_vi", radioButton_Vi.isChecked());
-                editor_vi.commit();
+                SharedPreferences.Editor vi = sharedPreferences.edit();
+                vi.putBoolean("check_vi", radioButton_Vi.isChecked());
+                vi.remove("check_en");
+                vi.commit();
                 Toast.makeText(this, ""+radioButton_Vi.isChecked(), Toast.LENGTH_SHORT).show();
                 Intent t = new Intent(ChangeLanguageActivity.this, CategoriActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(t);
                 break;
         }
@@ -89,17 +78,4 @@ public class ChangeLanguageActivity extends AppCompatActivity {
         SaveData.savingPreferences(getApplicationContext(), "country", country);
         SaveData.updateLangua(getApplicationContext());
     }
-    CompoundButton.OnCheckedChangeListener listenerRadio = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            Intent intent = new Intent(ChangeLanguageActivity.this, CategoriActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            SharedPreferences.Editor editor=sharedPreferences.edit();
-            editor.putBoolean("checked",isChecked);
-            editor.commit();
-            Toast.makeText(ChangeLanguageActivity.this, ""+isChecked, Toast.LENGTH_SHORT).show();
-
-        }
-    };
 }

@@ -66,6 +66,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             }
         }, 1500);
     }
+
     private void initView() {
         ApiBuilder.getInstance().updateApp("android", 1).enqueue(new Callback<ResponeApp>() {
             @Override
@@ -113,6 +114,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 finish();
             }
+
             @Override
             public void onFailure(Call<ResponeLogin> call, Throwable t) {
                 Toast.makeText(SplashActivity.this, "Error", Toast.LENGTH_SHORT).show();
@@ -121,6 +123,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

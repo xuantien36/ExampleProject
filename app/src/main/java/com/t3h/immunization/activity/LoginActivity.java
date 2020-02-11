@@ -110,7 +110,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     User.getInstans().setId(response.body().getData().getId());
                     if (checkBox.isChecked()) {
-
                         AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
                         AppPreferences.getInstance(getApplicationContext()).putString("matkhau", password);
                         AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", true);
