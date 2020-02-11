@@ -104,9 +104,9 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
         }
         public void bindData(GetBaby item) {
             tvName.setText(item.getName());
-            tvHave_injected.setText("Đã tiêm : " + item.getInjected());
-            tvMiss.setText("Bỏ lỡ : " + item.getMissInjected());
-            tvnot_injected.setText("Chưa tiêm : " + item.getNotInjected());
+            tvHave_injected.setText(context.getResources().getString(R.string.injected) + item.getInjected());
+            tvMiss.setText(context.getResources().getString(R.string.miss) + item.getMissInjected());
+            tvnot_injected.setText(context.getResources().getString(R.string.not_injected) + item.getNotInjected());
             if (item.getGender().equalsIgnoreCase("Nam")) {
                 imAvatar.setImageResource(R.drawable.avatar_2);
             } else {

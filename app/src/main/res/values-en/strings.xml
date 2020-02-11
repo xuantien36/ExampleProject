@@ -44,9 +44,9 @@
     <string name="user_name">UserName</string>
     <string name="pass_word">PassWord</string>
     <string name="baby_name">Name</string>
-    <string name="injected">Injected</string>
-    <string name="miss">Miss</string>
-    <string name="not_injected">Not injected</string>
+    <string name="injected">Injected :</string>
+    <string name="miss">Miss :</string>
+    <string name="not_injected">Not injected :</string>
     <string name="tv_update">New updates available, update now</string>
     <string name="btn_Yes">Yes</string>
     <string name="btn_No">No</string>
@@ -67,4 +67,8 @@
     <string name="notifi">Notification Settings</string>
     <string name="setting">Setting :</string>
     <string name="toast">Please complete the form</string>
+    <string name="miss_pager">Miss</string>
+    <string name="all_pager">All</string>
+    <string name="injected_pager">Injected</string>
+    <string name="not_injected_pager">Not injected</string>
 </resources>

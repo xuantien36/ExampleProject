@@ -1,5 +1,6 @@
 package com.t3h.immunization.adapter;
 
+import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.util.Log;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.t3h.immunization.R;
 import com.t3h.immunization.fragment.AllFragment;
 import com.t3h.immunization.fragment.InjectedFragment;
 import com.t3h.immunization.fragment.MissFragment;
@@ -32,6 +34,7 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
     private List<List<Injections>> dataInjection =new ArrayList<>() ;
     private List<InjectionGroup> datagroup;
     private List<Injections> datainjection;
+    private Context context;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public PagerTabAdapter(@NonNull FragmentManager fm, List<Injections> data, List<InjectionGroup>arr) {
@@ -41,7 +44,6 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
         calculatorSection(data);
         notifyDataSetChanged();
     }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override
@@ -77,9 +79,9 @@ public class PagerTabAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Tất Cả ";
+                return "Tất Cả";
             case 1:
-                return "Đã Tiêm";
+                return "ĐãTiêm";
             case 2:
                 return "Chưa Tiêm";
             case 3:
