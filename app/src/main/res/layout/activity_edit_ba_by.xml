@@ -126,6 +126,7 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
     <ImageView
+        android:id="@+id/image_avatar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
         android:src="@drawable/ic_group_373"

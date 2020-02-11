@@ -53,6 +53,8 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.radio_female)
     RadioButton rdioFemale;
     SimpleDateFormat simpleDateFormat;
+    @BindView(R.id.image_avatar)
+    ImageView imAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +97,11 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
             int checkedRadio = radioGroup.getCheckedRadioButtonId();
             RadioButton checkedRadioButton = findViewById(checkedRadio);
             checkedBox = checkedRadioButton.getText().toString();
-
+            if (checkedBox.equalsIgnoreCase("Nam")){
+                imAvatar.setImageResource(R.drawable.group_730);
+            }else {
+                imAvatar.setImageResource(R.drawable.group_731);
+            }
         });
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
@@ -105,7 +111,6 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         editBirthday.setFocusable(false);
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
