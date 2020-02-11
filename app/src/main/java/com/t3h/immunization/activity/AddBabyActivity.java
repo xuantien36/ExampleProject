@@ -161,7 +161,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dialog != null && dialog.isShowing()) {
+        if (dialog != null) {
             dialog.dismiss();
         }
     }
