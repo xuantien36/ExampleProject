@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
@@ -94,7 +95,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String note = edtNote.getText().toString();
         if (name.equals("") || birthday.equals("") || note.equals("") || !male.isChecked() && !female.isChecked()) {
 
-            Toast.makeText(AddBabyActivity.this, getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(AddBabyActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
 
 
         } else {
