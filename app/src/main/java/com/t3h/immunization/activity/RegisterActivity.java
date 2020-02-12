@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.respone.ResponeRegister;
@@ -61,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String email = edtEmail.getText().toString();
 
                 if (user_name.equals("")||password.equals("")||email.equals("")|| name.equals("")){
-                    Toast.makeText(this,getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(RegisterActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
 
                 }
                 progressDialog = new ProgressDialog(this);
@@ -76,13 +78,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
-                            Toast.makeText(RegisterActivity.this, "Register success", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(RegisterActivity.this, "Register success",R.style.ColoredText).show();
                         }
                     }
                     @Override
                     public void onFailure(Call<ResponeRegister> call, Throwable t) {
                         progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(RegisterActivity.this, "Error",R.style.ColoredText).show();
 
                     }
                 });

@@ -99,7 +99,6 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
                     finish();
                 }
             }
-
             @Override
             public void onFailure(Call<ResponeRegister> call, Throwable t) {
 

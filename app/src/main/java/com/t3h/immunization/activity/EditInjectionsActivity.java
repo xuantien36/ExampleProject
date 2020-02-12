@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
@@ -120,7 +122,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         String medicine = edtMedicine.getText().toString();
         String note = edtNote.getText().toString();
         if (medicine.equals("") || note.equals("")) {
-            Toast.makeText(this,getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(this, getResources().getString(R.string.toast),R.style.ColoredText).show();
         } else {
             ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()),
                     injections.getId(),
@@ -134,7 +136,7 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
                                 Log.e("Message", "onResponse: " + response.body().getMessage());
                                 finish();
                             } else {
-                                Toast.makeText(EditInjectionsActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                StyleableToast.makeText(EditInjectionsActivity.this,getResources().getString(R.string.error),R.style.ColoredText).show();
                             }
                         }
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.UpdateApp;
@@ -117,7 +118,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFailure(Call<ResponeLogin> call, Throwable t) {
-                Toast.makeText(SplashActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(SplashActivity.this, "Error",R.style.ColoredText).show();
                 Log.e("TAG", "CHECK LOGIN failed!");
                 t.printStackTrace();
             }

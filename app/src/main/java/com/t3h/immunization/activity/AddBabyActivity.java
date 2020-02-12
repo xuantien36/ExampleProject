@@ -93,10 +93,8 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
-        if (name.equals("") || birthday.equals("") || note.equals("") || !male.isChecked() && !female.isChecked()) {
-
+        if (name.equals("") || birthday.equals("")|| !male.isChecked() && !female.isChecked()) {
             StyleableToast.makeText(AddBabyActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
-
 
         } else {
             ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,
@@ -142,13 +140,11 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.edt_add_birthday:
                 showDate(2020, 01, 02, R.style.DatePickerSpinner);
-
 //                datePicker(this, edtBirthday, String.valueOf(R.style.DialogTheme));
                 break;
         }
 
     }
-
     public void showDialog() {
         if (dialog == null) {
             dialog = new Dialog(AddBabyActivity.this);
@@ -158,7 +154,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         dialog.show();
 
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

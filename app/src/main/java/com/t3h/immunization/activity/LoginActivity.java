@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
@@ -87,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String user_name = edtName.getText().toString();
         String password = edtPass.getText().toString();
         if (user_name.isEmpty() && password.isEmpty()) {
-            Toast.makeText(this,getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(this, getResources().getString(R.string.toast),R.style.ColoredText).show();
         }
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.message));
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     },500);
                     Intent intent = new Intent(LoginActivity.this, CategoriActivity.class);
                     startActivity(intent);
-                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(LoginActivity.this, getResources().getString(R.string.success),R.style.ColoredText).show();
                     User.getInstans().setId(response.body().getData().getId());
                     if (checkBox.isChecked()) {
                         AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
@@ -125,14 +126,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     finish();
                 } else {
                     progressDialog.dismiss();
-                    Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(LoginActivity.this, getResources().getString(R.string.error),R.style.ColoredText).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<ResponeLogin> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 Log.e("TAG", "CHECK LOGIN failed!");
                 t.printStackTrace();
             }

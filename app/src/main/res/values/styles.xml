@@ -6,10 +6,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">15sp</item>
     </style>
@@ -17,25 +19,42 @@
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">12sp</item>
     </style>
-    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
+
     <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
         <item name="tabBackground">@drawable/tab_background</item>
         <item name="tabIndicatorHeight">2dp</item>
     </style>
+
     <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>
+
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
     </style>
+
     <style name="DialogTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">#2196F3</item>
     </style>
+
     <style name="DatePickerSpinner">
         <item name="android:textSize">22dp</item>
         <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
         <item name="android:colorControlNormal" tools:targetApi="lollipop">@color/colorAccent</item>
+    </style>
+
+    <style name="ColoredText" parent="BaseStyleableToast">
+        <item name="stTextColor">#F5EEEE</item>
+        <item name="stColorBackground">#2196F3</item>
+        <item name="stStrokeWidth">2dp</item>
+        <item name="stStrokeColor">#F5F2F2</item>
+
+    </style>
+    <style name="BaseStyleableToast">
+        <item name="stLength">SHORT</item>
     </style>
 </resources>
