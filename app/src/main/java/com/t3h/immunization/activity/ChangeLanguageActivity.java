@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.utils.SaveData;
 
@@ -54,7 +55,7 @@ public class ChangeLanguageActivity extends AppCompatActivity {
                 en.putBoolean("check_en", radioButton_En.isChecked());
                 en.remove("check_vi");
                 en.commit();
-                Toast.makeText(this, ""+ radioButton_En.isChecked(), Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(this, ""+ radioButton_En.isChecked(),R.style.ColoredText).show();
                 Intent intent = new Intent(ChangeLanguageActivity.this, CategoriActivity.class);
                 startActivity(intent);
                 break;
@@ -65,7 +66,7 @@ public class ChangeLanguageActivity extends AppCompatActivity {
                 vi.putBoolean("check_vi", radioButton_Vi.isChecked());
                 vi.remove("check_en");
                 vi.commit();
-                Toast.makeText(this, ""+radioButton_Vi.isChecked(), Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(this, ""+radioButton_Vi.isChecked(),R.style.ColoredText).show();
                 Intent t = new Intent(ChangeLanguageActivity.this, CategoriActivity.class);
                 startActivity(t);
                 break;
