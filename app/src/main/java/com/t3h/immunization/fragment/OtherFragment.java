@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.ChangeLanguageActivity;
-import com.t3h.immunization.activity.LoginActivity;
+import com.t3h.immunization.view.login.LoginActivity;
 import com.t3h.immunization.activity.NotificationActivity;
 import com.t3h.immunization.adapter.OtherAdapter;
 import com.t3h.immunization.model.Other;

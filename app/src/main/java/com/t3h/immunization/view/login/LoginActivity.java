@@ -1,4 +1,4 @@
-package com.t3h.immunization.activity;
+package com.t3h.immunization.view.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,12 +15,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.t3h.immunization.activity.CategoriActivity;
+import com.t3h.immunization.activity.ForgotActivity;
+import com.t3h.immunization.presenter.login.PresenterLogin;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.utils.AppPreferences;
 import com.t3h.immunization.utils.SaveData;
+import com.t3h.immunization.view.register.RegisterActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +34,7 @@ import retrofit2.Response;
 
 import static com.t3h.immunization.utils.Constant.KEY_NEXT;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
     @BindView(R.id.btn_register)
     Button btnRegister;
     @BindView(R.id.btn_login)
@@ -46,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView tvForget;
     private Handler handler =new Handler();
     private ProgressDialog progressDialog;
+    private PresenterLogin presenterLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
       edtPass.setText( AppPreferences.getInstance(getApplicationContext()).getString("matkhau"));
         Log.e("LOGIN", "key Check box  "+AppPreferences.getInstance(getApplicationContext()).getBoolean("checked") );
         checkBox.setChecked(AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
+        presenterLogin =new PresenterLogin(this);
     }
 
     @Override
@@ -79,8 +85,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                callApiLogin();
-                break;
+                String user_name = edtName.getText().toString();
+                String password = edtPass.getText().toString();
+                presenterLogin.receivedHandlrLogin(user_name, password);
+                if (checkBox.isChecked()) {
+                    AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
+                    AppPreferences.getInstance(getApplicationContext()).putString("matkhau", password);
+                    AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", true);
+                    Log.e("LOGIN", "onResponse: check  " +
+                            AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
+
+                } else {
+                    AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", "");
+                    AppPreferences.getInstance(getApplicationContext()).putString("matkhau", "");
+                    AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", false);
+                    Log.e("LOGIN", "onResponse: not check " +
+                            AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
+//                callApiLogin();
+                    break;
+                }
         }
     }
     public  void callApiLogin() {
@@ -137,6 +160,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void onLoginSuccess() {
+
+        Intent intent = new Intent(LoginActivity.this, CategoriActivity.class);
+        startActivity(intent);
+
+    }
+    @Override
+    public void onLoginFail() {
+        Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+
     }
 }
 

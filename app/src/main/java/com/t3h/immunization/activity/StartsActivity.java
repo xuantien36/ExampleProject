@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import com.t3h.immunization.R;
+import com.t3h.immunization.view.login.LoginActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -17,7 +19,7 @@ public class StartsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_starts);
         ButterKnife.bind(this);
         btnStarts.setOnClickListener(view -> {
-            Intent intent=new Intent(StartsActivity.this,LoginActivity.class);
+            Intent intent=new Intent(StartsActivity.this, LoginActivity.class);
             startActivity(intent);
         });
     }

@@ -1,4 +1,4 @@
-package com.t3h.immunization.fragment;
+package com.t3h.immunization.view.baby;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -26,6 +26,7 @@ import com.t3h.immunization.activity.BabyInformationActivity;
 import com.t3h.immunization.adapter.BaByAdapter;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.User;
+import com.t3h.immunization.presenter.baby.PresenterBaby;
 import com.t3h.immunization.respone.BaByRespone;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.utils.DisplayUtil;
@@ -39,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BabyFragment extends Fragment implements View.OnClickListener, BaByAdapter.ItemClickListener {
+public class BabyFragment extends Fragment implements View.OnClickListener, BaByAdapter.ItemClickListener, BabyView {
 
     @BindView(R.id.btn_add)
     Button btnAdd;
@@ -57,6 +58,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     int currentPosition = 0;
     private Handler mHandler = new Handler();
     private ProgressDialog progressDialog;
+    private PresenterBaby presenterBaby;
 
 
     @Nullable
@@ -134,6 +136,9 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         });
     }
     private void init() {
+        presenterBaby=new PresenterBaby();
+        presenterBaby.onAttach(this);
+
         btnAdd.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);
@@ -166,7 +171,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }
         });
     }
-
     private void scrollToPositionRight() {
         currentPosition = layoutManager.findLastVisibleItemPosition();
 
@@ -179,7 +183,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
         }
     }
-
     private void scrollToPositionLeft() {
         currentPosition = layoutManager.findFirstVisibleItemPosition();
 
@@ -191,7 +194,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }, 50);
         }
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -243,6 +245,47 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     @Override
     public void onResume() {
         super.onResume();
-        callApi();
+        presenterBaby.onshowList();
+//        callApi();
+    }
+
+    @Override
+    public void showList(List<GetBaby> data) {
+        adapter.setData(data);
+        arr.clear();
+        arr.addAll(data);
+        if (adapter != null) {
+            if (currentPosition > 0) {
+                currentPosition = arr.size() - 1;
+
+            }else {
+                currentPosition = 0;
+            }
+            Log.e("BUG", "Gọi lại " + (currentPosition));
+
+            recyclerView.scrollToPosition(currentPosition);
+            adapter.getItemBaby(currentPosition);
+        }else {
+            progressDialog.dismiss();
+            recyclerView.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
+            currentPosition =0;
+        }
+        if (currentPosition < arr.size() - 1) {
+            btnNext.setVisibility(View.VISIBLE);
+            Log.e("BUG", "xoa0");
+        } else if (currentPosition == 0) {
+            btnNext.setVisibility(View.GONE);
+            btnBack.setVisibility(View.GONE);
+            Log.e("BUG", "xoa2");
+
+        } else if (currentPosition == arr.size() - 1) {
+            btnNext.setVisibility(View.GONE);
+            btnBack.setVisibility(View.VISIBLE);
+            Log.e("BUG", "xoa1");
+
+        }
+        recyclerView.setVisibility(View.VISIBLE);
+        tvEmpty.setVisibility(View.GONE);
     }
 }
