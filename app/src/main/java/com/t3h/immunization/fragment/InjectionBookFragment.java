@@ -43,7 +43,8 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     ImageView imAvatar;
 
     private void initView() {
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -52,7 +53,7 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
             @Override
             public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
                 if (response.body().getStatus() == true) {
-                    adapter = new PagerTabAdapter(getActivity().getSupportFragmentManager(), response.body().getData(), response.body().getInjectionGroup());
+                    adapter = new PagerTabAdapter(getChildFragmentManager(), response.body().getData(), response.body().getInjectionGroup());
                     viewPager.setAdapter(adapter);
                     handler.postDelayed(new Runnable() {
                         @Override

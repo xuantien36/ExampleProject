@@ -90,7 +90,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (user_name.isEmpty() && password.isEmpty()) {
             StyleableToast.makeText(this, getResources().getString(R.string.toast),R.style.ColoredText).show();
         }
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this,R.style.CustomDialog);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage(getResources().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();

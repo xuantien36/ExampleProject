@@ -88,7 +88,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
     }
-
     public void addBaby() {
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();

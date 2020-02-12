@@ -53,7 +53,8 @@ public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClic
     }
 
     public void callApi() {
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();

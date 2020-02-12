@@ -66,7 +66,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     StyleableToast.makeText(RegisterActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
 
                 }
-                progressDialog = new ProgressDialog(this);
+                progressDialog = new ProgressDialog(this,R.style.CustomDialog);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.setMessage(getResources().getString(R.string.message));
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
