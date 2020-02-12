@@ -77,7 +77,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             }else {
                 imAvatar.setImageResource(R.drawable.group_731);
             }
-            Toast.makeText(this, ""+checkedBox, Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(this, ""+checkedBox,R.style.ColoredText).show();
         });
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
@@ -106,7 +106,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                         finish();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResponeRegister> call, Throwable t) {
 
