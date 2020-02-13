@@ -1,4 +1,4 @@
-package com.t3h.immunization.fragment;
+package com.t3h.immunization.view.statiscal;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.model.InjectionGroup;
 import com.t3h.immunization.model.Injections;
+import com.t3h.immunization.presenter.statiscal.PresenterStatiscal;
 import com.t3h.immunization.respone.ResponeStatistical;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StatisticalFragment extends Fragment {
+public class StatisticalFragment extends Fragment implements StatiscalView {
     @BindView(R.id.expandableListView)
     ExpandableListView expandableListView;
     private ArrayList<Injections> arrayList;
@@ -42,6 +43,7 @@ public class StatisticalFragment extends Fragment {
     TextView textView;
     @BindView(R.id.im_avatar)
     ImageView imAvaTar;
+    private PresenterStatiscal presenter;
 
     @Nullable
     @Override
@@ -49,8 +51,21 @@ public class StatisticalFragment extends Fragment {
         View view = inflater.inflate(R.layout.statistical_fragment, container, false);
         ButterKnife.bind(this, view);
         arrayList = new ArrayList<>();
+        initView();
         return view;
     }
+
+    private void initView() {
+        presenter=new PresenterStatiscal();
+        presenter.onAttach(this);
+        tvName.setText(GetBaby.getInstance().getName());
+        if (GetBaby.getInstance().getGender().equalsIgnoreCase("Nam")){
+            imAvaTar.setImageResource(R.drawable.group_730);
+        }else {
+            imAvaTar.setImageResource(R.drawable.group_731);
+        }
+    }
+
     public void callApi() {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage(getActivity().getString(R.string.message));
@@ -64,7 +79,7 @@ public class StatisticalFragment extends Fragment {
                 arrayList.clear();
                 arrayList.addAll(data);
                 Log.e("babyid", "onResponse: tttttt" +GetBaby.getInstance().getBabyId() );
-                expandableListAdapter = new ExpandableListAdapter(getContext(), injectionGroup);
+//                expandableListAdapter = new ExpandableListAdapter(getContext());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -100,11 +115,19 @@ public class StatisticalFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (GetBaby.getInstance().getBabyId() != null) {
-            callApi();
+            presenter.onshowList();
+//            callApi();
         } else {
             textView.setVisibility(View.VISIBLE);
         }
     }
 
+    @Override
+    public void showListStatiscal(List<InjectionGroup> injectionGroup, List<Injections> data) {
+        expandableListAdapter = new ExpandableListAdapter(getContext(),injectionGroup);
+        expandableListView.setAdapter(expandableListAdapter);
+        expandableListAdapter.setDataStatis(injectionGroup,data);
+
+    }
 }
 

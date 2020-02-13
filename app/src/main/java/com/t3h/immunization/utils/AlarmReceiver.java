@@ -14,7 +14,6 @@ import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.TaskStackBuilder;
-import androidx.legacy.content.WakefulBroadcastReceiver;
 
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.CategoriActivity;
@@ -23,7 +22,7 @@ import com.t3h.immunization.activity.NotificationActivity;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class AlarmReceiver extends WakefulBroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
     AlarmManager mAlarmManager;
     PendingIntent mPendingIntent;
 

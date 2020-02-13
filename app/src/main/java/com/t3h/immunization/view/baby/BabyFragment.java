@@ -1,5 +1,4 @@
 package com.t3h.immunization.view.baby;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.AddBabyActivity;
 import com.t3h.immunization.activity.BabyInformationActivity;
@@ -30,10 +29,8 @@ import com.t3h.immunization.presenter.baby.PresenterBaby;
 import com.t3h.immunization.respone.BaByRespone;
 import com.t3h.immunization.model.GetBaby;
 import com.t3h.immunization.utils.DisplayUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -136,6 +133,10 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         });
     }
     private void init() {
+//        progressDialog = new ProgressDialog(getContext());
+//        progressDialog.setMessage(getActivity().getString(R.string.message));
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.show();
         presenterBaby=new PresenterBaby();
         presenterBaby.onAttach(this);
 
@@ -218,7 +219,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
                 break;
             case R.id.btn_next:
-
                 btnBack.setVisibility(View.VISIBLE);
                 scrollToPositionRight();
 
@@ -230,7 +230,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 break;
         }
     }
-
     @Override
     public void onClicked(int position) {
         Intent intent = new Intent(getContext(), BabyInformationActivity.class);
@@ -246,11 +245,12 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     public void onResume() {
         super.onResume();
         presenterBaby.onshowList();
+        Log.e("Resum:::", "onResume: "+currentPosition );
 //        callApi();
     }
-
     @Override
     public void showList(List<GetBaby> data) {
+//        progressDialog.dismiss();
         adapter.setData(data);
         arr.clear();
         arr.addAll(data);
@@ -261,8 +261,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }else {
                 currentPosition = 0;
             }
-            Log.e("BUG", "Gọi lại " + (currentPosition));
-
             recyclerView.scrollToPosition(currentPosition);
             adapter.getItemBaby(currentPosition);
         }else {

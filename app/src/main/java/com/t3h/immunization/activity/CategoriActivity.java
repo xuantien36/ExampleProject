@@ -11,7 +11,7 @@ import com.t3h.immunization.customxml.ItemBottomBar;
 import com.t3h.immunization.view.baby.BabyFragment;
 import com.t3h.immunization.fragment.InjectionBookFragment;
 import com.t3h.immunization.fragment.OtherFragment;
-import com.t3h.immunization.fragment.StatisticalFragment;
+import com.t3h.immunization.view.statiscal.StatisticalFragment;
 import com.t3h.immunization.fragment.VaccineFragment;
 import com.t3h.immunization.utils.AppPreferences;
 import com.t3h.immunization.utils.Constant;
