@@ -1,7 +1,6 @@
 package com.t3h.immunization.adapter;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.t3h.immunization.R;
-import com.t3h.immunization.model.InjectionGroup;
+import com.t3h.immunization.vacxin.model.InjectionGroup;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;

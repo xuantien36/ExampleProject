@@ -2,8 +2,8 @@ package com.t3h.immunization.respone;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.t3h.immunization.model.InjectionGroup;
-import com.t3h.immunization.model.Injections;
+import com.t3h.immunization.vacxin.model.InjectionGroup;
+import com.t3h.immunization.statiscal.model.Injections;
 
 import java.util.List;
 

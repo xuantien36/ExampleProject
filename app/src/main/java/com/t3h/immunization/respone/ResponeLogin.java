@@ -1,7 +1,7 @@
 package com.t3h.immunization.respone;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.t3h.immunization.model.User;
+import com.t3h.immunization.login.model.User;
 
 public class ResponeLogin {
     @SerializedName("status")

@@ -22,10 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.ChangeLanguageActivity;
-import com.t3h.immunization.view.login.LoginActivity;
+import com.t3h.immunization.activity.LoginActivity;
 import com.t3h.immunization.activity.NotificationActivity;
 import com.t3h.immunization.adapter.OtherAdapter;
-import com.t3h.immunization.model.Other;
+import com.t3h.immunization.other.model.Other;
+import com.t3h.immunization.other.presenter.PresenterOther;
+import com.t3h.immunization.other.view.OtherView;
 import com.t3h.immunization.utils.SaveData;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class OtherFragment extends Fragment implements OtherAdapter.ItemClickListener, View.OnClickListener {
+public class OtherFragment extends Fragment implements OtherAdapter.ItemClickListener, View.OnClickListener, OtherView {
     private ArrayList<Other> data;
     private OtherAdapter adapter;
     @BindView(R.id.lv_other)
@@ -42,6 +44,7 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
     private Dialog dialog;
     private Handler handler=new Handler();
     private ProgressDialog progressDialog;
+    private PresenterOther presenterOther;
 
     @Nullable
     @Override
@@ -56,7 +59,7 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        initData();
+//        initData();
     }
 
     private void initData() {
@@ -78,18 +81,20 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
         adapter.setData(data);
 
     }
-
     private void initView() {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
+        presenterOther=new PresenterOther();
+        presenterOther.onAttach(this);
+        presenterOther.setContext(getContext());
         adapter = new OtherAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
+        presenterOther.onshowListOther();
 
     }
-
     @Override
     public void onClicked(int position) {
         switch (position) {
@@ -153,7 +158,6 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
     public void onLongClicked(int position) {
 
     }
-
     public void showDialogInfor() {
         dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.custom_dialog_information);
@@ -161,9 +165,7 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
         Button btnOk = dialog.findViewById(R.id.btn_ok);
         btnOk.setOnClickListener(this);
         dialog.show();
-
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -171,7 +173,16 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
                 dialog.dismiss();
                 break;
         }
-
+    }
+    @Override
+    public void onshowListOther(ArrayList<Other> data) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        },1000);
+        adapter.setData(data);
     }
 }
 

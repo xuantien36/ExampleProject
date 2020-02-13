@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/custom_6"
     android:orientation="vertical"
-    tools:context=".view.register.RegisterActivity">
+    tools:context=".activity.RegisterActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import com.t3h.immunization.R;
-import com.t3h.immunization.view.login.LoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

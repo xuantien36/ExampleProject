@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.GetBaby;
+import com.t3h.immunization.baby.model.GetBaby;
 import com.t3h.immunization.respone.ResponeRegister;
 
 import java.util.Objects;

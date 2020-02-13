@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.User;
+import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
 

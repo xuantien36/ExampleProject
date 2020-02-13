@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment;
 
 import com.t3h.immunization.R;
 import com.t3h.immunization.customxml.ItemBottomBar;
-import com.t3h.immunization.view.baby.BabyFragment;
-import com.t3h.immunization.view.bookinjection.InjectionBookFragment;
+import com.t3h.immunization.fragment.BabyFragment;
+import com.t3h.immunization.fragment.InjectionBookFragment;
 import com.t3h.immunization.fragment.OtherFragment;
-import com.t3h.immunization.view.statiscal.StatisticalFragment;
-import com.t3h.immunization.view.vacxin.VaccineFragment;
+import com.t3h.immunization.fragment.StatisticalFragment;
+import com.t3h.immunization.fragment.VaccineFragment;
 import com.t3h.immunization.utils.AppPreferences;
 import com.t3h.immunization.utils.Constant;
 import com.t3h.immunization.utils.SaveData;

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
+        android:name="MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/artboard12"
         android:label="@string/app_name"
@@ -56,7 +57,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.MainActivity" />
         <activity
-            android:name=".view.login.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -64,7 +65,7 @@
             android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.register.RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

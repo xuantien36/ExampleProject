@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.respone.ResponeRegister;
-import com.t3h.immunization.view.login.LoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

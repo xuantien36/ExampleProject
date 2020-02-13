@@ -14,13 +14,12 @@ import android.widget.Toast;
 
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.model.UpdateApp;
-import com.t3h.immunization.model.User;
+import com.t3h.immunization.UpdateApp;
+import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.respone.ResponeApp;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.utils.AppPreferences;
 import com.t3h.immunization.utils.Constant;
-import com.t3h.immunization.view.login.LoginActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,7 +66,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             }
         }, 1500);
     }
-
     private void initView() {
         ApiBuilder.getInstance().updateApp("android", 1).enqueue(new Callback<ResponeApp>() {
             @Override

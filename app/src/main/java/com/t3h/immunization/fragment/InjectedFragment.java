@@ -1,7 +1,5 @@
 package com.t3h.immunization.fragment;
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.t3h.immunization.R;
 import com.t3h.immunization.adapter.ExpanAdapterInjected;
-import com.t3h.immunization.model.InjectionGroup;
-import com.t3h.immunization.model.Injections;
+import com.t3h.immunization.vacxin.model.InjectionGroup;
+import com.t3h.immunization.statiscal.model.Injections;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;

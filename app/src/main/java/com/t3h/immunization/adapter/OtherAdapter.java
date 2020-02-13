@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.t3h.immunization.R;
-import com.t3h.immunization.model.Other;
+import com.t3h.immunization.other.model.Other;
 
 import java.util.ArrayList;
 

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.EditBaByActivity;
-import com.t3h.immunization.model.GetBaby;
+import com.t3h.immunization.baby.model.GetBaby;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
