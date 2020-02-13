@@ -58,9 +58,7 @@
         <item name="stLength">SHORT</item>
     </style>
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:background">#7BC047</item>
+        <item name="android:background">#2196F3</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:windowBackground">@null</item>
-        <item name="android:windowFrame">@null</item>
     </style>
 </resources>
