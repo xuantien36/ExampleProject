@@ -56,6 +56,10 @@ public class StatisticalFragment extends Fragment implements StatiscalView {
     }
 
     private void initView() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(getActivity().getString(R.string.message));
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         presenter=new PresenterStatiscal();
         presenter.onAttach(this);
         tvName.setText(GetBaby.getInstance().getName());
@@ -124,6 +128,12 @@ public class StatisticalFragment extends Fragment implements StatiscalView {
 
     @Override
     public void showListStatiscal(List<InjectionGroup> injectionGroup, List<Injections> data) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        }, 500);
         expandableListAdapter = new ExpandableListAdapter(getContext(),injectionGroup);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListAdapter.setDataStatis(injectionGroup,data);

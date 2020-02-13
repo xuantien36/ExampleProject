@@ -1,4 +1,4 @@
-package com.t3h.immunization.view.all;
+package com.t3h.immunization.fragment;
 
 import android.os.Bundle;
 import android.util.Log;

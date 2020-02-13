@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.t3h.immunization.view.all.AllFragment;
+import com.t3h.immunization.fragment.AllFragment;
 import com.t3h.immunization.fragment.InjectedFragment;
 import com.t3h.immunization.fragment.MissFragment;
 import com.t3h.immunization.fragment.NotinjectedFragment;

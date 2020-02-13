@@ -1,13 +1,11 @@
-package com.t3h.immunization.fragment;
+package com.t3h.immunization.view.vacxin;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +16,8 @@ import com.t3h.immunization.activity.DetailActivity;
 import com.t3h.immunization.adapter.VaccineAdapter;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.model.InjectionGroup;
+import com.t3h.immunization.presenter.vacxin.PresenterVacxin;
 import com.t3h.immunization.respone.ResponeInjections;
-import com.t3h.immunization.utils.SaveData;
-
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -29,19 +26,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClickListener {
+public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClickListener,VacxinView {
     private ArrayList<InjectionGroup> data;
     private VaccineAdapter adapter;
     @BindView(R.id.lv_vaccine)
     RecyclerView recyclerView;
     private Handler handler=new Handler();
     private ProgressDialog progressDialog;
+    private PresenterVacxin presenterVacxin;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.vaccine_fragment, container, false);
         ButterKnife.bind(this, view);
-        callApi();
+//        callApi();
         data = new ArrayList<>();
         return view;
     }
@@ -86,9 +84,16 @@ public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClic
 
     }
     private void initView() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(getActivity().getString(R.string.message));
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        presenterVacxin=new PresenterVacxin();
+        presenterVacxin.onAttach(this);
         adapter = new VaccineAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
+        presenterVacxin.onshowListVacxin();
 
     }
 
@@ -101,6 +106,21 @@ public class VaccineFragment extends Fragment implements VaccineAdapter.ItemClic
     }
     @Override
     public void onLongClicked(int position) {
+
+    }
+
+    @Override
+    public void onshowList(List<InjectionGroup> injectionGroup) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+
+            }
+        },500);
+        adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
+        data.clear();
+        data.addAll(injectionGroup);
 
     }
 }
