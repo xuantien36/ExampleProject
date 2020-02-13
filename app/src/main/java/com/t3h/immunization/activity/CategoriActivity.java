@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.t3h.immunization.R;
 import com.t3h.immunization.customxml.ItemBottomBar;
 import com.t3h.immunization.view.baby.BabyFragment;
-import com.t3h.immunization.fragment.InjectionBookFragment;
+import com.t3h.immunization.view.bookinjection.InjectionBookFragment;
 import com.t3h.immunization.fragment.OtherFragment;
 import com.t3h.immunization.view.statiscal.StatisticalFragment;
 import com.t3h.immunization.fragment.VaccineFragment;

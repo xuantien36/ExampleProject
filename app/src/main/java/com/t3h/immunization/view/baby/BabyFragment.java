@@ -133,10 +133,10 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         });
     }
     private void init() {
-//        progressDialog = new ProgressDialog(getContext());
-//        progressDialog.setMessage(getActivity().getString(R.string.message));
-//        progressDialog.setCanceledOnTouchOutside(false);
-//        progressDialog.show();
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(getActivity().getString(R.string.message));
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         presenterBaby=new PresenterBaby();
         presenterBaby.onAttach(this);
 
@@ -250,7 +250,12 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     }
     @Override
     public void showList(List<GetBaby> data) {
-//        progressDialog.dismiss();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        }, 1000);
         adapter.setData(data);
         arr.clear();
         arr.addAll(data);
