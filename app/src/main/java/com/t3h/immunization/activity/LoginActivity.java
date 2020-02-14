@@ -24,6 +24,7 @@ import com.t3h.immunization.login.view.LoginView;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.utils.AppPreferences;
 import com.t3h.immunization.utils.SaveData;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SharedPreferences sharedPreferences;
     @BindView(R.id.tv_forget)
     TextView tvForget;
-    private Handler handler =new Handler();
+    private Handler handler = new Handler();
     private ProgressDialog progressDialog;
     private PresenterLogin presenterLogin;
 
@@ -61,12 +62,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
         tvForget.setOnClickListener(this);
-       edtName.setText( AppPreferences.getInstance(getApplicationContext()).getString(("taikhoan")));
-      edtPass.setText( AppPreferences.getInstance(getApplicationContext()).getString("matkhau"));
-        Log.e("LOGIN", "key Check box  "+AppPreferences.getInstance(getApplicationContext()).getBoolean("checked") );
+        edtName.setText(AppPreferences.getInstance(getApplicationContext()).getString(("taikhoan")));
+        edtPass.setText(AppPreferences.getInstance(getApplicationContext()).getString("matkhau"));
+        Log.e("LOGIN", "key Check box  " + AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
         checkBox.setChecked(AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
-        presenterLogin =new PresenterLogin(this);
+        presenterLogin = new PresenterLogin(this);
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -79,6 +81,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
+                progressDialog = new ProgressDialog(this, R.style.CustomDialog);
+                progressDialog.setMessage(getResources().getString(R.string.message));
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
                 String user_name = edtName.getText().toString();
                 String password = edtPass.getText().toString();
                 presenterLogin.receivedHandlrLogin(user_name, password);
@@ -99,16 +105,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
         }
     }
+
     @Override
     public void onLoginSuccess() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+
+            }
+        }, 500);
+
         Intent intent = new Intent(LoginActivity.this, CategoriActivity.class);
         startActivity(intent);
-        StyleableToast.makeText(this,"Error",R.style.ColoredText).show();
-
+        StyleableToast.makeText(this, "Login Success", R.style.ColoredText).show();
     }
     @Override
     public void onLoginFail() {
-        StyleableToast.makeText(this,"Error",R.style.ColoredText).show();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        }, 500);
+        StyleableToast.makeText(this, "Error", R.style.ColoredText).show();
 
     }
 }

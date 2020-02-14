@@ -1,7 +1,10 @@
 package com.t3h.immunization.login.model;
 
+import android.app.ProgressDialog;
 import android.util.Log;
 
+import com.t3h.immunization.MyApplication;
+import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.login.presenter.ModelPresenterLoginListener;
@@ -22,8 +25,8 @@ public class ModelLogin {
 
         if (user_name.isEmpty() && password.isEmpty()) {
             callback.onLoginFail();
-
         }
+
         ApiBuilder.getInstance().login(user_name, password).enqueue(new Callback<ResponeLogin>() {
             @Override
             public void onResponse(Call<ResponeLogin> call, Response<ResponeLogin> response) {
