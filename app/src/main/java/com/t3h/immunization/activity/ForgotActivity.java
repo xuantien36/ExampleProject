@@ -63,7 +63,7 @@ public class ForgotActivity extends AppCompatActivity implements View.OnClickLis
                             startActivity(intent);
                         }else {
                             progressDialog.dismiss();
-                            Toast.makeText(ForgotActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgotActivity.this,getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                         }
 
                     }

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.login.presenter.PresenterLogin;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
@@ -70,7 +71,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         checkBox.setChecked(AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
         presenterLogin =new PresenterLogin(this);
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -99,76 +99,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", false);
                     Log.e("LOGIN", "onResponse: not check " +
                             AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
-//                callApiLogin();
                     break;
                 }
         }
     }
-    public  void callApiLogin() {
-        String user_name = edtName.getText().toString();
-        String password = edtPass.getText().toString();
-        if (user_name.isEmpty() && password.isEmpty()) {
-            Toast.makeText(this,getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
-        }
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getResources().getString(R.string.message));
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        ApiBuilder.getInstance().login(user_name, password).enqueue(new Callback<ResponeLogin>() {
-            @Override
-            public void onResponse(Call<ResponeLogin> call, Response<ResponeLogin> response) {
-                if (response.body().getStatus() == true) {
-                    Log.e("TAG", "CHECK LOGIN SUCCESS!");
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-
-                        }
-                    },500);
-                    Intent intent = new Intent(LoginActivity.this, CategoriActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                    User.getInstans().setId(response.body().getData().getId());
-                    if (checkBox.isChecked()) {
-                        AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
-                        AppPreferences.getInstance(getApplicationContext()).putString("matkhau", password);
-                        AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", true);
-                        Log.e("LOGIN", "onResponse: check  "+AppPreferences.getInstance(getApplicationContext()).getBoolean("checked") );
-
-                    } else {
-                        AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", "");
-                        AppPreferences.getInstance(getApplicationContext()).putString("matkhau", "");
-                        AppPreferences.getInstance(getApplicationContext()).putBoolean("checked", false);
-                        Log.e("LOGIN", "onResponse: not check "+  AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
-
-                    }
-                    finish();
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponeLogin> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                Log.e("TAG", "CHECK LOGIN failed!");
-                t.printStackTrace();
-            }
-        });
-    }
-
     @Override
     public void onLoginSuccess() {
         Intent intent = new Intent(LoginActivity.this, CategoriActivity.class);
         startActivity(intent);
+        StyleableToast.makeText(this,"Error",R.style.ColoredText).show();
 
     }
     @Override
     public void onLoginFail() {
-        Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+        StyleableToast.makeText(this,"Error",R.style.ColoredText).show();
 
     }
 }

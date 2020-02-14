@@ -1,6 +1,7 @@
 package com.t3h.immunization.other.presenter;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.t3h.immunization.MyApplication;
 import com.t3h.immunization.R;
@@ -26,6 +27,7 @@ public class PresenterOther<V extends OtherView> extends BasePresenter<V> implem
         data.add(new Other(R.drawable.ic_group_720, MyApplication.getInstance().getString(R.string.log_out)));
         if (getMvpView()!=null){
             getMvpView().onshowListOther(data);
+            Log.e("other", "onshowListOther: "+data );
         }
 
     }

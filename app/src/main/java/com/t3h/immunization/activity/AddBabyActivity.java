@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.login.model.User;
@@ -76,7 +77,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             }else {
                 imAvatar.setImageResource(R.drawable.group_731);
             }
-            Toast.makeText(this, ""+checkedBox, Toast.LENGTH_SHORT).show();
+//            StyleableToast.makeText(this, ""+checkedBox,R.style.ColoredText).show();
         });
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
@@ -87,15 +88,12 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
     }
-
     public void addBaby() {
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
-        if (name.equals("") || birthday.equals("") || note.equals("") || !male.isChecked() && !female.isChecked()) {
-
-            Toast.makeText(AddBabyActivity.this, getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
-
+        if (name.equals("") || birthday.equals("")|| !male.isChecked() && !female.isChecked()) {
+//            StyleableToast.makeText(AddBabyActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
 
         } else {
             ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,
@@ -107,7 +105,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                         finish();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResponeRegister> call, Throwable t) {
 
@@ -141,13 +138,11 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.edt_add_birthday:
                 showDate(2020, 01, 02, R.style.DatePickerSpinner);
-
 //                datePicker(this, edtBirthday, String.valueOf(R.style.DialogTheme));
                 break;
         }
 
     }
-
     public void showDialog() {
         if (dialog == null) {
             dialog = new Dialog(AddBabyActivity.this);
@@ -157,7 +152,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         dialog.show();
 
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -18,11 +18,9 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".activity.StartsActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activity.ChangeLanguageActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AddBabyActivity"
@@ -30,11 +28,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.NotificationActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.VerificationActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SetupActivity"
@@ -42,43 +38,34 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ForgotActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.EditBaByActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.BabyInformationActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.EditInjectionsActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.CategoriActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.RegisterActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.DetailActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.WelcomeActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SplashActivity"
-            android:label="Label for the Activity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

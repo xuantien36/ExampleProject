@@ -71,4 +71,6 @@
     <string name="all_pager">All</string>
     <string name="injected_pager">Injected</string>
     <string name="not_injected_pager">Not injected</string>
+    <string name="error">Error</string>
+    <string name="success">Login Success</string>
 </resources>

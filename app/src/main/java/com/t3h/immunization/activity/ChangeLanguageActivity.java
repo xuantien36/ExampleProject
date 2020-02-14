@@ -38,10 +38,12 @@ public class ChangeLanguageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_language);
         ButterKnife.bind(this);
+        radioButton_Vi.setChecked(true);
         sharedPreferences = getSharedPreferences("SaveChecked", Context.MODE_PRIVATE);
         radioButton_En.setChecked(sharedPreferences.getBoolean("check_en", false));
-        radioButton_Vi.setChecked(sharedPreferences.getBoolean("check_vi", false));
+        radioButton_Vi.setChecked(sharedPreferences.getBoolean("check_vi",radioButton_Vi.isChecked()));
         imLanguageBack.setOnClickListener(v -> finish());
+
     }
 
     public void change(View view) {
@@ -54,7 +56,6 @@ public class ChangeLanguageActivity extends AppCompatActivity {
                 en.putBoolean("check_en", radioButton_En.isChecked());
                 en.remove("check_vi");
                 en.commit();
-                Toast.makeText(this, ""+ radioButton_En.isChecked(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ChangeLanguageActivity.this, CategoriActivity.class);
                 startActivity(intent);
                 break;
@@ -65,7 +66,6 @@ public class ChangeLanguageActivity extends AppCompatActivity {
                 vi.putBoolean("check_vi", radioButton_Vi.isChecked());
                 vi.remove("check_en");
                 vi.commit();
-                Toast.makeText(this, ""+radioButton_Vi.isChecked(), Toast.LENGTH_SHORT).show();
                 Intent t = new Intent(ChangeLanguageActivity.this, CategoriActivity.class);
                 startActivity(t);
                 break;

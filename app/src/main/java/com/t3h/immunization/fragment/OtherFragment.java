@@ -82,7 +82,8 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
 
     }
     private void initView() {
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();

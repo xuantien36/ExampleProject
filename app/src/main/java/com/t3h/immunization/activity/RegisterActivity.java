@@ -10,13 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
+import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.register.presenter.PresenterRegister;
 import com.t3h.immunization.register.view.RegisterView;
+import com.t3h.immunization.respone.ResponeRegister;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, RegisterView {
     @BindView(R.id.im_back)
@@ -98,6 +103,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //
 //                    }
 //                });
+                if (user_name.equals("")||password.equals("")||email.equals("")|| name.equals("")){
+                    StyleableToast.makeText(RegisterActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
+
+                }
+                progressDialog = new ProgressDialog(this,R.style.CustomDialog);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setMessage(getResources().getString(R.string.message));
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+                ApiBuilder.getInstance().register(user_name, password,"",name, phone, email,"","").enqueue(new Callback<ResponeRegister>() {
+                    @Override
+                    public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
+                        if (response.body().getStatus() == true) {
+                            progressDialog.dismiss();
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                            StyleableToast.makeText(RegisterActivity.this, "Register success",R.style.ColoredText).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResponeRegister> call, Throwable t) {
+                        progressDialog.dismiss();
+                        StyleableToast.makeText(RegisterActivity.this, "Error",R.style.ColoredText).show();
+
+                    }
+                });
                 break;
             case R.id.im_back:
                 finish();

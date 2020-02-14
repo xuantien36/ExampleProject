@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.respone.ResponeRegister;
@@ -62,7 +64,7 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
                             startActivity(intent);
                         }else {
                             progressDialog.dismiss();
-                            Toast.makeText(VerificationActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(VerificationActivity.this,"Error",R.style.ColoredText).show();
                         }
                     }
 

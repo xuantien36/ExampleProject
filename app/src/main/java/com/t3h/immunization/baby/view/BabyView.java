@@ -6,5 +6,5 @@ import com.t3h.immunization.baby.model.GetBaby;
 import java.util.List;
 
 public interface BabyView extends MvpView {
-    void showList(List<GetBaby> data);
+    void onshowList(List<GetBaby> data);
 }

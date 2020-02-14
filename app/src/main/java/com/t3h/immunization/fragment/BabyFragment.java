@@ -68,17 +68,18 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         return view;
     }
     public void callApi() {
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
+//        Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
         ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
             @Override
             public void onResponse(Call<BaByRespone> call, Response<BaByRespone> response) {
                 List<GetBaby> data = response.body().getData();
                 if (data != null && data.size() > 0) {
-                    Log.e("BABY", "DATA SIZE " + response.body().getData().size());
+//                    Log.e("BABY", "DATA SIZE " + response.body().getData().size());
                     arr.clear();
                     arr.addAll(data);
                     mHandler.postDelayed(new Runnable() {
@@ -89,6 +90,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     }, 500);
                     adapter.setData(data);
 
+
                     if (adapter != null) {
                         if (currentPosition > 0) {
                             currentPosition = arr.size() - 1;
@@ -96,7 +98,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                         }else {
                             currentPosition = 0;
                         }
-                        Log.e("BUG", "Gọi lại " + (currentPosition));
+//                        Log.e("BUG", "Gọi lại " + (currentPosition));
 
                         recyclerView.scrollToPosition(currentPosition);
                         adapter.getItemBaby(currentPosition);
@@ -105,16 +107,16 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     }
                     if (currentPosition < arr.size() - 1) {
                         btnNext.setVisibility(View.VISIBLE);
-                        Log.e("BUG", "xoa0");
+//                        Log.e("BUG", "xoa0");
                     } else if (currentPosition == 0) {
                         btnNext.setVisibility(View.GONE);
                         btnBack.setVisibility(View.GONE);
-                        Log.e("BUG", "xoa2");
+//                        Log.e("BUG", "xoa2");
 
                     } else if (currentPosition == arr.size() - 1) {
                         btnNext.setVisibility(View.GONE);
                         btnBack.setVisibility(View.VISIBLE);
-                        Log.e("BUG", "xoa1");
+//                        Log.e("BUG", "xoa1");
 
                     }
                     recyclerView.setVisibility(View.VISIBLE);
@@ -128,12 +130,12 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
-                Log.e("BUG", "onFailure: " + t.toString());
+//                Log.e("BUG", "onFailure: " + t.toString());
             }
         });
     }
     private void init() {
-        progressDialog = new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -209,7 +211,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 scrollToPositionLeft();
 
                 if (currentPosition == 0) {
-                    Log.e("LEFT", "onClick: " + (currentPosition));
                     btnBack.setVisibility(View.GONE);
                 }
                 if (currentPosition >= arr.size()) {
@@ -218,6 +219,8 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 }
 
                 adapter.getItemBaby(currentPosition);
+                Log.e("BUG", "Back: "+currentPosition );
+
 
                 break;
             case R.id.btn_next:
@@ -225,10 +228,10 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 scrollToPositionRight();
 
                 if (currentPosition == arr.size() - 1) {
-                    Log.e("RIGHT", "onClick: " + (currentPosition));
                     btnNext.setVisibility(View.GONE);
                 }
                 adapter.getItemBaby(currentPosition);
+                Log.e("BUG", "NEXT: "+currentPosition );
                 break;
         }
     }
@@ -247,11 +250,11 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     public void onResume() {
         super.onResume();
         presenterBaby.onshowList();
-        Log.e("Resum:::", "onResume: "+currentPosition );
+        Log.e("babyid", "onResume: "+GetBaby.getInstance().getBabyId());
 //        callApi();
     }
     @Override
-    public void showList(List<GetBaby> data) {
+    public void onshowList(List<GetBaby> data) {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -270,6 +273,8 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
             }
             recyclerView.scrollToPosition(currentPosition);
             adapter.getItemBaby(currentPosition);
+            adapter.notifyDataSetChanged();
+            Log.e("Resum:::", "onResume: "+currentPosition );
         }else {
             progressDialog.dismiss();
             recyclerView.setVisibility(View.GONE);
