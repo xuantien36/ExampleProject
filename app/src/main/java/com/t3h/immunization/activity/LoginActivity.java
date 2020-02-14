@@ -24,12 +24,8 @@ import com.t3h.immunization.login.view.LoginView;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.utils.AppPreferences;
 import com.t3h.immunization.utils.SaveData;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.t3h.immunization.utils.Constant.KEY_NEXT;
 
