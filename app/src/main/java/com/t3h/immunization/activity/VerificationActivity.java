@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,14 +14,18 @@ import android.widget.Toast;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
+import com.t3h.immunization.basemvp.MvpView;
 import com.t3h.immunization.respone.ResponeRegister;
+import com.t3h.immunization.verification.presenter.PresenterVerification;
+import com.t3h.immunization.verification.view.VerificationView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VerificationActivity extends AppCompatActivity implements View.OnClickListener {
+public class VerificationActivity extends AppCompatActivity implements View.OnClickListener, VerificationView {
     @BindView(R.id.back_verification)
     ImageView imVerification;
     @BindView(R.id.btn_verification)
@@ -28,6 +33,8 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.edt_verification)
     EditText edtVerification;
     private ProgressDialog progressDialog;
+    private PresenterVerification verification;
+    private Handler handler=new Handler();
 
 
     @Override
@@ -40,6 +47,8 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
     private void init() {
         imVerification.setOnClickListener(this);
         btnVerification.setOnClickListener(this);
+        verification=new PresenterVerification();
+        verification.onAttach(this);
     }
 
     @Override
@@ -55,26 +64,36 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
                 progressDialog.show();
                 btnVerification.setBackgroundColor(getResources().getColor(R.color.colorBG1));
                 String code =edtVerification.getText().toString();
-                ApiBuilder.getInstance().verifycode(code).enqueue(new Callback<ResponeRegister>() {
-                    @Override
-                    public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
-                        if (response.body().getStatus() == true){
-                            progressDialog.dismiss();
-                            Intent intent=new Intent(VerificationActivity.this,SetupActivity.class);
-                            startActivity(intent);
-                        }else {
-                            progressDialog.dismiss();
-                            StyleableToast.makeText(VerificationActivity.this,"Error",R.style.ColoredText).show();
-                        }
-                    }
+                verification.handleVerification(code);
 
-                    @Override
-                    public void onFailure(Call<ResponeRegister> call, Throwable t) {
-
-                    }
-                });
                 break;
         }
+
+    }
+
+    @Override
+    public void onVerificationSuccess() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+
+            }
+        },500);
+        Intent intent=new Intent(VerificationActivity.this,SetupActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onVerificationFail() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+
+            }
+        },500);
+        StyleableToast.makeText(this,getResources().getString(R.string.error),R.style.ColoredText).show();
 
     }
 }

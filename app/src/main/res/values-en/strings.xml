@@ -27,7 +27,6 @@
     <string name="so_tiem">Injection book</string>
     <string name="tv_dialog">Delete the information</string>
     <string name="tv_dialog_information">Information note</string>
-    <string name="notification">Notification settings</string>
     <string name="information_note">Information Note</string>
     <string name="vote">App reviews</string>
     <string name="message">Please wait data is Processing...</string>
@@ -43,7 +42,6 @@
     <string name="log_in">Login</string>
     <string name="user_name">UserName</string>
     <string name="pass_word">PassWord</string>
-    <string name="baby_name">Name</string>
     <string name="injected">Injected :</string>
     <string name="miss">Miss :</string>
     <string name="not_injected">Not injected :</string>

@@ -1,30 +1,30 @@
 package com.t3h.immunization.activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.baby.model.GetBaby;
+import com.t3h.immunization.babydetail.presenter.PresenterBabyDetail;
+import com.t3h.immunization.babydetail.view.BabyDetailView;
 import com.t3h.immunization.respone.ResponeRegister;
-
 import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BabyInformationActivity extends AppCompatActivity implements View.OnClickListener {
+public class BabyInformationActivity extends AppCompatActivity implements View.OnClickListener, BabyDetailView {
     @BindView(R.id.im_back)
     ImageView imBack;
     @BindView(R.id.im_baby)
@@ -43,6 +43,9 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     ImageView imEdit;
     @BindView(R.id.image_gender)
     ImageView imageGender;
+    private Handler handler=new Handler();
+    private PresenterBabyDetail presenterBabyDetail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,6 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
         ButterKnife.bind(this);
         init();
     }
-
     private void init() {
         Intent intent = getIntent();
         baBy = (GetBaby) intent.getSerializableExtra("baby");
@@ -70,6 +72,8 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
         imBack.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
         imEdit.setOnClickListener(this);
+        presenterBabyDetail=new PresenterBabyDetail();
+        presenterBabyDetail.onAttach(this);
     }
 
     @Override
@@ -91,25 +95,19 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     }
 
     public void deleteBaby() {
-        ApiBuilder.getInstance().deleteBaby(baBy.getBabyId()).enqueue(new Callback<ResponeRegister>() {
-            @Override
-            public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
-                if (response.body().getStatus() == true) {
-                    showDialog();
-                    finish();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponeRegister> call, Throwable t) {
-
-            }
-        });
+        presenterBabyDetail.deleteBaby(baBy.getBabyId());
     }
-
     public void showDialog() {
         if (dialog == null) {
             dialog = new Dialog(BabyInformationActivity.this);
         }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+
+            }
+        },2000);
         dialog.setContentView(R.layout.custom_dialog_delete);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
@@ -121,5 +119,15 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
+    }
+
+    @Override
+    public void deleteSuccess() {
+        showDialog();
+    }
+    @Override
+    public void onFail() {
+        StyleableToast.makeText(this,getResources().getString(R.string.error),R.style.ColoredText).show();
+
     }
 }

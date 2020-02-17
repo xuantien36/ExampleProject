@@ -17,8 +17,8 @@ import androidx.annotation.RequiresApi;
 import com.bumptech.glide.Glide;
 import com.t3h.immunization.R;
 import com.t3h.immunization.baby.model.GetBaby;
-import com.t3h.immunization.vacxin.model.InjectionGroup;
 import com.t3h.immunization.statiscal.model.Injections;
+import com.t3h.immunization.vacxin.model.InjectionGroup;
 
 import java.io.File;
 import java.text.ParseException;

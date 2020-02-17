@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         ButterKnife.bind(this);
         intView();
     }
-
     private void intView() {
         AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_NEXT, true);
         btnLogin.setOnClickListener(this);
@@ -66,9 +65,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edtPass.setText(AppPreferences.getInstance(getApplicationContext()).getString("matkhau"));
         Log.e("LOGIN", "key Check box  " + AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
         checkBox.setChecked(AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
-        presenterLogin = new PresenterLogin(this);
+        presenterLogin = new PresenterLogin();
+        presenterLogin.onAttach(this);
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -87,7 +86,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 progressDialog.show();
                 String user_name = edtName.getText().toString();
                 String password = edtPass.getText().toString();
-                presenterLogin.receivedHandlrLogin(user_name, password);
+                presenterLogin.hadleLogin(user_name,password);
+
                 if (checkBox.isChecked()) {
                     AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
                     AppPreferences.getInstance(getApplicationContext()).putString("matkhau", password);

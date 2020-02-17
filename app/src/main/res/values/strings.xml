@@ -28,11 +28,9 @@
     <string name="add_baby">Thêm bé thành công</string>
     <string name="delete_baby">Xóa thành công</string>
     <string name="edit">Sửa thành công</string>
-
     <string name="change_language_title">Ngôn ngữ</string>
     <string name="language_vietnamese" translatable="false">Tiếng việt</string>
     <string name="language_english" translatable="false">English</string>
-    <string name="notification">Cài Đặt Thông Báo</string>
     <string name="information_note">Thông Tin Lưu Ý</string>
     <string name="vote">Đánh Giá Ứng Dụng</string>
     <string name="share_app">Chia Sẻ Ứng Dụng</string>
@@ -48,7 +46,6 @@
     <string name="log_in">Đăng nhập</string>
     <string name="user_name">Tên đăng nhập</string>
     <string name="pass_word">Mật khẩu</string>
-    <string name="baby_name">baby_name</string>
     <string name="miss">Bỏ lỡ :</string>
     <string name="not_injected">Chưa tiêm :</string>
     <string name="tv_update">Đã có bản cập nhật mới,cập nhật ngay</string>

@@ -46,7 +46,6 @@
         <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
         <item name="android:colorControlNormal" tools:targetApi="lollipop">@color/colorAccent</item>
     </style>
-
     <style name="ColoredText" parent="BaseStyleableToast">
         <item name="stTextColor">#F5EEEE</item>
         <item name="stColorBackground">#2196F3</item>

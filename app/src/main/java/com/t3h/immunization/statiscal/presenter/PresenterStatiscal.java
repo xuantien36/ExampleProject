@@ -4,17 +4,18 @@ import android.util.Log;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.basemvp.BasePresenter;
 import com.t3h.immunization.baby.model.GetBaby;
-import com.t3h.immunization.vacxin.model.InjectionGroup;
-import com.t3h.immunization.statiscal.model.Injections;
 import com.t3h.immunization.respone.ResponeStatistical;
+import com.t3h.immunization.statiscal.model.Injections;
 import com.t3h.immunization.statiscal.view.StatiscalView;
+import com.t3h.immunization.vacxin.model.InjectionGroup;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PresenterStatiscal<V extends StatiscalView>
-        extends BasePresenter<V> implements ModelPresenterStatiscalListener<V> {
+        extends BasePresenter<V> implements PresenterStatiscalListener<V> {
     @Override
     public void onshowList() {
         ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {

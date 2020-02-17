@@ -1,6 +1,8 @@
 package com.t3h.immunization.register.view;
 
-public interface RegisterView {
+import com.t3h.immunization.basemvp.MvpView;
+
+public interface RegisterView extends MvpView {
     void  onRegisterSuccess();
     void onRegisterFail();
 }

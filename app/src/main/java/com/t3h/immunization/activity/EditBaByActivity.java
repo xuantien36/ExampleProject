@@ -14,9 +14,12 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.baby.model.GetBaby;
+import com.t3h.immunization.editbaby.presenter.PresenterEditBaby;
+import com.t3h.immunization.editbaby.view.EditBabyView;
 import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
 import com.tsongkha.spinnerdatepicker.DatePicker;
@@ -32,7 +35,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditBaByActivity extends AppCompatActivity implements View.OnClickListener, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateCancelListener {
+public class EditBaByActivity extends AppCompatActivity implements View.OnClickListener,
+        com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener,
+        com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateCancelListener, EditBabyView {
     @BindView(R.id.back_edit)
     ImageView imBack;
     @BindView(R.id.save_edit)
@@ -55,6 +60,7 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
     SimpleDateFormat simpleDateFormat;
     @BindView(R.id.image_avatar)
     ImageView imAvatar;
+    private PresenterEditBaby presenterEditBaby;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +116,8 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         editBirthday.setFocusableInTouchMode(false);
         editBirthday.setFocusable(false);
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        presenterEditBaby=new PresenterEditBaby();
+        presenterEditBaby.onAttach(this);
     }
     @Override
     protected void onDestroy() {
@@ -181,6 +189,18 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onCancelled(DatePicker view) {
         editBirthday.setText("");
+
+    }
+
+    @Override
+    public void editSuccess() {
+
+
+    }
+
+    @Override
+    public void onFail() {
+        StyleableToast.makeText(this,getResources().getString(R.string.error),R.style.ColoredText).show();
 
     }
 }

@@ -57,7 +57,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.setMessage(getResources().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        register = new PresenterRegister(this);
+        register = new PresenterRegister();
+        register.onAttach(this);
         imBack.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
 
@@ -74,8 +75,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String phone = edtPhone.getText().toString();
                 String email = edtEmail.getText().toString();
 
-                register.receiedHandleRegister(user_name, name, password, phone, email);
-
+               register.receiedHandleRegister(user_name,name,password,phone,email);
 //                if (user_name.equals("")||password.equals("")||email.equals("")|| name.equals("")){
 //                    Toast.makeText(this,getResources().getString(R.string.toast), Toast.LENGTH_SHORT).show();
 //
@@ -103,34 +103,34 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //
 //                    }
 //                });
-                if (user_name.equals("")||password.equals("")||email.equals("")|| name.equals("")){
-                    StyleableToast.makeText(RegisterActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
-
-                }
-                progressDialog = new ProgressDialog(this,R.style.CustomDialog);
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                progressDialog.setMessage(getResources().getString(R.string.message));
-                progressDialog.setCanceledOnTouchOutside(false);
-                progressDialog.show();
-                ApiBuilder.getInstance().register(user_name, password,"",name, phone, email,"","").enqueue(new Callback<ResponeRegister>() {
-                    @Override
-                    public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
-                        if (response.body().getStatus() == true) {
-                            progressDialog.dismiss();
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-                            StyleableToast.makeText(RegisterActivity.this, "Register success",R.style.ColoredText).show();
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ResponeRegister> call, Throwable t) {
-                        progressDialog.dismiss();
-                        StyleableToast.makeText(RegisterActivity.this, "Error",R.style.ColoredText).show();
-
-                    }
-                });
-                break;
+//                if (user_name.equals("")||password.equals("")||email.equals("")|| name.equals("")){
+//                    StyleableToast.makeText(RegisterActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
+//
+//                }
+//                progressDialog = new ProgressDialog(this,R.style.CustomDialog);
+//                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//                progressDialog.setMessage(getResources().getString(R.string.message));
+//                progressDialog.setCanceledOnTouchOutside(false);
+//                progressDialog.show();
+//                ApiBuilder.getInstance().register(user_name, password,"",name, phone, email,"","").enqueue(new Callback<ResponeRegister>() {
+//                    @Override
+//                    public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
+//                        if (response.body().getStatus() == true) {
+//                            progressDialog.dismiss();
+//                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                            StyleableToast.makeText(RegisterActivity.this, "Register success",R.style.ColoredText).show();
+//                        }
+//                    }
+//                    @Override
+//                    public void onFailure(Call<ResponeRegister> call, Throwable t) {
+//                        progressDialog.dismiss();
+//                        StyleableToast.makeText(RegisterActivity.this, "Error",R.style.ColoredText).show();
+//
+//                    }
+//                });
+//                break;
             case R.id.im_back:
                 finish();
                 break;
@@ -148,7 +148,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onRegisterFail() {
-        Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
+        StyleableToast.makeText(RegisterActivity.this,getResources().getString(R.string.error),R.style.ColoredText).show();
 
     }
 }

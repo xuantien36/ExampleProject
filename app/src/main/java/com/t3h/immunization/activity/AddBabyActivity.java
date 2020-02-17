@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
+import com.t3h.immunization.addbaby.presenter.PresenterAddBaby;
+import com.t3h.immunization.addbaby.view.AddbabyView;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
@@ -36,7 +39,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddBabyActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateCancelListener {
+public class AddBabyActivity extends AppCompatActivity implements View.OnClickListener,
+        DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener,
+        com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener,
+        com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateCancelListener, AddbabyView {
     @BindView(R.id.back)
     ImageView imBack;
     @BindView(R.id.save)
@@ -59,6 +65,9 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     SimpleDateFormat simpleDateFormat;
     @BindView(R.id.avatar_add)
     ImageView imAvatar;
+    private PresenterAddBaby presenterAddBaby;
+    private Handler handler=new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +86,7 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             }else {
                 imAvatar.setImageResource(R.drawable.group_731);
             }
-//            StyleableToast.makeText(this, ""+checkedBox,R.style.ColoredText).show();
+            StyleableToast.makeText(this, ""+checkedBox,R.style.ColoredText).show();
         });
         imBack.setOnClickListener(this);
         imSave.setOnClickListener(this);
@@ -86,31 +95,33 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         edtBirthday.setFocusableInTouchMode(false);
         edtBirthday.setFocusable(false);
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        presenterAddBaby=new PresenterAddBaby();
+        presenterAddBaby.onAttach(this);
 
     }
     public void addBaby() {
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
-        if (name.equals("") || birthday.equals("")|| !male.isChecked() && !female.isChecked()) {
+        presenterAddBaby.onAddBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,true);
+//        if (name.equals("") || birthday.equals("")|| !male.isChecked() && !female.isChecked()) {
 //            StyleableToast.makeText(AddBabyActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
-
-        } else {
-            ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,
-                    true).enqueue(new Callback<ResponeRegister>() {
-                @Override
-                public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
-                    if (response.body().getStatus() == true) {
-                        showDialog();
-                        finish();
-                    }
-                }
-                @Override
-                public void onFailure(Call<ResponeRegister> call, Throwable t) {
-
-                }
-            });
-        }
+//
+//        } else {
+//            ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note, true).enqueue(new Callback<ResponeRegister>() {
+//                @Override
+//                public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
+//                    if (response.body().getStatus() == true) {
+//                        showDialog();
+//                        finish();
+//                    }
+//                }
+//                @Override
+//                public void onFailure(Call<ResponeRegister> call, Throwable t) {
+//
+//                }
+//            });
+//        }
     }
 
     public void datePicker(final Context context, final EditText textView, final String type) {
@@ -138,7 +149,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.edt_add_birthday:
                 showDate(2020, 01, 02, R.style.DatePickerSpinner);
-//                datePicker(this, edtBirthday, String.valueOf(R.style.DialogTheme));
                 break;
         }
 
@@ -147,6 +157,13 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         if (dialog == null) {
             dialog = new Dialog(AddBabyActivity.this);
         }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+
+            }
+        },2000);
         dialog.setContentView(R.layout.custom_dialog_add);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
@@ -194,6 +211,17 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onCancelled(com.tsongkha.spinnerdatepicker.DatePicker view) {
         edtBirthday.setText("");
+
+    }
+
+    @Override
+    public void addSuccess() {
+        showDialog();
+    }
+
+    @Override
+    public void addFail() {
+        StyleableToast.makeText(this,getResources().getString(R.string.error),R.style.ColoredText).show();
 
     }
 }

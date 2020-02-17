@@ -4,11 +4,13 @@ import com.t3h.immunization.basemvp.BasePresenter;
 import com.t3h.immunization.respone.ResponeInjections;
 import com.t3h.immunization.vacxin.model.InjectionGroup;
 import com.t3h.immunization.vacxin.view.VacxinView;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-public class PresenterVacxin<V extends VacxinView>extends BasePresenter<V>implements ModelPresenterVacxinListener<V> {
+public class PresenterVacxin<V extends VacxinView>extends BasePresenter<V>implements PresenterVacxinListener<V> {
     @Override
     public void onshowListVacxin() {
         ApiBuilder.getInstance().getVaccine("vi").enqueue(new Callback<ResponeInjections>() {

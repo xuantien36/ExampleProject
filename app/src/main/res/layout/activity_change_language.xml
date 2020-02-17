@@ -64,7 +64,7 @@
                 android:textSize="18sp"
                 tools:text="@string/language_vietnamese"
                 android:layout_gravity="start"
-                android:checked="false"/>
+                android:checked="true"/>
 
         </RadioGroup>
     </LinearLayout>

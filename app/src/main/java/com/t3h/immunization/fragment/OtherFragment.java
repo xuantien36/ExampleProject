@@ -50,7 +50,6 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.other_fragment, container, false);
-        SaveData.updateLangua(getContext());
         ButterKnife.bind(this, view);
         return view;
     }
@@ -61,26 +60,26 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
         initView();
 //        initData();
     }
-
-    private void initData() {
-        data = new ArrayList<>();
-        data.add(new Other(R.drawable.ic_notification, getActivity().getString(R.string.notification)));
-        data.add(new Other(R.drawable.ic_group_99, getActivity().getString(R.string.information_note)));
-        data.add(new Other(R.drawable.ic_danh_gia, getActivity().getString(R.string.vote)));
-        data.add(new Other(R.drawable.ic_share, getActivity().getString(R.string.share_app)));
-        data.add(new Other(R.drawable.ic_gop_y, getActivity().getString(R.string.feedback)));
-        data.add(new Other(R.drawable.ic_ung_dung_khac, getActivity().getString(R.string.another_app)));
-        data.add(new Other(R.drawable.ic_group_286, getActivity().getString(R.string.change_language_title)));
-        data.add(new Other(R.drawable.ic_group_720, getActivity().getString(R.string.log_out)));
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.dismiss();
-            }
-        },1000);
-        adapter.setData(data);
-
-    }
+//
+//    private void initData() {
+//        data = new ArrayList<>();
+////        data.add(new Other(R.drawable.ic_notification, getActivity().getString(R.string.notification)));
+//        data.add(new Other(R.drawable.ic_group_99, getActivity().getString(R.string.information_note)));
+//        data.add(new Other(R.drawable.ic_danh_gia, getActivity().getString(R.string.vote)));
+//        data.add(new Other(R.drawable.ic_share, getActivity().getString(R.string.share_app)));
+//        data.add(new Other(R.drawable.ic_gop_y, getActivity().getString(R.string.feedback)));
+//        data.add(new Other(R.drawable.ic_ung_dung_khac, getActivity().getString(R.string.another_app)));
+//        data.add(new Other(R.drawable.ic_group_286, getActivity().getString(R.string.change_language_title)));
+//        data.add(new Other(R.drawable.ic_group_720, getActivity().getString(R.string.log_out)));
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                progressDialog.dismiss();
+//            }
+//        },1000);
+//        adapter.setData(data);
+//
+//    }
     private void initView() {
         progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
