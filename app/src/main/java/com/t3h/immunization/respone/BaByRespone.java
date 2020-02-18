@@ -3,7 +3,6 @@ package com.t3h.immunization.respone;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.t3h.immunization.baby.model.GetBaby;
-
 import java.util.List;
 
 public class BaByRespone {

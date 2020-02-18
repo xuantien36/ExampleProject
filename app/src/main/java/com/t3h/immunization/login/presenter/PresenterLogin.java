@@ -16,27 +16,29 @@ public class PresenterLogin<V extends LoginView>extends BasePresenter<V>implemen
     public void hadleLogin(String userName, String pssWord) {
         if (userName.isEmpty() && pssWord.isEmpty()) {
             getMvpView().onLoginFail();
-        }
-        ApiBuilder.getInstance().login(userName, pssWord).enqueue(new Callback<ResponeLogin>() {
-            @Override
-            public void onResponse(Call<ResponeLogin> call, Response<ResponeLogin> response) {
-                if (response.body().getStatus() == true) {
-                    Log.e("TAG", "CHECK LOGIN SUCCESS!");
-                    User.getInstans().setId(response.body().getData().getId());
-                    if (getMvpView() != null) {
-                        getMvpView().onLoginSuccess();
+        } else {
+            ApiBuilder.getInstance().login(userName, pssWord).enqueue(new Callback<ResponeLogin>() {
+                @Override
+                public void onResponse(Call<ResponeLogin> call, Response<ResponeLogin> response) {
+                    if (response.body().getStatus() == true) {
+                        Log.e("TAG", "CHECK LOGIN SUCCESS!");
+                        User.getInstans().setId(response.body().getData().getId());
+                        if (getMvpView() != null) {
+                            getMvpView().onLoginSuccess();
 
-                    } else {
-                        getMvpView().onLoginFail();
+                        } else {
+                            getMvpView().onLoginFail();
+                        }
                     }
                 }
-            }
-            @Override
-            public void onFailure(Call<ResponeLogin> call, Throwable t) {
-                Log.e("TAG", "CHECK LOGIN failed!");
-                t.printStackTrace();
-            }
-        });
 
+                @Override
+                public void onFailure(Call<ResponeLogin> call, Throwable t) {
+                    Log.e("TAG", "CHECK LOGIN failed!");
+                    t.printStackTrace();
+                }
+            });
+
+        }
     }
 }

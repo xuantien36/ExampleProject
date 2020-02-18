@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.baby.model.GetBaby;
+import com.t3h.immunization.editinjection.presenter.PresenterEditInjection;
+import com.t3h.immunization.editinjection.view.EditInjectionView;
 import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
 import com.t3h.immunization.statiscal.model.Injections;
@@ -33,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditInjectionsActivity extends AppCompatActivity implements View.OnClickListener {
+public class EditInjectionsActivity extends AppCompatActivity implements View.OnClickListener, EditInjectionView {
     @BindView(R.id.back_injected)
     ImageView back;
     @BindView(R.id.save_injected)
@@ -51,6 +55,8 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
     private int poss;
     private Dialog dialog;
     private Injections injections;
+    private PresenterEditInjection presenterEditInjection;
+    private Handler handler=new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,39 +119,19 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         edtDate.setCursorVisible(false);
         edtDate.setFocusableInTouchMode(false);
         edtDate.setFocusable(false);
+        presenterEditInjection=new PresenterEditInjection();
+        presenterEditInjection.onAttach(this);
     }
 
     private void callApi() {
         String date = edtDate.getText().toString();
         String medicine = edtMedicine.getText().toString();
         String note = edtNote.getText().toString();
-        if (medicine.equals("") || note.equals("")) {
-//            StyleableToast.makeText(this, getResources().getString(R.string.toast),R.style.ColoredText).show();
-        } else {
-            ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()),
-                    injections.getId(),
-                    String.valueOf(User.getInstans().getId()), note, date, medicine, poss)
-                    .enqueue(new Callback<ResponeRegister>() {
+        presenterEditInjection.editInjection(String.valueOf(GetBaby.getInstance().getBabyId()),
+                injections.getId(),
+                String.valueOf(User.getInstans().getId()), note, date, medicine, poss);
 
-                        @Override
-                        public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
-                            if (response.body().getStatus() == true) {
-                              showDialog();
-                                Log.e("Message", "onResponse: " + response.body().getMessage());
-                                finish();
-                            } else {
-//                                StyleableToast.makeText(EditInjectionsActivity.this,getResources().getString(R.string.error),R.style.ColoredText).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponeRegister> call, Throwable t) {
-
-                        }
-                    });
-        }
     }
-
     public void datePicker(final Context context, final EditText textView, final String type) {
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -177,6 +163,12 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         if (dialog == null) {
             dialog = new Dialog(EditInjectionsActivity.this);
         }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        },2000);
         dialog.setContentView(R.layout.custom_dialog_edit_injected);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
@@ -199,6 +191,16 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         }
         System.out.println("Today is " + date);
         return date.getTime();
+    }
+    @Override
+    public void editSuccess() {
+        showDialog();
+
+    }
+
+    @Override
+    public void onFail() {
+        StyleableToast.makeText(this,getResources().getString(R.string.error),R.style.ColoredText).show();
 
     }
 }

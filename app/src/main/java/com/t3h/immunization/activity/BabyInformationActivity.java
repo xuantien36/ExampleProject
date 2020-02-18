@@ -12,17 +12,13 @@ import android.widget.TextView;
 
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
-import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.baby.model.GetBaby;
 import com.t3h.immunization.babydetail.presenter.PresenterBabyDetail;
 import com.t3h.immunization.babydetail.view.BabyDetailView;
-import com.t3h.immunization.respone.ResponeRegister;
 import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 public class BabyInformationActivity extends AppCompatActivity implements View.OnClickListener, BabyDetailView {
     @BindView(R.id.im_back)

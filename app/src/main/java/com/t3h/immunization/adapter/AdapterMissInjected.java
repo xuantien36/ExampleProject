@@ -139,7 +139,6 @@ public class AdapterMissInjected extends BaseExpandableListAdapter {
             Log.e("current", "getChildView: "+System.currentTimeMillis() );
             long days_left = ((System.currentTimeMillis()) -(time));
             long days =  ((days_left) / (1000 * 60 * 60 * 24));
-//            String dateinjected = getDate(temp, "dd/MM/yyyy");
             childHolder.tvName.setText(groups.get(childPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&

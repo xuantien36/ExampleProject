@@ -135,7 +135,7 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         if (System.currentTimeMillis() >= time) {
             long days_left = ((System.currentTimeMillis()) - (time));
             long days = ((days_left) / (1000 * 60 * 60 * 24));
-//            String dateinjected = getDate(temp, "dd/MM/yyyy");
+
             childHolder.tvName.setText(groups.get(groupPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&
@@ -160,7 +160,7 @@ public class ExpanAdapterInjected extends BaseExpandableListAdapter {
         } else {
             long days_left = ((time) - (System.currentTimeMillis()));
             int days = (int) ((days_left) / (1000 * 60 * 60 * 24));
-//            String dateinjected = getDate(temp, "dd/MM/yyyy");
+
             childHolder.tvName.setText(groups.get(childPosition).getGroupTitle());
             childHolder.tvMui.setText("Mũi : " + (childPosition + 1) + "/" + getChildrenCount(groupPosition));
             if (dataList.get(groupPosition).get(childPosition).getIsInjected().equalsIgnoreCase("0") &&

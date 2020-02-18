@@ -1,5 +1,4 @@
 package com.t3h.immunization.login.model;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

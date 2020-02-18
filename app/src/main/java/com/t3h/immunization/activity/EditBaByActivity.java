@@ -1,13 +1,16 @@
 package com.t3h.immunization.activity;
+
 import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -61,6 +65,7 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.image_avatar)
     ImageView imAvatar;
     private PresenterEditBaby presenterEditBaby;
+    private Handler handler =new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,39 +78,29 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         edtName_Edit.setText(baby.getName());
         edtNote.setText(baby.getNote());
         editBirthday.setText(baby.getBirthday());
-        if (baby.getGender().equalsIgnoreCase("Nam")){
+        if (baby.getGender().equalsIgnoreCase("Nam")) {
             rdioMale.setChecked(true);
-        }else {
+        } else {
             rdioFemale.setChecked(true);
         }
 
     }
+
     public void editBaby() {
         String name = edtName_Edit.getText().toString();
         String note = edtNote.getText().toString();
-        String birthday =editBirthday.getText().toString();
-        ApiBuilder.getInstance().editBaby(User.getInstans().getId(), baby.getBabyId(), name,checkedBox,birthday, "", note).enqueue(new Callback<ResponeRegister>() {
-            @Override
-            public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
-                if (response.body().getStatus() == true) {
-                    showDialog();
-                    finish();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponeRegister> call, Throwable t) {
-
-            }
-        });
+        String birthday = editBirthday.getText().toString();
+        presenterEditBaby.onEditBaby(User.getInstans().getId(), baby.getBabyId(), name, checkedBox, birthday, "", note);
     }
+
     private void init() {
         group.setOnCheckedChangeListener((radioGroup, i) -> {
             int checkedRadio = radioGroup.getCheckedRadioButtonId();
             RadioButton checkedRadioButton = findViewById(checkedRadio);
             checkedBox = checkedRadioButton.getText().toString();
-            if (checkedBox.equalsIgnoreCase("Nam")){
+            if (checkedBox.equalsIgnoreCase("Nam")) {
                 imAvatar.setImageResource(R.drawable.group_730);
-            }else {
+            } else {
                 imAvatar.setImageResource(R.drawable.group_731);
             }
         });
@@ -116,16 +111,18 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         editBirthday.setFocusableInTouchMode(false);
         editBirthday.setFocusable(false);
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        presenterEditBaby=new PresenterEditBaby();
+        presenterEditBaby = new PresenterEditBaby();
         presenterEditBaby.onAttach(this);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dialog!=null){
+        if (dialog != null) {
             dialog.dismiss();
         }
     }
+
     public void datePicker(final Context context, final EditText textView, final String type) {
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -138,6 +135,7 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View view) {
@@ -149,16 +147,23 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
                 editBaby();
                 break;
             case R.id.edit_birthday:
-                showDate(2020,01,02,R.style.DatePickerSpinner);
-//                datePicker(this,editBirthday, String.valueOf(R.style.DialogTheme));
+                showDate(2020, 01, 02, R.style.DatePickerSpinner);
                 break;
         }
 
     }
+
     public void showDialog() {
-        if (dialog==null){
-            dialog=new Dialog(EditBaByActivity.this);
+        if (dialog == null) {
+            dialog = new Dialog(EditBaByActivity.this);
         }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+
+            }
+        },2000);
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_edit);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -177,30 +182,23 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
                 .build()
                 .show();
     }
-
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
         editBirthday.setText(simpleDateFormat.format(calendar.getTime()));
 
-
     }
-
     @Override
     public void onCancelled(DatePicker view) {
         editBirthday.setText("");
-
     }
-
     @Override
     public void editSuccess() {
-
-
+        showDialog();
     }
-
     @Override
     public void onFail() {
-        StyleableToast.makeText(this,getResources().getString(R.string.error),R.style.ColoredText).show();
+        StyleableToast.makeText(this, getResources().getString(R.string.error), R.style.ColoredText).show();
 
     }
 }

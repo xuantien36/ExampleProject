@@ -104,24 +104,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
         presenterAddBaby.onAddBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,true);
-//        if (name.equals("") || birthday.equals("")|| !male.isChecked() && !female.isChecked()) {
-//            StyleableToast.makeText(AddBabyActivity.this, getResources().getString(R.string.toast),R.style.ColoredText).show();
-//
-//        } else {
-//            ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note, true).enqueue(new Callback<ResponeRegister>() {
-//                @Override
-//                public void onResponse(Call<ResponeRegister> call, Response<ResponeRegister> response) {
-//                    if (response.body().getStatus() == true) {
-//                        showDialog();
-//                        finish();
-//                    }
-//                }
-//                @Override
-//                public void onFailure(Call<ResponeRegister> call, Throwable t) {
-//
-//                }
-//            });
-//        }
     }
 
     public void datePicker(final Context context, final EditText textView, final String type) {
