@@ -201,4 +201,10 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         StyleableToast.makeText(this, getResources().getString(R.string.error), R.style.ColoredText).show();
 
     }
+
+    @Override
+    public void showToast() {
+        StyleableToast.makeText(this, getResources().getString(R.string.toast), R.style.ColoredText).show();
+
+    }
 }

@@ -34,7 +34,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
     }
     public void setData(List<GetBaby> data) {
         this.data = data;
-        notifyDataSetChanged();
+       notifyDataSetChanged();
     }
 
     public void getItemBaby(int position) {
@@ -47,6 +47,7 @@ public class BaByAdapter extends RecyclerView.Adapter<BaByAdapter.VaccineHolder>
             GetBaby.getInstance().setBirthday(data.get(position).getBirthday());
             GetBaby.getInstance().setName(data.get(position).getName());
             GetBaby.getInstance().setGender(data.get(position).getGender());
+            GetBaby.getInstance().setId(data.get(position).getId());
         }
     }
     @NonNull

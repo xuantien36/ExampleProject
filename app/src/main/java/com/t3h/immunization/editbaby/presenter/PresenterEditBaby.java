@@ -11,9 +11,6 @@ import retrofit2.Response;
 public class PresenterEditBaby<V extends EditBabyView> extends BasePresenter<V> implements PresenterEditBabyListener<V> {
     @Override
     public void onEditBaby(int id, int baby_id, String name, String gender, String birthday, String link_avatar, String note) {
-        if (name.isEmpty() || gender.isEmpty() || birthday.isEmpty()) {
-            getMvpView().onFail();
-        } else {
             ApiBuilder.getInstance().editBaby(User.getInstans().getId(), baby_id, name, gender, birthday, "", note)
                     .enqueue(new Callback<ResponeRegister>() {
                         @Override
@@ -33,7 +30,7 @@ public class PresenterEditBaby<V extends EditBabyView> extends BasePresenter<V> 
                     });
         }
     }
-}
+
 
 
 

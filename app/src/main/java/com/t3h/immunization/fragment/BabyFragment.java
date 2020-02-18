@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ import com.t3h.immunization.activity.BabyInformationActivity;
 import com.t3h.immunization.adapter.BaByAdapter;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.baby.view.BabyView;
+import com.t3h.immunization.basemvp.BaseFragment;
+import com.t3h.immunization.basemvp.BasePresenter;
 import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.baby.presenter.PresenterBaby;
 import com.t3h.immunization.respone.BaByRespone;
@@ -37,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BabyFragment extends Fragment implements View.OnClickListener, BaByAdapter.ItemClickListener, BabyView {
+public class BabyFragment extends BaseFragment implements View.OnClickListener, BaByAdapter.ItemClickListener, BabyView {
 
     @BindView(R.id.btn_add)
     Button btnAdd;
@@ -67,12 +70,22 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         init();
         return view;
     }
+    @Override
+    protected View setLayoutFragment(LayoutInflater inflater, ViewGroup container) {
+        return null;
+    }
+    @Override
+    protected BasePresenter getPresenter() {
+        return null;
+    }
+
     public void callApi() {
         progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
+
 //        Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
         ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
             @Override
@@ -88,8 +101,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                             progressDialog.dismiss();
                         }
                     }, 500);
-                    adapter.setData(data);
-
+//                    adapter.setData(data);
 
                     if (adapter != null) {
                         if (currentPosition > 0) {
@@ -102,6 +114,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
 
                         recyclerView.scrollToPosition(currentPosition);
                         adapter.getItemBaby(currentPosition);
+
                     }else {
                         currentPosition =0;
                     }
@@ -117,7 +130,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                         btnNext.setVisibility(View.GONE);
                         btnBack.setVisibility(View.VISIBLE);
 //                        Log.e("BUG", "xoa1");
-
                     }
                     recyclerView.setVisibility(View.VISIBLE);
                     tvEmpty.setVisibility(View.GONE);
@@ -127,10 +139,8 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                     tvEmpty.setVisibility(View.VISIBLE);
                 }
             }
-
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
-//                Log.e("BUG", "onFailure: " + t.toString());
             }
         });
     }
@@ -140,7 +150,7 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         presenterBaby=new PresenterBaby();
-        presenterBaby.setContext(getContext());
+//        presenterBaby.setContext(getContext());
         presenterBaby.onAttach(this);
 
 
@@ -206,28 +216,26 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
                 Intent intent = new Intent(getContext(), AddBabyActivity.class);
                 startActivity(intent);
                 break;
+
+
             case R.id.btn_back:
                 btnNext.setVisibility(View.VISIBLE);
                 scrollToPositionLeft();
-
                 if (currentPosition == 0) {
                     btnBack.setVisibility(View.GONE);
                 }
                 if (currentPosition >= arr.size()) {
                     currentPosition = arr.size() - 1;
-                    Log.e("BUG", "Back: " + currentPosition);
                 }
-
                 adapter.getItemBaby(currentPosition);
                 Log.e("BUG", "Back: "+currentPosition );
-
-
                 break;
+
+
             case R.id.btn_next:
                 btnBack.setVisibility(View.VISIBLE);
                 scrollToPositionRight();
-
-                if (currentPosition == arr.size() - 1) {
+                if (currentPosition == arr.size() - 1){
                     btnNext.setVisibility(View.GONE);
                 }
                 adapter.getItemBaby(currentPosition);
@@ -250,8 +258,6 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
     public void onResume() {
         super.onResume();
         presenterBaby.onshowList();
-        Log.e("babyid", "onResume: "+GetBaby.getInstance().getBabyId());
-//        callApi();
     }
     @Override
     public void onshowList(List<GetBaby> data) {
@@ -267,13 +273,14 @@ public class BabyFragment extends Fragment implements View.OnClickListener, BaBy
         if (adapter != null) {
             if (currentPosition > 0) {
                 currentPosition = arr.size() - 1;
-
+                Toast.makeText(getContext(), ""+currentPosition, Toast.LENGTH_SHORT).show();
             }else {
                 currentPosition = 0;
+                Toast.makeText(getContext(), ""+currentPosition, Toast.LENGTH_SHORT).show();
             }
             recyclerView.scrollToPosition(currentPosition);
             adapter.getItemBaby(currentPosition);
-            adapter.notifyDataSetChanged();
+
             Log.e("Resum:::", "onResume: "+currentPosition );
         }else {
             progressDialog.dismiss();

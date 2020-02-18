@@ -30,7 +30,6 @@ public class PresenterBaby<V extends BabyView> extends BasePresenter<V> implemen
             }
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
-                Log.e("BUG", "onFailure: " + t.toString());
             }
         });
 

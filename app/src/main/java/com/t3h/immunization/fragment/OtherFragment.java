@@ -87,8 +87,8 @@ public class OtherFragment extends Fragment implements OtherAdapter.ItemClickLis
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         presenterOther=new PresenterOther();
-        presenterOther.onAttach(this);
         presenterOther.setContext(getContext());
+        presenterOther.onAttach(this);
         adapter = new OtherAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
