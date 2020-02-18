@@ -6,7 +6,6 @@ import com.t3h.immunization.basemvp.BasePresenter;
 import com.t3h.immunization.editinjection.view.EditInjectionView;
 import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -15,7 +14,7 @@ public class PresenterEditInjection<V extends EditInjectionView> extends BasePre
     @Override
     public void editInjection(String baby_id, String id, String user_id, String note, String injected_date, String medicine, int isInjected) {
         if (medicine.isEmpty() || note.isEmpty()) {
-            getMvpView().onFail();
+            getMvpView().showToast();
         } else {
             ApiBuilder.getInstance().updateInjections(String.valueOf(GetBaby.getInstance().getBabyId()),
                     id,

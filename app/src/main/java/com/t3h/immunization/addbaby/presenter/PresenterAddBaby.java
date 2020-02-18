@@ -17,7 +17,7 @@ public class PresenterAddBaby<V extends AddbabyView>extends BasePresenter<V>impl
     public void onAddBaby(int id, String name, String gender, String birthday,
                           String link_avatar, String note, boolean isSavedOnServer) {
         if (name.isEmpty() || gender.isEmpty() || birthday.isEmpty()) {
-            getMvpView().addFail();
+            getMvpView().showToast();
         } else {
             ApiBuilder.getInstance().addBaby(User.getInstans().getId(), name, gender, birthday, "", note, true).enqueue(new Callback<ResponeRegister>() {
                 @Override
@@ -26,7 +26,6 @@ public class PresenterAddBaby<V extends AddbabyView>extends BasePresenter<V>impl
                         if (getMvpView() != null) {
                             getMvpView().addSuccess();
                         }
-
                     } else {
                         getMvpView().addFail();
                     }

@@ -133,7 +133,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
                 showDate(2020, 01, 02, R.style.DatePickerSpinner);
                 break;
         }
-
     }
     public void showDialog() {
         if (dialog == null) {
@@ -143,7 +142,6 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void run() {
                 finish();
-
             }
         },2000);
         dialog.setContentView(R.layout.custom_dialog_add);
@@ -189,13 +187,11 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         edtBirthday.setText(simpleDateFormat.format(calendar.getTime()));
 
     }
-
     @Override
     public void onCancelled(com.tsongkha.spinnerdatepicker.DatePicker view) {
         edtBirthday.setText("");
 
     }
-
     @Override
     public void addSuccess() {
         showDialog();
@@ -205,5 +201,9 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     public void addFail() {
         StyleableToast.makeText(this,getResources().getString(R.string.error),R.style.ColoredText).show();
 
+    }
+    @Override
+    public void showToast() {
+        StyleableToast.makeText(this,getResources().getString(R.string.toast),R.style.ColoredText).show();
     }
 }

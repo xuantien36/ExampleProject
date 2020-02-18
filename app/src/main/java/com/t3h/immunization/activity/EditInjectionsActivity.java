@@ -122,7 +122,6 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         presenterEditInjection=new PresenterEditInjection();
         presenterEditInjection.onAttach(this);
     }
-
     private void callApi() {
         String date = edtDate.getText().toString();
         String medicine = edtMedicine.getText().toString();
@@ -130,7 +129,6 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         presenterEditInjection.editInjection(String.valueOf(GetBaby.getInstance().getBabyId()),
                 injections.getId(),
                 String.valueOf(User.getInstans().getId()), note, date, medicine, poss);
-
     }
     public void datePicker(final Context context, final EditText textView, final String type) {
         Calendar calendar = Calendar.getInstance();
@@ -195,12 +193,14 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
     @Override
     public void editSuccess() {
         showDialog();
-
     }
-
     @Override
     public void onFail() {
         StyleableToast.makeText(this,getResources().getString(R.string.error),R.style.ColoredText).show();
+    }
+    @Override
+    public void showToast() {
+        StyleableToast.makeText(this,getResources().getString(R.string.toast),R.style.ColoredText).show();
 
     }
 }
