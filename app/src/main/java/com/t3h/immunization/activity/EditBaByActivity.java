@@ -21,6 +21,7 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.baby.model.GetBaby;
+import com.t3h.immunization.basemvp.BaseActivity;
 import com.t3h.immunization.editbaby.presenter.PresenterEditBaby;
 import com.t3h.immunization.editbaby.view.EditBabyView;
 import com.t3h.immunization.login.model.User;
@@ -39,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditBaByActivity extends AppCompatActivity implements View.OnClickListener,
+public class EditBaByActivity extends BaseActivity<PresenterEditBaby> implements View.OnClickListener,
         com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener,
         com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateCancelListener, EditBabyView {
     @BindView(R.id.back_edit)
@@ -64,15 +65,27 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
     SimpleDateFormat simpleDateFormat;
     @BindView(R.id.image_avatar)
     ImageView imAvatar;
-    private PresenterEditBaby presenterEditBaby;
     private Handler handler =new Handler();
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_ba_by);
+    protected PresenterEditBaby loadPresenter() {
+        return new PresenterEditBaby();
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initView() {
         ButterKnife.bind(this);
-        init();
         Intent intent = getIntent();
         baby = (GetBaby) intent.getSerializableExtra("data");
         edtName_Edit.setText(baby.getName());
@@ -83,17 +96,6 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         } else {
             rdioFemale.setChecked(true);
         }
-
-    }
-
-    public void editBaby() {
-        String name = edtName_Edit.getText().toString();
-        String note = edtNote.getText().toString();
-        String birthday = editBirthday.getText().toString();
-        presenterEditBaby.onEditBaby(User.getInstans().getId(), baby.getBabyId(), name, checkedBox, birthday, "", note);
-    }
-
-    private void init() {
         group.setOnCheckedChangeListener((radioGroup, i) -> {
             int checkedRadio = radioGroup.getCheckedRadioButtonId();
             RadioButton checkedRadioButton = findViewById(checkedRadio);
@@ -111,10 +113,19 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         editBirthday.setFocusableInTouchMode(false);
         editBirthday.setFocusable(false);
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        presenterEditBaby = new PresenterEditBaby();
-        presenterEditBaby.onAttach(this);
-    }
+        mPresenter.onAttach(this);
 
+    }
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_edit_ba_by;
+    }
+    public void editBaby() {
+        String name = edtName_Edit.getText().toString();
+        String note = edtNote.getText().toString();
+        String birthday = editBirthday.getText().toString();
+        mPresenter.onEditBaby(User.getInstans().getId(), baby.getBabyId(), name, checkedBox, birthday, "", note);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -122,20 +133,6 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
             dialog.dismiss();
         }
     }
-
-    public void datePicker(final Context context, final EditText textView, final String type) {
-        Calendar calendar = Calendar.getInstance();
-        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(context, R.style.DialogTheme, (view, year, monthOfYear, dayOfMonth) -> {
-            Calendar newDate = Calendar.getInstance();
-            newDate.set(year, monthOfYear, dayOfMonth);
-            newDate.set(year, monthOfYear, dayOfMonth);
-            textView.setText(dateFormatter.format(newDate.getTime()));
-
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View view) {
@@ -152,7 +149,6 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
-
     public void showDialog() {
         if (dialog == null) {
             dialog = new Dialog(EditBaByActivity.this);
@@ -186,7 +182,6 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
         editBirthday.setText(simpleDateFormat.format(calendar.getTime()));
-
     }
     @Override
     public void onCancelled(DatePicker view) {
@@ -201,10 +196,8 @@ public class EditBaByActivity extends AppCompatActivity implements View.OnClickL
         StyleableToast.makeText(this, getResources().getString(R.string.error), R.style.ColoredText).show();
 
     }
-
     @Override
     public void showToast() {
         StyleableToast.makeText(this, getResources().getString(R.string.toast), R.style.ColoredText).show();
-
     }
 }

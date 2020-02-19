@@ -12,12 +12,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 public class PresenterVacxin<V extends VacxinView>extends BasePresenter<V>implements PresenterVacxinListener<V> {
     @Override
-    public void onshowListVacxin() {
+    public void onshowList() {
         ApiBuilder.getInstance().getVaccine("vi").enqueue(new Callback<ResponeInjections>() {
             @Override
             public void onResponse(Call<ResponeInjections> call, Response<ResponeInjections> response) {
                 List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
-                if (injectionGroup != null) {
+                if (getMvpView() != null) {
                     getMvpView().onshowList(injectionGroup);
                 }
             }
@@ -25,5 +25,6 @@ public class PresenterVacxin<V extends VacxinView>extends BasePresenter<V>implem
             public void onFailure(Call<ResponeInjections> call, Throwable t) {
             }
         });
+
     }
 }

@@ -1,13 +1,8 @@
 package com.t3h.immunization.other.presenter;
-
-import android.util.Log;
-
-import com.t3h.immunization.MyApplication;
 import com.t3h.immunization.R;
 import com.t3h.immunization.basemvp.BasePresenter;
 import com.t3h.immunization.other.model.Other;
 import com.t3h.immunization.other.view.OtherView;
-
 import java.util.ArrayList;
 
 public class PresenterOther<V extends OtherView> extends BasePresenter<V> implements PresenterOtherListener<V> {
@@ -26,7 +21,6 @@ public class PresenterOther<V extends OtherView> extends BasePresenter<V> implem
         data.add(new Other(R.drawable.ic_group_720,context.getString(R.string.log_out)));
         if (getMvpView()!=null){
             getMvpView().onshowListOther(data);
-            Log.e("other", "onshowListOther: "+data );
         }
 
     }

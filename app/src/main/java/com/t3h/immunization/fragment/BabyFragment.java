@@ -40,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BabyFragment extends BaseFragment implements View.OnClickListener, BaByAdapter.ItemClickListener, BabyView {
+public class BabyFragment extends BaseFragment<PresenterBaby> implements View.OnClickListener, BaByAdapter.ItemClickListener, BabyView {
 
     @BindView(R.id.btn_add)
     Button btnAdd;
@@ -58,25 +58,29 @@ public class BabyFragment extends BaseFragment implements View.OnClickListener, 
     int currentPosition = 0;
     private Handler mHandler = new Handler();
     private ProgressDialog progressDialog;
-    private PresenterBaby presenterBaby;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        init();
+    }
+
+    @Override
+    protected View setLayoutFragment(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.baby_fragment, container, false);
         ButterKnife.bind(this, view);
         arr = new ArrayList<>();
-        init();
         return view;
     }
     @Override
-    protected View setLayoutFragment(LayoutInflater inflater, ViewGroup container) {
-        return null;
-    }
-    @Override
-    protected BasePresenter getPresenter() {
-        return null;
+    protected PresenterBaby getPresenter() {
+        return new PresenterBaby();
     }
 
     public void callApi() {
@@ -149,9 +153,7 @@ public class BabyFragment extends BaseFragment implements View.OnClickListener, 
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        presenterBaby=new PresenterBaby();
-//        presenterBaby.setContext(getContext());
-        presenterBaby.onAttach(this);
+        presenter.onAttach(this);
 
 
         btnAdd.setOnClickListener(this);
@@ -257,7 +259,7 @@ public class BabyFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onResume() {
         super.onResume();
-        presenterBaby.onshowList();
+        presenter.onshowList();
     }
     @Override
     public void onshowList(List<GetBaby> data) {

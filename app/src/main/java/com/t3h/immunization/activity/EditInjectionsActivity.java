@@ -19,6 +19,7 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.baby.model.GetBaby;
+import com.t3h.immunization.basemvp.BaseActivity;
 import com.t3h.immunization.editinjection.presenter.PresenterEditInjection;
 import com.t3h.immunization.editinjection.view.EditInjectionView;
 import com.t3h.immunization.login.model.User;
@@ -33,11 +34,8 @@ import java.util.Date;
 import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class EditInjectionsActivity extends AppCompatActivity implements View.OnClickListener, EditInjectionView {
+public class EditInjectionsActivity extends BaseActivity<PresenterEditInjection> implements View.OnClickListener, EditInjectionView {
     @BindView(R.id.back_injected)
     ImageView back;
     @BindView(R.id.save_injected)
@@ -55,20 +53,30 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
     private int poss;
     private Dialog dialog;
     private Injections injections;
-    private PresenterEditInjection presenterEditInjection;
     private Handler handler=new Handler();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_information);
-        ButterKnife.bind(this);
-        intView();
-        back.setOnClickListener(this);
-        imSave.setOnClickListener(this);
+    protected PresenterEditInjection loadPresenter() {
+        return new PresenterEditInjection();
     }
 
-    private void intView() {
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_edit_information;
+    }
+
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
         Intent intent = getIntent();
         injections = (Injections) intent.getSerializableExtra("object");
         String date = intent.getStringExtra("child");
@@ -119,14 +127,16 @@ public class EditInjectionsActivity extends AppCompatActivity implements View.On
         edtDate.setCursorVisible(false);
         edtDate.setFocusableInTouchMode(false);
         edtDate.setFocusable(false);
-        presenterEditInjection=new PresenterEditInjection();
-        presenterEditInjection.onAttach(this);
+        mPresenter=new PresenterEditInjection();
+        mPresenter.onAttach(this);
+        back.setOnClickListener(this);
+        imSave.setOnClickListener(this);
     }
     private void callApi() {
         String date = edtDate.getText().toString();
         String medicine = edtMedicine.getText().toString();
         String note = edtNote.getText().toString();
-        presenterEditInjection.editInjection(String.valueOf(GetBaby.getInstance().getBabyId()),
+        mPresenter.editInjection(String.valueOf(GetBaby.getInstance().getBabyId()),
                 injections.getId(),
                 String.valueOf(User.getInstans().getId()), note, date, medicine, poss);
     }

@@ -1,8 +1,6 @@
 package com.t3h.immunization.activity;
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -10,16 +8,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
-import com.t3h.immunization.api.ApiBuilder;
+import com.t3h.immunization.basemvp.BaseActivity;
 import com.t3h.immunization.forgotpass.presenter.PresenterForgot;
 import com.t3h.immunization.forgotpass.view.ForgotView;
-import com.t3h.immunization.respone.ResponeRegister;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ForgotActivity extends AppCompatActivity implements View.OnClickListener, ForgotView {
+public class ForgotActivity extends BaseActivity<PresenterForgot> implements View.OnClickListener, ForgotView {
     @BindView(R.id.back_forgot)
     ImageView imBack;
     @BindView(R.id.btn_forgot)
@@ -27,20 +23,35 @@ public class ForgotActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.edt_email)
     EditText edtEmail;
     private ProgressDialog progressDialog;
-    private PresenterForgot presenterForgot;
     private Handler handler=new Handler();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot);
-        ButterKnife.bind(this);
-        init();
+    protected PresenterForgot loadPresenter() {
+        return null;
     }
 
-    private void init() {
-        presenterForgot = new PresenterForgot();
-        presenterForgot.onAttach(this);
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_forgot;
+    }
+
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
+        mPresenter = new PresenterForgot();
+        mPresenter.onAttach(this);
         imBack.setOnClickListener(this);
         btnForgot.setOnClickListener(this);
     }
@@ -58,7 +69,7 @@ public class ForgotActivity extends AppCompatActivity implements View.OnClickLis
                 progressDialog.show();
                 btnForgot.setBackgroundColor(getResources().getColor(R.color.colorBG1));
                 String email = edtEmail.getText().toString();
-                presenterForgot.onHandleForgot(email);
+                mPresenter.onHandleForgot(email);
                 break;
         }
 

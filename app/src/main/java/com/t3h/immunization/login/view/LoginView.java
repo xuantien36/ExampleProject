@@ -5,4 +5,5 @@ import com.t3h.immunization.basemvp.MvpView;
 public interface LoginView extends MvpView {
     void  onLoginSuccess();
     void  onLoginFail();
+    void showToast();
 }

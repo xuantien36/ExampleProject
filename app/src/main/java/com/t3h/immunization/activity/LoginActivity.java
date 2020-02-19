@@ -13,24 +13,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.muddzdev.styleabletoast.StyleableToast;
+import com.t3h.immunization.basemvp.BaseActivity;
+import com.t3h.immunization.basemvp.BasePresenter;
 import com.t3h.immunization.login.presenter.PresenterLogin;
 import com.t3h.immunization.R;
-import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.login.view.LoginView;
-import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.utils.AppPreferences;
 import com.t3h.immunization.utils.SaveData;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.t3h.immunization.utils.Constant.KEY_NEXT;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
+public class LoginActivity extends BaseActivity<PresenterLogin> implements View.OnClickListener, LoginView {
     @BindView(R.id.btn_register)
     Button btnRegister;
     @BindView(R.id.btn_login)
@@ -46,17 +42,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView tvForget;
     private Handler handler = new Handler();
     private ProgressDialog progressDialog;
-    private PresenterLogin presenterLogin;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        SaveData.updateLangua(this);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-        intView();
+    protected PresenterLogin loadPresenter() {
+        return new PresenterLogin();
     }
-    private void intView() {
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
         AppPreferences.getInstance(getApplicationContext()).putBoolean(KEY_NEXT, true);
         btnLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
@@ -65,8 +69,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edtPass.setText(AppPreferences.getInstance(getApplicationContext()).getString("matkhau"));
         Log.e("LOGIN", "key Check box  " + AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
         checkBox.setChecked(AppPreferences.getInstance(getApplicationContext()).getBoolean("checked"));
-        presenterLogin = new PresenterLogin();
-        presenterLogin.onAttach(this);
+//        presenterLogin = new PresenterLogin();
+        mPresenter.onAttach(this);
+
+        SaveData.updateLangua(this);
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_login;
     }
     @Override
     public void onClick(View view) {
@@ -86,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 progressDialog.show();
                 String user_name = edtName.getText().toString();
                 String password = edtPass.getText().toString();
-                presenterLogin.hadleLogin(user_name,password);
+                mPresenter.hadleLogin(user_name,password);
 
                 if (checkBox.isChecked()) {
                     AppPreferences.getInstance(getApplicationContext()).putString("taikhoan", user_name);
@@ -130,6 +142,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }, 500);
         StyleableToast.makeText(this, "Error", R.style.ColoredText).show();
 
+    }
+
+    @Override
+    public void showToast() {
+        StyleableToast.makeText(this,getResources().getString(R.string.toast), R.style.ColoredText).show();
     }
 }
 

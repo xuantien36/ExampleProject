@@ -24,6 +24,7 @@ import com.t3h.immunization.R;
 import com.t3h.immunization.addbaby.presenter.PresenterAddBaby;
 import com.t3h.immunization.addbaby.view.AddbabyView;
 import com.t3h.immunization.api.ApiBuilder;
+import com.t3h.immunization.basemvp.BaseActivity;
 import com.t3h.immunization.login.model.User;
 import com.t3h.immunization.respone.ResponeRegister;
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
@@ -39,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddBabyActivity extends AppCompatActivity implements View.OnClickListener,
+public class AddBabyActivity extends BaseActivity<PresenterAddBaby> implements View.OnClickListener,
         DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener,
         com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener,
         com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateCancelListener, AddbabyView {
@@ -65,18 +66,26 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
     SimpleDateFormat simpleDateFormat;
     @BindView(R.id.avatar_add)
     ImageView imAvatar;
-    private PresenterAddBaby presenterAddBaby;
     private Handler handler=new Handler();
 
+    @Override
+    protected PresenterAddBaby loadPresenter() {
+        return new PresenterAddBaby();
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_baby);
-        ButterKnife.bind(this);
-        init();
+    protected void initData() {
+
     }
-    private void init() {
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
         group.setOnCheckedChangeListener((radioGroup, i) -> {
             int checkedRadio = radioGroup.getCheckedRadioButtonId();
             RadioButton checkedRadioButton = findViewById(checkedRadio);
@@ -95,15 +104,22 @@ public class AddBabyActivity extends AppCompatActivity implements View.OnClickLi
         edtBirthday.setFocusableInTouchMode(false);
         edtBirthday.setFocusable(false);
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        presenterAddBaby=new PresenterAddBaby();
-        presenterAddBaby.onAttach(this);
+        mPresenter.onAttach(this);
+
+
 
     }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_add_baby;
+    }
+
     public void addBaby() {
         String name = edtName.getText().toString();
         String birthday = edtBirthday.getText().toString();
         String note = edtNote.getText().toString();
-        presenterAddBaby.onAddBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,true);
+        mPresenter.onAddBaby(User.getInstans().getId(), name, checkedBox, birthday, "", note,true);
     }
 
     public void datePicker(final Context context, final EditText textView, final String type) {

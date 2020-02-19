@@ -21,6 +21,8 @@ import com.t3h.immunization.R;
 import com.t3h.immunization.adapter.PagerTabAdapter;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.baby.model.GetBaby;
+import com.t3h.immunization.basemvp.BaseFragment;
+import com.t3h.immunization.basemvp.BasePresenter;
 import com.t3h.immunization.bookinjection.view.InjectionBookView;
 import com.t3h.immunization.vacxin.model.InjectionGroup;
 import com.t3h.immunization.statiscal.model.Injections;
@@ -36,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InjectionBookFragment extends Fragment implements ViewPager.OnPageChangeListener, InjectionBookView {
+public class InjectionBookFragment extends BaseFragment<PresenterJnjectionBook> implements ViewPager.OnPageChangeListener, InjectionBookView {
     private PagerTabAdapter adapter;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
@@ -50,10 +52,8 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     TextView textView;
     @BindView(R.id.imgAnhBe)
     ImageView imAvatar;
-    private PresenterJnjectionBook presenter;
-    private void callApi() {
-        progressDialog = new ProgressDialog(getContext());
-    }
+
+
     private void init() {
         progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -94,11 +94,27 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+    }
+
+    @Override
+    protected View setLayoutFragment(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.injectionbook_fragment, container, false);
         SaveData.updateLangua(getContext());
         ButterKnife.bind(this, view);
-        initView();
         return view;
+    }
+
+    @Override
+    protected PresenterJnjectionBook getPresenter() {
+        return new PresenterJnjectionBook();
     }
 
     private void initView() {
@@ -106,7 +122,6 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        presenter = new PresenterJnjectionBook();
         presenter.onAttach(this);
 
 
@@ -131,9 +146,14 @@ public class InjectionBookFragment extends Fragment implements ViewPager.OnPageC
     public void onResume() {
         super.onResume();
         if (GetBaby.getInstance().getBabyId() != null) {
-//            callApi();
             presenter.onshowList();
         } else {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.dismiss();
+                }
+            }, 1000);
             textView.setVisibility(View.VISIBLE);
         }
     }

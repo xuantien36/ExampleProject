@@ -11,13 +11,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
+import com.t3h.immunization.basemvp.BaseActivity;
 import com.t3h.immunization.register.presenter.PresenterRegister;
 import com.t3h.immunization.register.view.RegisterView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, RegisterView {
+public class RegisterActivity extends BaseActivity<PresenterRegister> implements View.OnClickListener, RegisterView {
     @BindView(R.id.im_back)
     ImageView imBack;
     @BindView(R.id.btn_register)
@@ -35,22 +36,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.edt_phone)
     EditText edtPhone;
         private ProgressDialog progressDialog;
-    private PresenterRegister register;
     private Handler handler=new Handler();
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    protected void initView() {
         ButterKnife.bind(this);
-        init();
-    }
-    private void init() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        register = new PresenterRegister();
-        register.onAttach(this);
+        mPresenter = new PresenterRegister();
+        mPresenter.onAttach(this);
         imBack.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
     }
@@ -67,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String password = edtPass.getText().toString();
                 String phone = edtPhone.getText().toString();
                 String email = edtEmail.getText().toString();
-               register.receiedHandleRegister(user_name,name,password,phone,email);
+               mPresenter.receiedHandleRegister(user_name,name,password,phone,email);
 
             case R.id.im_back:
                 finish();
@@ -96,5 +92,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         },2000);
         StyleableToast.makeText(RegisterActivity.this,getResources().getString(R.string.error),R.style.ColoredText).show();
+    }
+
+    @Override
+    protected PresenterRegister loadPresenter() {
+        return null;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_register;
     }
 }

@@ -15,12 +15,14 @@ import com.t3h.immunization.R;
 import com.t3h.immunization.baby.model.GetBaby;
 import com.t3h.immunization.babydetail.presenter.PresenterBabyDetail;
 import com.t3h.immunization.babydetail.view.BabyDetailView;
+import com.t3h.immunization.basemvp.BaseActivity;
+
 import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class BabyInformationActivity extends AppCompatActivity implements View.OnClickListener, BabyDetailView {
+public class BabyInformationActivity extends BaseActivity<PresenterBabyDetail> implements View.OnClickListener, BabyDetailView {
     @BindView(R.id.im_back)
     ImageView imBack;
     @BindView(R.id.im_baby)
@@ -40,37 +42,8 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     @BindView(R.id.image_gender)
     ImageView imageGender;
     private Handler handler=new Handler();
-    private PresenterBabyDetail presenterBabyDetail;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_baby_information);
-        ButterKnife.bind(this);
-        init();
-    }
-    private void init() {
-        Intent intent = getIntent();
-        baBy = (GetBaby) intent.getSerializableExtra("baby");
-        Log.e("detail", "init: " + baBy.getName());
-        tvBirthday.setText(baBy.getBirthday());
-        tvName.setText(baBy.getName());
-        tvNote.setText("'' " + baBy.getNote() + " ''");
-        if (baBy.getGender().equalsIgnoreCase("Nam")) {
-            imBaby.setImageResource(R.drawable.group_730);
-            imageGender.setImageResource(R.drawable.ic_nam);
-
-        } else {
-            imBaby.setImageResource(R.drawable.group_731);
-            imageGender.setImageResource(R.drawable.ic_nu);
-        }
-        imBack.setOnClickListener(this);
-        btnDelete.setOnClickListener(this);
-        imEdit.setOnClickListener(this);
-        presenterBabyDetail=new PresenterBabyDetail();
-        presenterBabyDetail.onAttach(this);
-    }
 
     @Override
     public void onClick(View view) {
@@ -91,7 +64,7 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     }
 
     public void deleteBaby() {
-        presenterBabyDetail.deleteBaby(baBy.getBabyId());
+        mPresenter.deleteBaby(baBy.getBabyId());
     }
     public void showDialog() {
         if (dialog == null) {
@@ -125,5 +98,49 @@ public class BabyInformationActivity extends AppCompatActivity implements View.O
     public void onFail() {
         StyleableToast.makeText(this,getResources().getString(R.string.error),R.style.ColoredText).show();
 
+    }
+
+    @Override
+    protected PresenterBabyDetail loadPresenter() {
+        return null;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
+        Intent intent = getIntent();
+        baBy = (GetBaby) intent.getSerializableExtra("baby");
+        Log.e("detail", "init: " + baBy.getName());
+        tvBirthday.setText(baBy.getBirthday());
+        tvName.setText(baBy.getName());
+        tvNote.setText("'' " + baBy.getNote() + " ''");
+        if (baBy.getGender().equalsIgnoreCase("Nam")) {
+            imBaby.setImageResource(R.drawable.group_730);
+            imageGender.setImageResource(R.drawable.ic_nam);
+
+        } else {
+            imBaby.setImageResource(R.drawable.group_731);
+            imageGender.setImageResource(R.drawable.ic_nu);
+        }
+        imBack.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
+        imEdit.setOnClickListener(this);
+        mPresenter.onAttach(this);
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_baby_information;
     }
 }

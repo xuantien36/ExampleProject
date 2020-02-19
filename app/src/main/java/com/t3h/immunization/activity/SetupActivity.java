@@ -1,30 +1,20 @@
 package com.t3h.immunization.activity;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
-import com.t3h.immunization.api.ApiBuilder;
-import com.t3h.immunization.respone.ResponeRegister;
+import com.t3h.immunization.basemvp.BaseActivity;
 import com.t3h.immunization.setup.presenter.PresenterSetup;
 import com.t3h.immunization.setup.view.SetupView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class SetupActivity extends AppCompatActivity implements View.OnClickListener, SetupView {
+public class SetupActivity extends BaseActivity<PresenterSetup> implements View.OnClickListener, SetupView {
     @BindView(R.id.back_setup)
     ImageView imSetup;
     @BindView(R.id.btn_setup)
@@ -34,25 +24,31 @@ public class SetupActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.confirm_password)
     EditText edtConfirm;
     private ProgressDialog progressDialog;
-    private PresenterSetup presenterSetup;
     private Handler handler=new Handler();
-
+    @Override
+    protected PresenterSetup loadPresenter() {
+        return null;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setup);
-        ButterKnife.bind(this);
-        init();
-    }
+    protected void initData() {
 
-    private void init() {
+    }
+    @Override
+    protected void initListener() {
+    }
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_setup;
+    }
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
         imSetup.setOnClickListener(this);
         btnSetup.setOnClickListener(this);
-        presenterSetup=new PresenterSetup();
-        presenterSetup.onAttach(this);
+        mPresenter=new PresenterSetup();
+        mPresenter.onAttach(this);
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -68,7 +64,7 @@ public class SetupActivity extends AppCompatActivity implements View.OnClickList
                 String confirm = edtConfirm.getText().toString();
                 String pass = edtPass.getText().toString();
                 confirm.equals(pass);
-                presenterSetup.onchangePass(pass);
+                mPresenter.onchangePass(pass);
 
                     break;
                 }

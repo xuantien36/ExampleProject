@@ -1,5 +1,4 @@
 package com.t3h.immunization.fragment;
-
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -25,6 +24,7 @@ import com.t3h.immunization.activity.ChangeLanguageActivity;
 import com.t3h.immunization.activity.LoginActivity;
 import com.t3h.immunization.activity.NotificationActivity;
 import com.t3h.immunization.adapter.OtherAdapter;
+import com.t3h.immunization.basemvp.BaseFragment;
 import com.t3h.immunization.other.model.Other;
 import com.t3h.immunization.other.presenter.PresenterOther;
 import com.t3h.immunization.other.view.OtherView;
@@ -36,63 +36,49 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class OtherFragment extends Fragment implements OtherAdapter.ItemClickListener, View.OnClickListener, OtherView {
-    private ArrayList<Other> data;
+public class OtherFragment extends BaseFragment<PresenterOther> implements OtherAdapter.ItemClickListener, View.OnClickListener, OtherView {
     private OtherAdapter adapter;
     @BindView(R.id.lv_other)
     RecyclerView recyclerView;
     private Dialog dialog;
     private Handler handler=new Handler();
     private ProgressDialog progressDialog;
-    private PresenterOther presenterOther;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.other_fragment, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-//        initData();
     }
-//
-//    private void initData() {
-//        data = new ArrayList<>();
-////        data.add(new Other(R.drawable.ic_notification, getActivity().getString(R.string.notification)));
-//        data.add(new Other(R.drawable.ic_group_99, getActivity().getString(R.string.information_note)));
-//        data.add(new Other(R.drawable.ic_danh_gia, getActivity().getString(R.string.vote)));
-//        data.add(new Other(R.drawable.ic_share, getActivity().getString(R.string.share_app)));
-//        data.add(new Other(R.drawable.ic_gop_y, getActivity().getString(R.string.feedback)));
-//        data.add(new Other(R.drawable.ic_ung_dung_khac, getActivity().getString(R.string.another_app)));
-//        data.add(new Other(R.drawable.ic_group_286, getActivity().getString(R.string.change_language_title)));
-//        data.add(new Other(R.drawable.ic_group_720, getActivity().getString(R.string.log_out)));
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                progressDialog.dismiss();
-//            }
-//        },1000);
-//        adapter.setData(data);
-//
-//    }
+
+    @Override
+    protected View setLayoutFragment(LayoutInflater inflater, ViewGroup container) {
+        View view = inflater.inflate(R.layout.other_fragment, container, false);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    protected PresenterOther getPresenter() {
+        return new PresenterOther();
+    }
+
     private void initView() {
         progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        presenterOther=new PresenterOther();
-        presenterOther.setContext(getContext());
-        presenterOther.onAttach(this);
+        presenter.onAttach(this);
         adapter = new OtherAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
-        presenterOther.onshowListOther();
+        presenter.onshowListOther();
 
     }
     @Override

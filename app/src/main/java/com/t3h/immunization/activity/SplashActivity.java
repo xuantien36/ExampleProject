@@ -1,7 +1,5 @@
 package com.t3h.immunization.activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,8 +8,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
@@ -21,7 +17,6 @@ import com.t3h.immunization.respone.ResponeApp;
 import com.t3h.immunization.respone.ResponeLogin;
 import com.t3h.immunization.utils.AppPreferences;
 import com.t3h.immunization.utils.Constant;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
