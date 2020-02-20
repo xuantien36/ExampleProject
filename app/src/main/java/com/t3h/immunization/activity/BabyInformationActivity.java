@@ -92,6 +92,7 @@ public class BabyInformationActivity extends BaseActivity<PresenterBabyDetail> i
 
     @Override
     public void deleteSuccess() {
+
         showDialog();
     }
     @Override

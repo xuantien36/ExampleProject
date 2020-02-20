@@ -89,9 +89,14 @@ public class BabyFragment extends BaseFragment<PresenterBaby> implements View.On
     protected PresenterBaby getPresenter() {
         return new PresenterBaby();
     }
+<<<<<<< HEAD
 
     private void initView() {
         progressDialog = new ProgressDialog(getContext(), R.style.CustomDialog);
+=======
+    private void init() {
+        progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
+>>>>>>> c243de686b8da66e40ab224723e5aca435450050
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
