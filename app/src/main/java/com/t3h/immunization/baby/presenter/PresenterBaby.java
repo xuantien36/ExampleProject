@@ -1,5 +1,8 @@
 package com.t3h.immunization.baby.presenter;
 import android.util.Log;
+
+import com.muddzdev.styleabletoast.StyleableToast;
+import com.t3h.immunization.R;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.basemvp.BasePresenter;
 import com.t3h.immunization.baby.model.GetBaby;
@@ -23,13 +26,17 @@ public class PresenterBaby<V extends BabyView> extends BasePresenter<V> implemen
                     if (getMvpView() != null) {
                         getMvpView().onshowList(data);
                         Log.e("presenter", "onResponse: "+data );
-
+                    }else {
+                        StyleableToast.makeText(context,"error", R.style.ColoredText).show();
                     }
+                }else {
+                    getMvpView().showToas();
 
                 }
             }
             @Override
             public void onFailure(Call<BaByRespone> call, Throwable t) {
+
             }
         });
 

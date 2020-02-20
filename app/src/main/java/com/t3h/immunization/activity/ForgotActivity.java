@@ -27,26 +27,20 @@ public class ForgotActivity extends BaseActivity<PresenterForgot> implements Vie
 
     @Override
     protected PresenterForgot loadPresenter() {
-        return null;
+        return new PresenterForgot();
     }
-
     @Override
     protected void initData() {
 
     }
-
     @Override
     protected void initListener() {
 
     }
-
-
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_forgot;
     }
-
     @Override
     protected void initView() {
         ButterKnife.bind(this);
@@ -87,7 +81,6 @@ public class ForgotActivity extends BaseActivity<PresenterForgot> implements Vie
         startActivity(intent);
 
     }
-
     @Override
     public void onFail() {
         handler.postDelayed(new Runnable() {

@@ -27,7 +27,7 @@ public class SetupActivity extends BaseActivity<PresenterSetup> implements View.
     private Handler handler=new Handler();
     @Override
     protected PresenterSetup loadPresenter() {
-        return null;
+        return new PresenterSetup();
     }
 
     @Override

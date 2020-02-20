@@ -1,4 +1,5 @@
 package com.t3h.immunization.fragment;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -19,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.t3h.immunization.R;
 import com.t3h.immunization.activity.AddBabyActivity;
 import com.t3h.immunization.activity.BabyInformationActivity;
@@ -32,8 +35,10 @@ import com.t3h.immunization.baby.presenter.PresenterBaby;
 import com.t3h.immunization.respone.BaByRespone;
 import com.t3h.immunization.baby.model.GetBaby;
 import com.t3h.immunization.utils.DisplayUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -65,97 +70,32 @@ public class BabyFragment extends BaseFragment<PresenterBaby> implements View.On
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init();
-    }
+        initView();
 
+    }
     @Override
     protected View setLayoutFragment(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.baby_fragment, container, false);
-        ButterKnife.bind(this, view);
         arr = new ArrayList<>();
+        ButterKnife.bind(this, view);
         return view;
+
     }
     @Override
     protected PresenterBaby getPresenter() {
         return new PresenterBaby();
     }
 
-    public void callApi() {
-        progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage(getActivity().getString(R.string.message));
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-
-//        Log.e("CAP", "callApi: USER ID " + User.getInstans().getId());
-        ApiBuilder.getInstance().getBaBy(User.getInstans().getId()).enqueue(new Callback<BaByRespone>() {
-            @Override
-            public void onResponse(Call<BaByRespone> call, Response<BaByRespone> response) {
-                List<GetBaby> data = response.body().getData();
-                if (data != null && data.size() > 0) {
-//                    Log.e("BABY", "DATA SIZE " + response.body().getData().size());
-                    arr.clear();
-                    arr.addAll(data);
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-                        }
-                    }, 500);
-//                    adapter.setData(data);
-
-                    if (adapter != null) {
-                        if (currentPosition > 0) {
-                            currentPosition = arr.size() - 1;
-
-                        }else {
-                            currentPosition = 0;
-                        }
-//                        Log.e("BUG", "Gọi lại " + (currentPosition));
-
-                        recyclerView.scrollToPosition(currentPosition);
-                        adapter.getItemBaby(currentPosition);
-
-                    }else {
-                        currentPosition =0;
-                    }
-                    if (currentPosition < arr.size() - 1) {
-                        btnNext.setVisibility(View.VISIBLE);
-//                        Log.e("BUG", "xoa0");
-                    } else if (currentPosition == 0) {
-                        btnNext.setVisibility(View.GONE);
-                        btnBack.setVisibility(View.GONE);
-//                        Log.e("BUG", "xoa2");
-
-                    } else if (currentPosition == arr.size() - 1) {
-                        btnNext.setVisibility(View.GONE);
-                        btnBack.setVisibility(View.VISIBLE);
-//                        Log.e("BUG", "xoa1");
-                    }
-                    recyclerView.setVisibility(View.VISIBLE);
-                    tvEmpty.setVisibility(View.GONE);
-                } else {
-                    progressDialog.dismiss();
-                    recyclerView.setVisibility(View.GONE);
-                    tvEmpty.setVisibility(View.VISIBLE);
-                }
-            }
-            @Override
-            public void onFailure(Call<BaByRespone> call, Throwable t) {
-            }
-        });
-    }
-    private void init() {
-        progressDialog = new ProgressDialog(getContext(),R.style.CustomDialog);
+    private void initView() {
+        progressDialog = new ProgressDialog(getContext(), R.style.CustomDialog);
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         presenter.onAttach(this);
-
-
         btnAdd.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);
@@ -211,6 +151,7 @@ public class BabyFragment extends BaseFragment<PresenterBaby> implements View.On
             }, 50);
         }
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -218,8 +159,6 @@ public class BabyFragment extends BaseFragment<PresenterBaby> implements View.On
                 Intent intent = new Intent(getContext(), AddBabyActivity.class);
                 startActivity(intent);
                 break;
-
-
             case R.id.btn_back:
                 btnNext.setVisibility(View.VISIBLE);
                 scrollToPositionLeft();
@@ -230,18 +169,16 @@ public class BabyFragment extends BaseFragment<PresenterBaby> implements View.On
                     currentPosition = arr.size() - 1;
                 }
                 adapter.getItemBaby(currentPosition);
-                Log.e("BUG", "Back: "+currentPosition );
+                Log.e("BUG", "Back: " + currentPosition);
                 break;
-
-
             case R.id.btn_next:
                 btnBack.setVisibility(View.VISIBLE);
                 scrollToPositionRight();
-                if (currentPosition == arr.size() - 1){
+                if (currentPosition == arr.size() - 1) {
                     btnNext.setVisibility(View.GONE);
                 }
                 adapter.getItemBaby(currentPosition);
-                Log.e("BUG", "NEXT: "+currentPosition );
+                Log.e("BUG", "NEXT: " + currentPosition);
                 break;
         }
     }
@@ -252,10 +189,12 @@ public class BabyFragment extends BaseFragment<PresenterBaby> implements View.On
         startActivity(intent);
 
     }
+
     @Override
     public void onLongClicked(int position) {
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -269,42 +208,51 @@ public class BabyFragment extends BaseFragment<PresenterBaby> implements View.On
                 progressDialog.dismiss();
             }
         }, 1000);
-        adapter.setData(data);
-        arr.clear();
-        arr.addAll(data);
-        if (adapter != null) {
-            if (currentPosition > 0) {
-                currentPosition = arr.size() - 1;
-                Toast.makeText(getContext(), ""+currentPosition, Toast.LENGTH_SHORT).show();
-            }else {
+        if (data != null && data.size() > 0) {
+            adapter.setData(data);
+            arr.clear();
+            arr.addAll(data);
+            if (adapter != null) {
+                if (currentPosition > 0) {
+                    currentPosition = arr.size() - 1;
+                    Toast.makeText(getContext(), "" + currentPosition, Toast.LENGTH_SHORT).show();
+                } else {
+                    currentPosition = 0;
+                    Toast.makeText(getContext(), "" + currentPosition, Toast.LENGTH_SHORT).show();
+                }
+                recyclerView.scrollToPosition(currentPosition);
+                adapter.getItemBaby(currentPosition);
+
+                Log.e("Resum:::", "onResume: " + currentPosition);
+            } else {
                 currentPosition = 0;
-                Toast.makeText(getContext(), ""+currentPosition, Toast.LENGTH_SHORT).show();
             }
-            recyclerView.scrollToPosition(currentPosition);
-            adapter.getItemBaby(currentPosition);
+            if (currentPosition < arr.size() - 1) {
+                btnNext.setVisibility(View.VISIBLE);
+                Log.e("BUG", "xoa0");
+            } else if (currentPosition == 0) {
+                btnNext.setVisibility(View.GONE);
+                btnBack.setVisibility(View.GONE);
+                Log.e("BUG", "xoa2");
 
-            Log.e("Resum:::", "onResume: "+currentPosition );
-        }else {
-            progressDialog.dismiss();
-            recyclerView.setVisibility(View.GONE);
-            tvEmpty.setVisibility(View.VISIBLE);
-            currentPosition =0;
+//            } else if (currentPosition == arr.size() - 1) {
+                btnNext.setVisibility(View.GONE);
+                btnBack.setVisibility(View.VISIBLE);
+                Log.e("BUG", "xoa1");
+            }
+            recyclerView.setVisibility(View.VISIBLE);
+            tvEmpty.setVisibility(View.GONE);
         }
-        if (currentPosition < arr.size() - 1) {
-            btnNext.setVisibility(View.VISIBLE);
-            Log.e("BUG", "xoa0");
-        } else if (currentPosition == 0) {
-            btnNext.setVisibility(View.GONE);
-            btnBack.setVisibility(View.GONE);
-            Log.e("BUG", "xoa2");
-
-        } else if (currentPosition == arr.size() - 1) {
-            btnNext.setVisibility(View.GONE);
-            btnBack.setVisibility(View.VISIBLE);
-            Log.e("BUG", "xoa1");
-
-        }
-        recyclerView.setVisibility(View.VISIBLE);
-        tvEmpty.setVisibility(View.GONE);
+    }
+    @Override
+    public void showToas() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        },1000);
+        recyclerView.setVisibility(View.GONE);
+        tvEmpty.setVisibility(View.VISIBLE);
     }
 }

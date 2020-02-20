@@ -73,6 +73,7 @@
     <string name="not_injected_pager">Chưa Tiêm</string>
     <string name="error">Lỗi</string>
     <string name="success">Đăng nhập thành công</string>
+    <string name="dataEmpty" >Dữ liệu rỗng</string>
     <string-array name="language_names">
         <item>@string/language_english</item>
         <item>@string/language_vietnamese</item>

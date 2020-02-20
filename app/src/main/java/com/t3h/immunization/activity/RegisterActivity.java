@@ -96,7 +96,7 @@ public class RegisterActivity extends BaseActivity<PresenterRegister> implements
 
     @Override
     protected PresenterRegister loadPresenter() {
-        return null;
+        return new PresenterRegister();
     }
 
     @Override

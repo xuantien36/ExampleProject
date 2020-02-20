@@ -77,7 +77,7 @@ public class VerificationActivity extends BaseActivity<PresenterVerification> im
     }
     @Override
     protected PresenterVerification loadPresenter() {
-        return null;
+        return new PresenterVerification();
     }
     @Override
     protected void initData() {
@@ -89,6 +89,6 @@ public class VerificationActivity extends BaseActivity<PresenterVerification> im
     }
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_verification;
     }
 }

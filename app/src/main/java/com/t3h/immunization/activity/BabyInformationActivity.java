@@ -102,7 +102,7 @@ public class BabyInformationActivity extends BaseActivity<PresenterBabyDetail> i
 
     @Override
     protected PresenterBabyDetail loadPresenter() {
-        return null;
+        return new PresenterBabyDetail();
     }
 
     @Override

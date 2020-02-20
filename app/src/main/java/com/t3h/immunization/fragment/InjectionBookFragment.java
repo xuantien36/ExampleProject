@@ -141,7 +141,6 @@ public class InjectionBookFragment extends BaseFragment<PresenterJnjectionBook> 
     public void onPageScrollStateChanged(int state) {
 
     }
-
     @Override
     public void onResume() {
         super.onResume();

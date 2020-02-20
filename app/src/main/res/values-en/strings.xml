@@ -71,4 +71,5 @@
     <string name="not_injected_pager">Not injected</string>
     <string name="error">Error</string>
     <string name="success">Login Success</string>
+    <string name="dataEmpty" >Data Empty</string>
 </resources>

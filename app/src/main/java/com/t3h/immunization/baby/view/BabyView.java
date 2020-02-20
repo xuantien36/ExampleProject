@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface BabyView extends MvpView {
     void onshowList(List<GetBaby> data);
+    void showToas();
 }

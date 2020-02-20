@@ -23,9 +23,8 @@ public class PresenterStatiscal<V extends StatiscalView>
             public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
                 List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
                 List<Injections> data = response.body().getData();
-                Log.e("babyid", "onResponse: tttttt" +GetBaby.getInstance().getBabyId() );
-                getMvpView().showListStatiscal(injectionGroup,data);
-                Log.e("statiscal:::", "onResponse: "+injectionGroup+"\\\\\\\\"+data );
+                    getMvpView().showListStatiscal(injectionGroup, data);
+                    Log.e("statiscal:::", "onResponse: " + injectionGroup + "\\\\\\\\" + data);
             }
             @Override
             public void onFailure(Call<ResponeStatistical> call, Throwable t) {

@@ -1,5 +1,4 @@
 package com.t3h.immunization.activity;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;

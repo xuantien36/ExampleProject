@@ -21,6 +21,7 @@ import com.t3h.immunization.activity.EditInjectionsActivity;
 import com.t3h.immunization.adapter.ExpandableListAdapter;
 import com.t3h.immunization.api.ApiBuilder;
 import com.t3h.immunization.baby.model.GetBaby;
+import com.t3h.immunization.basemvp.BaseFragment;
 import com.t3h.immunization.statiscal.model.Injections;
 import com.t3h.immunization.statiscal.view.StatiscalView;
 import com.t3h.immunization.vacxin.model.InjectionGroup;
@@ -36,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StatisticalFragment extends Fragment implements StatiscalView {
+public class StatisticalFragment extends BaseFragment<PresenterStatiscal> implements StatiscalView {
     @BindView(R.id.expandableListView)
     ExpandableListView expandableListView;
     private ArrayList<Injections> arrayList;
@@ -49,16 +50,31 @@ public class StatisticalFragment extends Fragment implements StatiscalView {
     TextView textView;
     @BindView(R.id.im_avatar)
     ImageView imAvaTar;
-    private PresenterStatiscal presenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    protected View setLayoutFragment(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.statistical_fragment, container, false);
         ButterKnife.bind(this, view);
         arrayList = new ArrayList<>();
-        initView();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+
+    }
+
+    @Override
+    protected PresenterStatiscal getPresenter() {
+        return new PresenterStatiscal();
     }
 
     private void initView() {
@@ -66,64 +82,10 @@ public class StatisticalFragment extends Fragment implements StatiscalView {
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        presenter = new PresenterStatiscal();
         presenter.onAttach(this);
         tvName.setText(GetBaby.getInstance().getName());
-        if (GetBaby.getInstance().getGender().equalsIgnoreCase("Nam")) {
-            imAvaTar.setImageResource(R.drawable.group_730);
-        } else {
-            imAvaTar.setImageResource(R.drawable.group_731);
-        }
+
     }
-
-    public void callApi() {
-        progressDialog = new ProgressDialog(getContext(), R.style.CustomDialog);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage(getActivity().getString(R.string.message));
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        ApiBuilder.getInstance().getinjected(GetBaby.getInstance().getBabyId()).enqueue(new Callback<ResponeStatistical>() {
-            @Override
-            public void onResponse(Call<ResponeStatistical> call, Response<ResponeStatistical> response) {
-                List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
-                List<Injections> data = response.body().getData();
-                arrayList.clear();
-                arrayList.addAll(data);
-                Log.e("babyid", "onResponse: tttttt" + GetBaby.getInstance().getBabyId());
-//                expandableListAdapter = new ExpandableListAdapter(getContext());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressDialog.dismiss();
-                    }
-                }, 500);
-                expandableListAdapter.setDataStatis(injectionGroup, data);
-                expandableListView.setAdapter(expandableListAdapter);
-                tvName.setText(GetBaby.getInstance().getName());
-                if (GetBaby.getInstance().getGender().equalsIgnoreCase("Nam")) {
-                    imAvaTar.setImageResource(R.drawable.group_730);
-                } else {
-                    imAvaTar.setImageResource(R.drawable.group_731);
-                }
-                expandableListAdapter.setChildListener(new ExpandableListAdapter.callBackChild() {
-                    @Override
-                    public void onclickChild(int position, String date, String name, Injections injections) {
-                        Intent intent = new Intent(getContext(), EditInjectionsActivity.class);
-                        intent.putExtra("child", date);
-                        intent.putExtra("title", name);
-                        intent.putExtra("object", injections);
-                        startActivity(intent);
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<ResponeStatistical> call, Throwable t) {
-
-            }
-        });
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -131,6 +93,12 @@ public class StatisticalFragment extends Fragment implements StatiscalView {
             presenter.onshowList();
 //            callApi();
         } else {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.dismiss();
+                }
+            }, 500);
             textView.setVisibility(View.VISIBLE);
         }
     }
@@ -160,6 +128,7 @@ public class StatisticalFragment extends Fragment implements StatiscalView {
                 intent.putExtra("title", name);
                 intent.putExtra("object", injections);
                 startActivity(intent);
+
             }
         });
 

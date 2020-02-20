@@ -47,11 +47,13 @@ public class VaccineFragment extends BaseFragment<PresenterVacxin> implements Va
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
     }
+
     @Override
     protected View setLayoutFragment(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.vaccine_fragment, container, false);
@@ -60,44 +62,10 @@ public class VaccineFragment extends BaseFragment<PresenterVacxin> implements Va
         return view;
 
     }
+
     @Override
     protected PresenterVacxin getPresenter() {
         return new PresenterVacxin();
-    }
-
-    public void callApi() {
-        progressDialog = new ProgressDialog(getContext(), R.style.CustomDialog);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage(getActivity().getString(R.string.message));
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        ApiBuilder.getInstance().getVaccine("vi").enqueue(new Callback<ResponeInjections>() {
-            @Override
-            public void onResponse(Call<ResponeInjections> call, Response<ResponeInjections> response) {
-                List<InjectionGroup> injectionGroup = response.body().getInjectionGroup();
-                if (injectionGroup != null) {
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-
-                        }
-                    }, 500);
-                    adapter.setData((ArrayList<InjectionGroup>) injectionGroup);
-                    data.clear();
-                    data.addAll(injectionGroup);
-                } else {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponeInjections> call, Throwable t) {
-
-            }
-        });
-
     }
 
     private void initView() {
@@ -105,13 +73,11 @@ public class VaccineFragment extends BaseFragment<PresenterVacxin> implements Va
         progressDialog.setMessage(getActivity().getString(R.string.message));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-//        presenterVacxin=new PresenterVacxin();
         presenter.onAttach(this);
         adapter = new VaccineAdapter(getContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnListener(this);
         presenter.onshowList();
-
     }
 
     @Override
